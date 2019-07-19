@@ -5,6 +5,12 @@
 npm install
 ```
 
+### Enviroment setup
+```
+copy .env.example to .env 
+```
+and add credentials accordingly
+
 ### Compiles and hot-reloads for development
 ```
 npm run serve
