@@ -33,7 +33,22 @@
 
     <featured></featured>
 
-    <blog></blog>
+    <div class="content-widget">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="spanborder h4">
+                        <span>Most Recent</span>
+                    </h2>   
+                    <!-- blog -->
+                    <blog></blog>
+                </div> 
+                <div class="col-md-4 pl-md-5 sticky-sidebar">                    
+                    <porpular></porpular>
+                </div> <!--col-md-4-->
+            </div>
+        </div> <!--content-widget-->
+    </div>
 
    
   </div>
@@ -43,11 +58,12 @@
 // @ is an alias to /src
 import Featured from '@/components/pages/Featured.vue'
 import Blog from '@/components/pages/Blog.vue'
+import Porpular from '@/components/pages/Porpular'
 
 export default {
   name: 'home',
   components: {
-    Featured, Blog
+    Featured, Blog, Porpular
   }
 }
 </script>

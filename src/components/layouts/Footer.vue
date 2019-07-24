@@ -4,7 +4,7 @@
             <div class="divider"></div>
             <div class="row">
                 <div class="col-md-6 copyright text-xs-center">            
-                    <p> 2019 {{appName}} Made by ❤ from <a href="https://appslab.co.ke">Apps:Lab KE</a></p>
+                    <p>© 2019 {{appName}} by ❤ from <a href="https://appslab.co.ke">Apps:Lab KE</a></p>
                 </div>
                 <div class="col-md-6">           
                     <ul class="social-network inline text-md-right text-sm-center">
