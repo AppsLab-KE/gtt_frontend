@@ -1,0 +1,107 @@
+a {
+  color: rgba(0,0,0,.84);
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: rgba(0,0,0,.84);
+  cursor: pointer;
+}
+
+.text-copyright,
+.read-more:hover,
+.text-light,
+.text-light .meta,
+.text-light a {
+  color: #fff !important;
+}
+
+.archive .white .social-search a,
+.archive .white .social-search a:hover {
+  color: #000 !important;
+}
+
+.excerpt, .search-popup input.search_field {
+  color: #777;
+}
+
+.meta,
+.meta a {
+  color: #535353;
+}
+
+/*MAIN COLOR #03a87c, #1a1a1a*/
+
+/*Color*/
+a:hover,
+a:active,
+a:focus,
+.mobi-menu .current-menu-item a,
+.mobi-menu.act ul li.open-submenu > a,
+.widget-about i,
+.page-404 h1,
+button.owl-prev:hover i,
+button.owl-next:hover i,
+.link-green, .btn-green,
+.copyright a,
+.entry-main-content a
+ {
+  color: #03a87c !important;
+  fill: #03a87c !important;
+}
+
+/*Background*/
+.top-scroll-bar,
+.read-more:hover,
+.submit-btn:hover,
+.menu-toggle-icon.act:hover > span::after,
+.menu-toggle-icon.act:hover > span::before,
+button:hover,
+input[type="button"]:hover,
+input[type="reset"]:hover,
+input[type="submit"],
+.blue {
+  background-color: #03a87c !important;
+}
+
+.popup-close:hover {
+  background-color: #1a1a1a;
+}
+
+.has-color-bg::after {
+  background: #ff97fe;
+}
+
+.has-color-bg.color-1::after {
+  background: #ff97fe;
+}
+
+.has-color-bg.color-2::after {
+  background: #97f4ff;
+}
+
+.has-color-bg.color-3::after {
+  background: #afff97;
+}
+
+.has-color-bg.color-4::after {
+  background: #ffca97;
+}
+
+/*Border*/
+.content-widget .readme:hover,
+.form-control:focus,
+.btn-green
+ {
+  border-color: #03a87c;
+}
+
+/*footer*/
+.dark {
+  background: #000;
+}
+
+.dark button {
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}

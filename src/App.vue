@@ -1,29 +1,35 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <!--Mobile navigation-->
+        <mobile-nav></mobile-nav>
+        <!--Mobile navigation-->
+        <div id="wrapper">
+            <nav-bar></nav-bar>
+            <main id="content">
+
+                <router-view></router-view>
+
+                <advert-footer></advert-footer>
+                
+            </main>
+            <footer-part></footer-part>
+        </div> <!--#wrapper-->
   </div>
 </template>
 
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
+<script>
+import MobileNav from '@/components/layouts/MobileNav.vue'
+import NavBar from '@/components/layouts/Nav.vue'
+import AdvertFooter from '@/components/more/AdvertFooter.vue'
+import FooterPart from '@/components/layouts/Footer.vue'
+export default {
+    components: {
+        MobileNav, NavBar, AdvertFooter, FooterPart
     }
-  }
 }
+</script>
+
+
+<style lang="scss">
+
 </style>

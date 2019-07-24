@@ -1,0 +1,5 @@
+#popup_this{left:50%!important;margin-left:-308px;top:200px!important;}
+.b-close{position:absolute;right:0;top:0;cursor:pointer;color:#fff;background:#03a87c;padding:5px 10px;}
+@media (max-width:480px){
+  #popup_this{margin-left:-150px;max-width:300px;}
+}
