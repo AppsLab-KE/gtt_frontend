@@ -33,4 +33,19 @@ const router =  new Router({
   ]
 })
 
+router.beforeEach((to, from, next) => {
+    next()
+});
+
+router.afterEach((to, from) => {
+    const el = document.getElementsByClassName("mobi-menu")[0];
+    const el1 = document.getElementsByClassName("menu-toggle-icon")[0];
+    if(el){
+        el.classList.remove('act');
+    }
+    if(el1){
+        el1.classList.remove('act');
+    }
+});
+
 export default router;

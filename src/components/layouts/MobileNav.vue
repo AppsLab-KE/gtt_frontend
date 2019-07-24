@@ -5,13 +5,9 @@
                     <h1 class="logo-small navbar-brand"><router-link to="/" class="logo">
                         <img src="/assets/images/logo5.png" width="80" alt="">
                     </router-link></h1>
+
+                    <nav-user-login></nav-user-login>
                     
-                    <router-link class="author-avatar" to="/"><img src="/assets/images/author-avata-1.jpg" alt=""></router-link>
-
-                    <ul class="social-network heading navbar-nav d-lg-flex align-items-center">                       
-                        <li><a href="##"><i class="icon-facebook"></i></a></li>
-                    </ul>
-
                     <a href="javascript:void(0)" class="menu-toggle-icon">
                         <span class="lines"></span>
                     </a>
@@ -33,9 +29,10 @@
 </template>
 <script>
 import NavLinks from './NavLinks'
+import NavUserLogin from './NavUserLogin'
 export default {
     components: {
-        NavLinks
+        NavLinks, NavUserLogin
     },
     computed: {
         appName(){
