@@ -25,7 +25,10 @@ import FooterPart from '@/components/layouts/Footer.vue'
 export default {
     components: {
         MobileNav, NavBar, AdvertFooter, FooterPart
-    }
+    },
+    // mounted() {
+    //     console.log(process.env.VUE_APP_NAME)
+    // }
 }
 </script>
 

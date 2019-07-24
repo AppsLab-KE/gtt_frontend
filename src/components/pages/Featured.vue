@@ -15,7 +15,7 @@
                                         </p>
                                     </div>
                                     <div class="entry-meta align-items-center">
-                                        <a href="author.html">Anna Goldfarb</a> in <a href="archive.html">Fashion</a><br>                                    
+                                        <a href="#">Anna Goldfarb</a> in <a href="#">Fashion</a><br>                                    
                                         <span>March 12</span>
                                         <span class="middotDivider"></span>
                                         <span class="readingTime" title="3 min read">4 min read</span>
@@ -39,7 +39,7 @@
                                         </p>
                                     </div>
                                     <div class="entry-meta align-items-center">
-                                        <a href="author.html">Furukawa</a> in <a href="archive.html">Programing</a><br>                                    
+                                        <a href="#">Furukawa</a> in <a href="#">Programing</a><br>                                    
                                         <span>March 14</span>
                                         <span class="middotDivider"></span>
                                         <span class="readingTime" title="3 min read">6 min read</span>
@@ -63,7 +63,7 @@
                                         </p>
                                     </div>
                                     <div class="entry-meta align-items-center">
-                                        <a href="author.html">Glorida</a> in <a href="archive.html">Living</a><br>                                    
+                                        <a href="#">Glorida</a> in <a href="#">Living</a><br>                                    
                                         <span>April 14</span>
                                         <span class="middotDivider"></span>
                                         <span class="readingTime" title="3 min read">7 min read</span>
@@ -87,7 +87,7 @@
                                         </p>
                                     </div>
                                     <div class="entry-meta align-items-center">
-                                        <a href="author.html">Rayan Mark</a> in <a href="archive.html">GEN</a><br>                                    
+                                        <a href="#">Rayan Mark</a> in <a href="#">GEN</a><br>                                    
                                         <span>Jun 14</span>
                                         <span class="middotDivider"></span>
                                         <span class="readingTime" title="3 min read">8 min read</span>
@@ -104,7 +104,7 @@
                 </div>
                 <div class="col-md-2">
                     <div class="sidebar-widget ads">
-                        <a href="index.html#"><img src="/assets/images/ads/ads-1.png" alt="ads"></a>
+                        <a href="#"><img src="/assets/images/ads/ads-1.png" alt="ads"></a>
                     </div>
                 </div>
             </div>
