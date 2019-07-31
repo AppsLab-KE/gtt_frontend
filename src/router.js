@@ -5,6 +5,23 @@ import NotFoundComponent from './views/errors/404'
 
 Vue.use(Router)
 
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next()
+        return
+    }
+        next('/')
+}
+    
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next()
+        return
+    }
+        next('/login')
+}
+
 const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -22,6 +39,7 @@ const router =  new Router({
     { path: '/category', name: 'category', component: () => import('./views/Category.vue') },
     { path: '/about', name: 'about', component: () => import('./views/About.vue') },
     { path: '/contact', name: 'contact', component: () => import('./views/Contact.vue') },
+    { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
     // ? last route
     {
         path: 'index.html', // or '*' this is for PWA
