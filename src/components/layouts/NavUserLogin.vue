@@ -4,9 +4,12 @@
         
         <b-dropdown v-else variant="link" toggle-tag='link' toggle-class="text-decoration-none" class="drop-manu" no-caret>
             <template slot="button-content">
-                <span class="author-avatar" to="#"><img src="/assets/images/author-avata-1.jpg" alt=""></span>
+                <span class="author-avatar" to="#"><img :src='currentUser.user_avatar' alt=""></span>
             </template>
-            <b-dropdown-item href="#">Profile</b-dropdown-item>
+            <b-dropdown-header id="dropdown-header-label">
+                {{currentUser.first_name +" "+ currentUser.last_name}}
+            </b-dropdown-header>
+            <b-dropdown-item to="/profile">Profile</b-dropdown-item>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
         </b-dropdown>
         <!-- The modal -->
@@ -25,6 +28,9 @@ export default {
     computed: {
         isLoggedIn(){
             return this.$store.getters.isAuthenticated
+        },
+        currentUser(){
+            return this.$store.state.currentUser
         }
     }
 }

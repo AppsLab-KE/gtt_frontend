@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import NotFoundComponent from './views/errors/404'
+import store from './store'
 
 Vue.use(Router)
 
@@ -19,7 +20,7 @@ const ifAuthenticated = (to, from, next) => {
         next()
         return
     }
-        next('/login')
+        next('/')
 }
 
 const router =  new Router({
@@ -40,6 +41,8 @@ const router =  new Router({
     { path: '/about', name: 'about', component: () => import('./views/About.vue') },
     { path: '/contact', name: 'contact', component: () => import('./views/Contact.vue') },
     { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
+    // ? Accounts
+    { path: '/profile', name: 'profile', beforeEnter: ifAuthenticated, component: () => import('./views/account/Profile.vue') },
     // ? last route
     {
         path: 'index.html', // or '*' this is for PWA

@@ -28,14 +28,15 @@ export default {
             this.$auth.authenticate(provider)
             .then(function (response) {
                 var data = response.data
-                // console.log(data)
+                console.log(data)
                 vm.$store.dispatch('AUTH_REQUEST', data).then((resp) => {
                     vm.$bvModal.hide('my-modal-login')
                     console.log('Logged In')
                 })
             }).catch(error => {
                 vm.$store.commit('AUTH_ERROR', error)
-                localStorage.removeItem('c9edd058cd9ff48580f7f7723fbc37a542bf35b8') // if the request fails, remove any possible user token if possible
+                localStorage.removeItem('c9edd058cd9ff48580f7f7723fbc37a542bf35b8') 
+                localStorage.removeItem('user') 
                 delete axios.defaults.headers.common['Authorization']
                 console.log(error)
             })
