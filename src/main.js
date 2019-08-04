@@ -6,6 +6,8 @@ import './registerServiceWorker'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios';
 
+import {initialize} from './helper/initialization'
+
 import VueAxios from 'vue-axios'
 import VueAuthenticate from 'vue-authenticate'
 
@@ -25,26 +27,20 @@ Vue.use(VueAuthenticate, {
       }
   }
 })
-
-axios.create({
-    baseURL: process.env.VUE_APP_API_BASE_URL,
-    // headers:{ header:value }
-});
-
 //Use the window object to make it available globally.
 window.axios = axios;
-
+initialize(store, router)
 
 Vue.use(BootstrapVue)
-
 import 'bootstrap-vue/dist/bootstrap-vue.css'
+
+import VueCroppie from 'vue-croppie';
+import 'croppie/croppie.css'
+Vue.use(VueCroppie);
 
 Vue.config.productionTip = false
 
-const token = localStorage.getItem('c9edd058cd9ff48580f7f7723fbc37a542bf35b8')
-if (token) {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + token
-}
+
 
 new Vue({
   router,

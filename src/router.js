@@ -43,6 +43,7 @@ const router =  new Router({
     { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
     // ? Accounts
     { path: '/profile', name: 'profile', beforeEnter: ifAuthenticated, component: () => import('./views/account/Profile.vue') },
+    { path: '/profile/edit', name: 'profile-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/EditProfile.vue') },
     // ? last route
     {
         path: 'index.html', // or '*' this is for PWA

@@ -28,7 +28,7 @@ export default {
             this.$auth.authenticate(provider)
             .then(function (response) {
                 var data = response.data
-                console.log(data)
+                // console.log(data)
                 vm.$store.dispatch('AUTH_REQUEST', data).then((resp) => {
                     vm.$bvModal.hide('my-modal-login')
                     console.log('Logged In')
@@ -39,6 +39,26 @@ export default {
                 localStorage.removeItem('user') 
                 delete axios.defaults.headers.common['Authorization']
                 console.log(error)
+                    if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+    } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request);
+    } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log('Error', error.message);
+    }
+    console.log(error);
             })
         }
     }

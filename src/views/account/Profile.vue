@@ -7,16 +7,22 @@
                         <div class="box box-author m_b_2rem">
                             <div class="post-author row-flex">
                                 <div class="author-img">
-                                    <img alt="author avatar" src="assets/images/author-avata-1.jpg" class="avatar">
+                                    <img alt="author avatar" :src="currentUser.user_avatar" class="avatar">
                                 </div>
                                 <div class="author-content">
                                 <div class="top-author">
-                                    <h5 class="heading-font"><a href="author.html" title="Ryan" rel="author">Ryan Mark</a></h5></div>
-                                    <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p>
+                                    <h5 class="heading-font"><a href="#" :title="currentUser.first_name" rel="author">{{currentUser.first_name +" "+ currentUser.last_name}}</a>
+                                    <span class="top-menu">
+                                        <router-link :to="{name: 'profile-edit'}" class="btn">Edit Profile</router-link>
+                                    </span>
+                                    </h5>
+                                    <h6>@{{ currentUser.username }}</h6>
+                                    </div>
+                                    <!-- <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p> -->
                                     <div class="content-social-author">
-                                        <a target="_blank" class="author-social" href="author.html#">Facebook </a>
-                                        <a target="_blank" class="author-social" href="author.html#">Twitter </a>
-                                        <a target="_blank" class="author-social" href="author.html#"> Google + </a>
+                                        <a target="_blank" class="author-social" href="#">Facebook </a>
+                                        <a target="_blank" class="author-social" href="#">Twitter </a>
+                                        <a target="_blank" class="author-social" href="#"> Google + </a>
                                     </div>
                                 </div>
                             </div> 
@@ -42,6 +48,11 @@ import Porpular from '@/components/pages/Porpular'
 export default {
     components: {
         Blog, Porpular
+    },
+    computed: {
+        currentUser(){
+            return this.$store.state.currentUser
+        }
     }
 }
 </script>
