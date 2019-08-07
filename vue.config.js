@@ -9,5 +9,8 @@ module.exports = {
             ],
         },
         themeColor: '#2a9899'
-    }
+    },
+    // devServer: {
+    //     proxy: process.env.VUE_APP_API_DORMAIN_URL,
+    // }
 }

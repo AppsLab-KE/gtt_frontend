@@ -2,8 +2,26 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import NotFoundComponent from './views/errors/404'
+import store from './store'
 
 Vue.use(Router)
+
+const ifNotAuthenticated = (to, from, next) => {
+    if (!store.getters.isAuthenticated) {
+        next()
+        return
+    }
+        next('/')
+}
+    
+
+const ifAuthenticated = (to, from, next) => {
+    if (store.getters.isAuthenticated) {
+        next()
+        return
+    }
+        next('/')
+}
 
 const router =  new Router({
   mode: 'history',
@@ -22,6 +40,10 @@ const router =  new Router({
     { path: '/category', name: 'category', component: () => import('./views/Category.vue') },
     { path: '/about', name: 'about', component: () => import('./views/About.vue') },
     { path: '/contact', name: 'contact', component: () => import('./views/Contact.vue') },
+    { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
+    // ? Accounts
+    { path: '/profile', name: 'profile', beforeEnter: ifAuthenticated, component: () => import('./views/account/Profile.vue') },
+    { path: '/profile/edit', name: 'profile-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/EditProfile.vue') },
     // ? last route
     {
         path: 'index.html', // or '*' this is for PWA
