@@ -38,8 +38,12 @@ import VueCroppie from 'vue-croppie';
 import 'croppie/croppie.css'
 Vue.use(VueCroppie);
 
-Vue.config.productionTip = false
+import MediumEditor from 'vuejs-medium-editor'
+Vue.component('medium-editor', MediumEditor)
+import 'medium-editor/dist/css/medium-editor.css'
+import 'vuejs-medium-editor/src/themes/default.css'
 
+Vue.config.productionTip = false
 
 
 new Vue({

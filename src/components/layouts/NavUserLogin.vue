@@ -14,7 +14,7 @@
             <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
             <b-dropdown-item :to="{name: 'profile-edit'}">Edit Profile</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
-             <b-dropdown-item href="#">Create Post</b-dropdown-item>
+             <b-dropdown-item :to="{name: 'publish'}">Create Post</b-dropdown-item>
              <b-dropdown-item href="#">Bookmarks</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
