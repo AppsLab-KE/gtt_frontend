@@ -6,7 +6,7 @@ export function initialize(store, router) {
         if (store.getters.isAuthenticated) {
             config.headers['Authorization'] = `Bearer ${store.state.token}`
         }
-        console.log('Starting Request', config)
+        // console.log('Starting Request', config)
         return config
     })
 

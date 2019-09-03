@@ -31,7 +31,7 @@
         </div>
     </div> <!--content-widget-->
 
-    <featured></featured>
+    <!-- <featured></featured> -->
 
     <div class="content-widget">
         <div class="container">
