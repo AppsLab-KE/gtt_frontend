@@ -8,6 +8,8 @@ const store = new Vuex.Store({
     token: localStorage.getItem('c9edd058') || '',
     currentUser: JSON.parse(localStorage.getItem('user')) || '',
     status: '',
+    isTyping: false,
+    savedDraft: localStorage.getItem('userDraft') || '',
   },
   getters: {
     isAuthenticated: state => !!state.token,
@@ -33,6 +35,12 @@ const store = new Vuex.Store({
       UPDATE_AVATAR: (state, user) => {
         localStorage.setItem('user', JSON.stringify(user));
         state.currentUser = JSON.parse(localStorage.getItem('user'));
+      }, 
+      IS_TYPING: (state) => {
+          state.isTyping = true;
+      },
+      SAVING_DRAFT: (state, content) => {
+          state.savedDraft = content
       }
   },
   actions: {

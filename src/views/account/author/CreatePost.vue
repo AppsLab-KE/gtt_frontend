@@ -3,7 +3,15 @@
         <div class="content-widget">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 creator">                                         
+                    <div class="col-md-12 creator">  
+                        <!-- <div class="row">
+                            <div class="col-md-10 offset-1">
+                                <h5 class="float-left">Draft &nbsp;&nbsp;&nbsp; Saving...</h5>
+                                 <span class="top-menu float-right">
+                                    <a href="#" class="btn">Create Post</a>
+                                </span>
+                            </div>
+                        </div>                                        -->
                         <medium-editor v-model="content"
                         :readOnly="false"
                         :prefill="defaultValue"
@@ -32,12 +40,23 @@ export default {
             }
         }
     },
+    mounted(){
+        this.defaultValue = this.$store.state.savedDraft;
+    },
     methods: {
         onChange() {
             console.log(this.content)
+            localStorage.setItem('userDraft', this.content)
+            this.$store.commit('IS_TYPING')
+            this.$store.commit('SAVING_DRAFT', this.content)
         },
         uploadCallback(url) {
-            console.log("uploaded url", url)
+            // console.log("uploaded url", url)
+        }
+    },
+    computed: {
+        imgur(){
+            return process.env('VUE_APP_IMGUR_CLIENT_ID')
         }
     }
 }
