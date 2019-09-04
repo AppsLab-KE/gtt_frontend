@@ -77,8 +77,7 @@
                                     <label for="category">Category</label>
                                     <select name="" id="category" class="form-control" placeholder="Select Category">
                                         <option value="" >Select Category</option>
-                                        <option value="">Laravel</option>
-                                        <option value="">Django</option>
+                                        <option v-if="categories.length > 0" v-for="category in categories" :key="category.slug" :value="category.category_name">{{category.category_name}}</option>
                                     </select>
                                     <span><small>The category in which the post best suits, it will be used group the post eg Laravel, Django, Js, Vue ...</small></span>
                                 </div>
@@ -96,7 +95,7 @@
                                 </div>
                                 <div class="form-group">
                                     <br>
-                                    <button class="create-post float-right" type="submit">Create Post</button>
+                                    <button class="create-post float-right" type="submit" @click="createPost()">Create Post</button>
                                 </div>
                             </div>
                         </div>
@@ -132,15 +131,19 @@ export default {
             },
             tag: '',
             tags: [],
-            autocompleteItems: [{ text: 'Laravel'}, { text: 'Js'}, { text: 'Django'}, { text: 'Java'},{ text: 'Python'},{ text: 'Rails'}]
+            autocompleteItems: [{ text: 'Laravel'}, { text: 'Js'}, { text: 'Django'}, { text: 'Java'},{ text: 'Python'},{ text: 'Rails'}],
+            categories : [],
+            fetchedTags: [],
         }
     },
     mounted(){
         let draft = this.$store.state.savedDraft
-        // console.log(draft)
-        if(draft.content.length > 20){
-            this.defaultValue = draft.content;
-            this.title = draft.title;
+        if(draft !== ''){
+            if(draft.content !== '<p><br></p>'){
+                this.defaultValue = draft.content;
+                this.title = draft.title;
+                this.$store.commit('NOT_TYPING')
+            }
         }
         const cwidth = $(window).width();
         // console.log(cwidth);
@@ -157,6 +160,8 @@ export default {
             this.vueCroppie.width = 260
             this.vueCroppie.height = 100
         }
+        this.getCategories()
+        this.getTags()
     },
     methods: {
         onChange() {
@@ -171,6 +176,8 @@ export default {
             // console.log("uploaded url", url)
         },
         createPost () {
+            localStorage.removeItem('userDraft')
+            return
             let options = {
                 type: 'blob',
                 size: 'original',
@@ -248,6 +255,21 @@ export default {
         update(val) {
             // console.log(val);
         },
+        getCategories(){
+            axios.get('/posts/categories')
+            .then( response => {
+                this.categories = response.data
+            })
+        },
+        getTags(){
+            axios.get('/posts/tags')
+            .then(response => {
+                response.data.forEach(cat => {
+                    this.fetchedTags.push({text: cat.tag_name})
+                })
+            })
+            // console.log(this.fetchedTags)
+        }
     },
     computed: {
         imgur(){
@@ -267,7 +289,7 @@ export default {
             return tagged;
         },
         filteredItems() {
-            return this.autocompleteItems.filter(i => {
+            return this.fetchedTags.filter(i => {
                 return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
             });
         },

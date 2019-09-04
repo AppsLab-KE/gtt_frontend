@@ -39,9 +39,12 @@ const store = new Vuex.Store({
       IS_TYPING: (state) => {
           state.isTyping = true;
       },
+      NOT_TYPING: (state) => {
+        state.isTyping = false;
+     },
       SAVING_DRAFT: (state, payload) => {
         localStorage.setItem('userDraft', JSON.stringify(payload))
-          state.savedDraft = content
+          state.savedDraft = payload
       }
   },
   actions: {

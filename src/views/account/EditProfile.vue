@@ -9,16 +9,20 @@
                                 
                                 <div class="author-content">
                                 <div class="top-author">
-                                    <form method='post'>
+                                    <form method='post' @submit.prevent="updateDetails()">
                                         <div class="form-contact">
                                             <p class="row">
-                                                <input type="text" class="col-md-6" v-model="form.first_name" placeholder="First Name">
-                                                <input type="text" class="col-md-6" v-model="form.last_name" placeholder="Last Name">
+                                                <input type="text" :class="['col-md-6',allerrors.first_name ? 'border-danger':'']" v-model="form.first_name" placeholder="First Name">
+                                                <input type="text" :class="['col-md-6',allerrors.last_name ? 'border-danger':'']" v-model="form.last_name" placeholder="Last Name">
+                                                <small v-if="allerrors.first_name" :class="[' text-danger']">{{ allerrors.first_name[0].message }}</small>
+                                                <small v-if="allerrors.last_name" :class="[' text-danger']">{{ allerrors.last_name[0].message }}</small>
                                             </p> 
                                                 <br>
-                                            <p><input type="text" v-model="form.username" placeholder="Your Username"></p>
+                                            <p><input :class="allerrors.email ? 'border-danger':''" type="text" v-model="form.email" placeholder="Your Email"></p>
+                                            <small v-if="allerrors.email" :class="[' text-danger']">{{ allerrors.email[0].message }}</small>
                                             <br>
-                                            <p><textarea v-model="form.bio" cols="40" rows="" placeholder="Short Bio"></textarea></p>
+                                            <p><textarea :class="allerrors.bio ? 'border-danger':''" v-model="form.bio" cols="40" rows="" placeholder="Short Bio"></textarea></p>
+                                            <small v-if="allerrors.bio" :class="[' text-danger']">{{ allerrors.bio[0].message }}</small>
                                             <p><input type="submit" :value="button.save"></p>
                                         </div>
                                     </form>
@@ -50,24 +54,47 @@ export default {
         var currentUser = this.$store.state.currentUser
         this.form.first_name = currentUser.first_name
         this.form.last_name = currentUser.last_name
-        this.form.username = currentUser.username
+        this.form.email = currentUser.email
+        this.form.bio = currentUser.bio
     },
     data(){
         return {
             form: {
                 first_name : '',
                 last_name : '',
-                username : '',
+                email : '',
                 bio : ''
             },
             button: {
                 save: 'Save'
-            }
+            },
+            allerrors: [],
         }
     },
     computed: {
         currentUser(){
             return this.$store.state.currentUser
+        }
+    },
+    methods: {
+        updateDetails(){
+            this.button.save = "Saving ..."
+            axios.post('/users/profile/update', this.$data.form)
+            .then(response => {
+                this.$store.commit("UPDATE_AVATAR", response.data.user);
+                this.button.avatar = 'Change avatar'
+                this.$bvToast.toast('Profile update success', {
+                    title: 'Profile Update',
+                    variant: 'success'
+                })
+                this.button.save = 'Save'
+                return;
+            })
+            .catch((error) => {
+                this.allerrors = error.response.data.detail;
+                // console.log(this.allerrors)
+                this.button.save = 'Save'
+            });
         }
     }
 }

@@ -17,6 +17,7 @@
                                     </span>
                                     </h5>
                                     <h6>@{{ currentUser.username }}</h6>
+                                    <p>{{currentUser.bio}}</p>
                                     </div>
                                     <!-- <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p> -->
                                     <div class="content-social-author">
