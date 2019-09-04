@@ -6,10 +6,10 @@
                     <div class="col-md-12 creator">  
                         <div class="container">
                             <div class="col-md-12">
-                                <div v-if="(savedDraft.content !== '<p><br></p>' )" class="publish float-right d-lg-none">
+                                <div v-if="savedDraft != ''" class="publish float-right d-lg-none">
                                     <span v-if="isTyping" class="draft">Draft saved</span>
                                         <span class="top-menu ">
-                                        <a href="#" v-b-modal.modal-xl class="btn">Publish?</a>
+                                        <a v-if="savedDraft.content !== '<p><br></p>' " href="#" v-b-modal.modal-xl class="btn">Publish?</a>
                                     </span>
                                 </div>
                                 <div class="title-input">
