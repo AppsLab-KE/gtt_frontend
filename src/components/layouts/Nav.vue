@@ -48,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
-
+#main-menu{
+    height: 65px!important;
+}
 </style>

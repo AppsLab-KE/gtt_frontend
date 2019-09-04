@@ -9,7 +9,7 @@ const store = new Vuex.Store({
     currentUser: JSON.parse(localStorage.getItem('user')) || '',
     status: '',
     isTyping: false,
-    savedDraft: localStorage.getItem('userDraft') || '',
+    savedDraft: JSON.parse(localStorage.getItem('userDraft')) || '',
   },
   getters: {
     isAuthenticated: state => !!state.token,
@@ -39,7 +39,8 @@ const store = new Vuex.Store({
       IS_TYPING: (state) => {
           state.isTyping = true;
       },
-      SAVING_DRAFT: (state, content) => {
+      SAVING_DRAFT: (state, payload) => {
+        localStorage.setItem('userDraft', JSON.stringify(payload))
           state.savedDraft = content
       }
   },
