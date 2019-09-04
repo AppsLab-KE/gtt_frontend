@@ -341,12 +341,6 @@ export default {
     overflow: hidden;
 }
 
-.edit-phto1 .fileContainer1 [type="file"] {
-    // height: 35px;
-    // top: -11px;
-    // width: 126px;
-}
-
 .croppie{
     padding: 5px;
 }

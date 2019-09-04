@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from 'axios';
 
 Vue.use(Vuex)
 
@@ -24,7 +25,7 @@ const store = new Vuex.Store({
         state.token = token
         state.currentUser = JSON.parse(localStorage.getItem('user'))
       },
-      AUTH_LOGOUT: (state, token) => {
+      AUTH_LOGOUT: (state) => {
         state.status = ''
         state.token = ''
         state.currentUser = ''
@@ -48,8 +49,8 @@ const store = new Vuex.Store({
       }
   },
   actions: {
-    AUTH_REQUEST: ({commit, dispatch}, payload) => {
-        return new Promise((resolve, reject) => { // The Promise used for router redirect in login
+    AUTH_REQUEST: ({commit}, payload) => {
+        return new Promise((resolve) => { // The Promise used for router redirect in login
             commit('AUTH_REQUEST')
             var token = payload.access_token
             localStorage.setItem('c9edd058', token) // store the token in localstorage
@@ -59,10 +60,10 @@ const store = new Vuex.Store({
             resolve()
         })
       },
-      AUTH_LOGOUT: ({commit, dispatch}) => {
-        return new Promise((resolve, reject) => {
+      AUTH_LOGOUT: ({commit}) => {
+        return new Promise((resolve) => {
             commit('AUTH_LOGOUT')
-            localStorage.removeItem('c9edd058')
+            localStore();
             localStorage.removeItem('user')
             // remove the axios default header
             delete axios.defaults.headers.common['Authorization']
@@ -74,3 +75,7 @@ const store = new Vuex.Store({
 })
 
 export default store
+function localStore() {
+    localStorage.removeItem('c9edd058');
+}
+

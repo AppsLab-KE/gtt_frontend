@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
@@ -6,7 +7,7 @@ import store from './store'
 
 Vue.use(Router)
 
-const ifNotAuthenticated = (to, from, next) => {
+const ifNotAuthenticated = (_to, _from, next) => {
     if (!store.getters.isAuthenticated) {
         next()
         return
@@ -15,7 +16,7 @@ const ifNotAuthenticated = (to, from, next) => {
 }
     
 
-const ifAuthenticated = (to, from, next) => {
+const ifAuthenticated = (_to, _from, next) => {
     if (store.getters.isAuthenticated) {
         next()
         return
@@ -26,7 +27,8 @@ const ifAuthenticated = (to, from, next) => {
 const router =  new Router({
   mode: 'history',
   base: process.env.BASE_URL,
-  scrollBehavior: function(to, from, savedPosition) {
+  // eslint-disable-next-line no-unused-vars
+  scrollBehavior: function(to, _from, _savedPosition) {
     if (to.hash) {
         return {selector: to.hash}
     } else {
@@ -49,7 +51,7 @@ const router =  new Router({
     // ? last route
     {
         path: 'index.html', // or '*' this is for PWA
-        beforeEnter: (to, from, next) => {
+        beforeEnter: (_to, _from, next) => {
           next('/')
         }
     },
@@ -57,11 +59,11 @@ const router =  new Router({
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((_to, _from, next) => {
     next()
 });
 
-router.afterEach((to, from) => {
+router.afterEach((_to, _from) => {
     const el = document.getElementsByClassName("mobi-menu")[0];
     const el1 = document.getElementsByClassName("menu-toggle-icon")[0];
     if(el){

@@ -1,3 +1,5 @@
+/* eslint-disable no-extra-semi */
+/* eslint-disable no-undef */
 (function($){
   'use strict';
 
