@@ -11,7 +11,7 @@
             <b-dropdown-header id="dropdown-header-label">
                 {{currentUser.first_name +" "+ currentUser.last_name}}
             </b-dropdown-header>
-            <b-dropdown-item :to="{name: 'profile'}">Profile</b-dropdown-item>
+            <b-dropdown-item :to="{name: 'profile', params: {username: '@'+ currentUser.username}}">Profile</b-dropdown-item>
             <b-dropdown-item :to="{name: 'profile-edit'}">Edit Profile</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
              <b-dropdown-item :to="{name: 'publish'}">Create Post</b-dropdown-item>

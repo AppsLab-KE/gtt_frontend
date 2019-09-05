@@ -56,6 +56,9 @@ for (let rule in rules) {
 // Register it globally
 Vue.component('ValidationProvider', ValidationProvider);
 
+import InfiniteLoading from 'vue-infinite-loading';
+Vue.use(InfiniteLoading, { /* options */ });
+
 Vue.config.productionTip = false
 
 

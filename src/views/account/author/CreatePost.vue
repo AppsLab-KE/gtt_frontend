@@ -50,7 +50,7 @@
                                         <label class="fileContainer1">
                                             <i class="fa fa-camera"></i>
                                             Choose Image
-                                            <input type="file" id="file"  ref="file" @change="onFileChange"/>
+                                            <input type="file" id="file"  ref="file" @change="onFileChange" accept="image/*"/>
                                         </label>
                                     </span><br> <br>
                                 </div>
@@ -79,7 +79,7 @@
                             <div class="col-md-10 md-offset-1 col-sm-12">
                                 <div class="form-group">
                                     <label for="category">Category</label>
-                                    <select name="" id="category" class="form-control" placeholder="Select Category">
+                                    <select v-model="category" name="" id="category" class="form-control" placeholder="Select Category">
                                         <option value="" >Select Category</option>
                                         <option v-if="categories.length > 0" v-for="category in categories" :key="category.slug" :value="category.category_name">{{category.category_name}}</option>
                                     </select>
@@ -99,7 +99,12 @@
                                 </div>
                                 <div class="form-group">
                                     <br>
-                                    <button class="create-post float-right" type="submit" @click="createPost()">Create Post</button>
+                                    <small v-if="allerrors.title" :class="[' text-danger']">{{ allerrors.title[0].message }}</small>
+                                    <small v-if="allerrors.content" :class="[' text-danger']">{{ allerrors.content[0].message }}</small>
+                                    <small v-if="allerrors.image" :class="[' text-danger']">{{ allerrors.image[0].message }}</small>
+                                    <small v-if="allerrors.category" :class="[' text-danger']">{{ allerrors.category[0].message }}</small>
+                                    <br>
+                                    <button class="create-post float-right" type="submit" @click="createPost()">{{create}}</button>
                                 </div>
                             </div>
                         </div>
@@ -138,13 +143,19 @@ export default {
             autocompleteItems: [{ text: 'Laravel'}, { text: 'Js'}, { text: 'Django'}, { text: 'Java'},{ text: 'Python'},{ text: 'Rails'}],
             categories : [],
             fetchedTags: [],
+            allerrors: [],
+            category: '',
+            create: 'Create Post'
         }
     },
     mounted(){
         let draft = this.$store.state.savedDraft
         if(draft !== ''){
-            if(draft.content !== '<p><br></p>'){
+            // console.log(draft.content)
+            console.log( draft.content.replace(/(&nbsp;|<([^>]+)>)/ig, "") );
+            if(draft.content.replace(/(&nbsp;|<([^>]+)>)/ig, "") !== ''){
                 this.defaultValue = draft.content;
+                this.content = draft.content;
                 this.title = draft.title;
                 this.$store.commit('NOT_TYPING')
             }
@@ -180,8 +191,12 @@ export default {
             // console.log("uploaded url", url)
         },
         createPost () {
-            localStorage.removeItem('userDraft')
-            return
+            if(this.formValidations()){
+                return;
+            }else{
+                this.allerrors = [];
+            }
+            this.create = 'Creating Post ...'
             let options = {
                 type: 'blob',
                 size: 'original',
@@ -194,17 +209,33 @@ export default {
                 this.cropped = output;
             }).then((data) => {
                 let formData = new FormData();
-                formData.append("image", data, data.name+".png");
+                formData.append("post_heading_image", data, data.name+".png");
+                formData.append('post_heading', this.title)
+                formData.append('post_body', this.content)
+                formData.append('category', this.category)
+                if(this.allTags.length) {
+                    for (var i = this.allTags.length - 1; i >= 0; i--) {
+                        formData.append("tag", this.allTags[i]);
+                    }
+                }
 
-                axios.post('/', formData,{headers: {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`}})
+                axios.post('/posts/create', formData,{headers: {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`}})
                 .then((response) => {
-                    this.$bvModal.hide('modal-xl')
-                    this.clear();
-                    this.bind('none');
+                    console.log(response.data)
+                    this.$bvToast.toast('Post Created', {
+                        title: 'Post',
+                        variant: 'success'
+                    })
+                    // this.$router.push('/profile')
+                    // this.$bvModal.hide('modal-xl')
+                    // this.clear();
+                    // this.bind('none');
+                    // localStorage.removeItem('userDraft')
                     return;
                 })
                 .catch((error) => {
-                    console.log(error.response)
+                    // console.log(error.response)
+                    this.allerrors = error.response.data.detail;
                 });
             });
         },
@@ -273,6 +304,25 @@ export default {
                 })
             })
             // console.log(this.fetchedTags)
+        },
+        formValidations(){
+            if(this.file == '' || this.title == '' || this.content == `` || this.category == ''){
+                if(this.file === ''){
+                    this.allerrors = {image: [{message: 'Post Image is required !'}]}
+                }
+                if(this.title === ''){
+                    this.allerrors = {title: [{message: 'Post Title is required !'}]}
+                }
+                if(this.content == `` && this.defaultValue == ''){
+                    this.allerrors = {content: [{message: 'Post Content is required !'}]}
+                }
+                if(this.category == ``){
+                    this.allerrors = {category: [{message: 'Post Category is required !'}]}
+                }
+                return true;
+            }
+            else
+                return false;
         }
     },
     computed: {

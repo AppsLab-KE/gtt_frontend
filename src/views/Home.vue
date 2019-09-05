@@ -1,31 +1,30 @@
 <template>
   <div class="home">
     <div class="content-widget">
-        <div class="container">
+        <div v-if="latestPost != ''" class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0">
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
-                        <div class="capsSubtle mb-2">Editors' Pick</div>
-                        <h2 class="entry-title mb-3"><a href="single.html">What I Wish I'd Known When I Made a Drastic Career Change</a></h2>
+                        <div class="capsSubtle mb-2">{{latestPost.category_name}}</div>
+                        <h2 class="entry-title mb-3"><a href="single.html">{{latestPost.post_heading}}</a></h2>
                         <div class="entry-excerpt">
                             <p>
-                                Eight people who took the plunge share the biggest challenges and surprises of starting over. We spend a considerable portion of our time using a web browser and may sometimes need to get a screenshot of a full page in your browser. 
+                                {{latestPost.post_body_preview | trimPost}}
                             </p>
                         </div>
                         <div class="entry-meta align-items-center">
-                            <a href="author.html">Steven Job</a> in <a href="archive.html">OneZero</a><br>                                    
-                            <span>July 15</span>
-                            <span class="middotDivider"></span>
-                            <span class="readingTime" title="3 min read">5 min read</span>
-                            <span class="svgIcon svgIcon--star">
-                                <svg class="svgIcon-use" width="15" height="15">
-                                    <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                </svg>
+                            <a href="author.html">{{latestPost.post_author.first_name}} {{latestPost.post_author.last_name}}</a> <br>                                    
+                            <span>
+                                {{latestPost.date_published | dateshow}}
+                         <vue-moments-ago prefix=":" suffix="ago" :date="latestPost.date_published"></vue-moments-ago>
                             </span>
+                            <span class="middotDivider"></span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0" style="background-image:url(assets/images/thumb/thumb-800x495.jpg);"></div>
+                <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0">
+                    <img style="height:250px;" :src="latestPost.post_heading_image" alt="">
+                </div>
             </div>
             <div class="divider"></div>
         </div>
@@ -41,7 +40,16 @@
                         <span>Most Recent</span>
                     </h2>   
                     <!-- blog -->
-                    <blog></blog>
+                    <article v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
+                        <blog :post="post"></blog>
+                    </article>
+                    <ul class="page-numbers heading">
+                        <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
+                            <!-- <div slot="spinner">Loading...</div> -->
+                            <div slot="no-more">No more posts today</div>
+                            <div slot="no-results">No Posts yet</div>
+                        </infinite-loading>
+                    </ul>
                 </div> 
                 <div class="col-md-4 pl-md-5 sticky-sidebar">                    
                     <porpular></porpular>
@@ -59,11 +67,73 @@
 import Featured from '@/components/pages/Featured.vue'
 import Blog from '@/components/pages/Blog.vue'
 import Porpular from '@/components/pages/Porpular'
+import VueMomentsAgo from 'vue-moments-ago'
+import moment from 'moment';
 
 export default {
   name: 'home',
   components: {
-    Featured, Blog, Porpular
-  }
+    Featured, Blog, Porpular,VueMomentsAgo
+  },
+  mounted(){
+      if(this.$store.state.latestPost.length == 0){
+          this.getLatestPost();
+      }
+      if(this.$store.state.allPosts.length == 0){
+          this.getAllPosts();
+      }
+    },
+    methods: {
+        getAllPosts(url = '/posts/?limit=4&offset=1'){
+            axios.get(url)
+            .then( response => {
+                this.$store.commit('ALL_POSTS',response.data)
+            })
+        },
+        getLatestPost(){
+            axios.get('/posts/?limit=1&offset=0')
+            .then( response => {
+                this.$store.commit('LATEST_POST',response.data.results[0])
+            })
+        },
+        infiniteHandler($state) {
+            let posts = this.postsData;
+            // console.log(posts.next)
+            if(posts.next == null){
+                $state.complete();
+            }else{
+                axios.get(posts.next)
+                .then((response) => {
+                    this.$store.commit('UPDATE_POSTS', response.data)
+                    // this,postData
+                    if (response.data.next != null) {
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+                });
+            }
+        },
+    },
+    computed: {
+        postsData(){
+            return this.$store.state.allPosts;
+        },
+        latestPost(){
+            return this.$store.state.latestPost;
+        }
+    },
+    filters:{
+        trimPost(body){
+            let noHtml = body.replace(/(&nbsp;|<([^>]+)>)/ig, "")
+            let noSpace = noHtml.replace(/ +(?= )/g,'');;
+            let final = noSpace.length > 300 ? noSpace.substring(0, 300) + '...' : noSpace 
+            return final
+        },
+        dateshow(value){
+            var date = moment(value).format("MMM Do YY"); 
+            return date;
+        },
+    }
 }
 </script>

@@ -11,6 +11,8 @@ const store = new Vuex.Store({
     status: '',
     isTyping: false,
     savedDraft: JSON.parse(localStorage.getItem('userDraft')) || '',
+    allPosts: [],
+    latestPost: [],
   },
   getters: {
     isAuthenticated: state => !!state.token,
@@ -46,6 +48,21 @@ const store = new Vuex.Store({
       SAVING_DRAFT: (state, payload) => {
         localStorage.setItem('userDraft', JSON.stringify(payload))
           state.savedDraft = payload
+      },
+      ALL_POSTS: (state, payload) => {
+          state.allPosts = payload
+      },
+      LATEST_POST: (state, payload) => {
+          state.latestPost = payload
+      },
+      UPDATE_POSTS: (state, payload) => {
+        var existing = state.allPosts;
+        payload.results.forEach( data => existing.results.push(data))
+        existing.next = payload.next
+        existing.previous = payload.previous
+        existing.count = payload.count
+        state.allPosts = existing
+        // console.log(existing)
       }
   },
   actions: {
