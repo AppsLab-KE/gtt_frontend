@@ -21,7 +21,13 @@
                                             <p><input :class="allerrors.email ? 'border-danger':''" type="text" v-model="form.email" placeholder="Your Email"></p>
                                             <small v-if="allerrors.email" :class="[' text-danger']">{{ allerrors.email[0].message }}</small>
                                             <br>
-                                            <p><textarea :class="allerrors.bio ? 'border-danger':''" v-model="form.bio" cols="40" rows="" placeholder="Short Bio"></textarea></p>
+                                            <p>
+                                                <ValidationProvider rules="required|max:200" v-slot="{ errors }" name="bio">
+                                                    <textarea maxlength="200" :class="[allerrors.bio ? 'border-danger':'',errors.length > 0 ? 'text-danger' : '']" v-model="form.bio" cols="40" rows="" placeholder="Short Bio"></textarea>
+                                                    <small class="text-danger">{{ errors[0] }}</small>
+                                                    <small :class="['float-right', errors.length > 0 ? 'text-danger' : '' ]">{{form.bio.length}}/200</small>
+                                                </ValidationProvider>
+                                                </p>
                                             <small v-if="allerrors.bio" :class="[' text-danger']">{{ allerrors.bio[0].message }}</small>
                                             <p><input type="submit" :value="button.save"></p>
                                         </div>

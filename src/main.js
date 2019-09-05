@@ -43,6 +43,19 @@ Vue.component('medium-editor', MediumEditor)
 import 'medium-editor/dist/css/medium-editor.css'
 import 'vuejs-medium-editor/src/themes/default.css'
 
+import { ValidationProvider, extend } from 'vee-validate';
+import * as rules from 'vee-validate/dist/rules';
+import en from 'vee-validate/dist/locale/en';
+// loop over all rules
+for (let rule in rules) {
+  extend(rule, {
+    ...rules[rule], // add the rule
+    message: en.messages[rule] // add its message
+  });
+}
+// Register it globally
+Vue.component('ValidationProvider', ValidationProvider);
+
 Vue.config.productionTip = false
 
 

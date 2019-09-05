@@ -1,6 +1,6 @@
 <template>
     <span class="top-menu heading d-lg-flex align-items-center">
-        <ul class="social-network notif heading navbar-nav align-items-center d-none d-lg-block">                  
+        <ul v-if="isLoggedIn"  class="social-network notif heading navbar-nav align-items-center d-none d-lg-block">                  
             <li><a href="#"><i class="fa fa-bell"></i></a></li>
         </ul>
         <a v-if="!isLoggedIn" v-b-modal.my-modal-login class="btn">Login</a>
@@ -19,7 +19,7 @@
              <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
         </b-dropdown>
-         <ul class="social-network heading navbar-nav align-items-center d-lg-none">    
+         <ul v-if="isLoggedIn"  class="social-network heading navbar-nav align-items-center d-lg-none">    
             <li><a href="#"><i class="fa fa-bell"></i></a></li>
         </ul>
     </span>

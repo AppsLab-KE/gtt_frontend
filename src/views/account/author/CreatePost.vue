@@ -4,8 +4,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-12 creator">  
-                        <div class="container">
-                            <div class="col-md-12">
+                        <div class="container phone-creater">
+                            <div class="col-md-12 phone-creater">
                                 <div v-if="savedDraft != ''" class="publish float-right d-lg-none">
                                     <span v-if="isTyping" class="draft">Draft saved</span>
                                         <span class="top-menu ">
@@ -13,8 +13,12 @@
                                     </span>
                                 </div>
                                 <div class="title-input">
-                                    <textarea placeholder="Title goes here" v-on:input="onChange" v-model="title" required>
-                                    </textarea>
+                                    <ValidationProvider rules="required|max:120" v-slot="{ errors }" name="title">
+                                        <textarea maxlength="120" :class="errors.length > 0 ? 'text-danger' : ''" placeholder="Title goes here" v-on:input="onChange" v-model="title" required>
+                                        </textarea>
+                                        <!-- <small class="text-danger">{{ errors[0] }}</small> -->
+                                        <small :class="['float-right', errors.length > 0 ? 'text-danger' : '' ]">{{title.length}}/120</small>
+                                    </ValidationProvider>
                                 </div>
                             </div>
                         </div>                                       
@@ -315,11 +319,17 @@ export default {
         line-height: 1; 
         @media only  screen and (max-width: 967px){
             font-size: 25px;
-            height: auto;
+            height: 80px;
+            width: 100%;
         }
     }
     textarea:focus{
         outline: none;
+    }
+}
+.phone-creater{
+    @media only  screen and (max-width: 967px){
+        padding: 0px;
     }
 }
 .change-avatar{

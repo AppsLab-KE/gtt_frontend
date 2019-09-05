@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
 export function initialize(store, router) {
 
@@ -17,7 +19,7 @@ export function initialize(store, router) {
 
     axios.interceptors.response.use(null,(error) => {
         if (error.response.status == 401){
-            store.commit('AUTH_LOGOUT');
+            store.dispatch('AUTH_LOGOUT');
         //    router.push('/');
         }
         return Promise.reject(error);
