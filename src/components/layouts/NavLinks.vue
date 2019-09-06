@@ -3,21 +3,14 @@
         <li class="current-menu-item"><router-link to="/">Home</router-link></li>
         <li class="menu-item-has-children"><a>Categories</a>
             <ul class="sub-menu">
-                <li><router-link to="/category">Laravel</router-link></li>
-                <li><router-link to="/category">Vue</router-link></li>
-                <li><router-link to="/category">Django</router-link></li>
+                <li v-for="(category, $index) in categories" :key="$index"><router-link :to="{name: 'category', params: {category: category.slug}}">{{category.category_name}}</router-link></li>
             </ul>
         </li>
-        <!-- <li><a href="#">Typography</a></li>
-        <li><a href="#">Politics</a></li>
-        <li><a href="#">Health</a></li>
-        <li><a href="#">Design</a></li> -->
         <li><router-link to="/search">Search</router-link></li>
         <li><router-link to="/single">Single</router-link></li>
         <li><router-link to="/about">About</router-link></li>                                
         <li><router-link to="/contact">Contact</router-link></li>   
         <li v-if="savedDraft != ''  && currentUrl === '/publish'" class="float-right">
-            
             <span v-if="isTyping" class="draft">Draft saved</span>
                 <span class="top-menu ">
                 <a v-if="savedDraft.content !== '<p><br></p>'" href="#" v-b-modal.modal-xl class="btn">Publish?</a>
@@ -30,7 +23,8 @@
 export default {
     data(){
         return {
-            currentUrl: ''
+            currentUrl: '',
+            categories: []
         }
     },
     computed: {
@@ -44,12 +38,19 @@ export default {
     watch: {
         '$route'(to, from) {
             this.currentUrl = to.path
-            // console.log(to.path)
         }
     },
     created(){
         this.currentUrl = window.location.pathname
-        // console.log(window.location.pathname)
+        this.getCategories()
+    },
+    methods: {
+        getCategories() {
+            axios.get('/posts/categories')
+            .then( response => {
+                this.categories = response.data.results
+            })
+        },
     }
 }
 </script>

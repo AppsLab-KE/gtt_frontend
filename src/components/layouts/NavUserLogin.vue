@@ -31,7 +31,7 @@ export default {
             this.$store.dispatch("AUTH_LOGOUT")
             .then(() => {
                 console.log('Logged Out')
-                this.$router.push('/')
+                this.$router.push({name: 'home'})
             })
         }
     },

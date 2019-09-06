@@ -135,8 +135,8 @@ export default {
             cropped: null,
             file: '',
             vueCroppie:{
-                width: 480,
-                height: 185
+                width: 440,
+                height: 275
             },
             tag: '',
             tags: [],
@@ -152,7 +152,7 @@ export default {
         let draft = this.$store.state.savedDraft
         if(draft !== ''){
             // console.log(draft.content)
-            console.log( draft.content.replace(/(&nbsp;|<([^>]+)>)/ig, "") );
+            // console.log( draft.content.replace(/(&nbsp;|<([^>]+)>)/ig, "") );
             if(draft.content.replace(/(&nbsp;|<([^>]+)>)/ig, "") !== ''){
                 this.defaultValue = draft.content;
                 this.content = draft.content;
@@ -164,16 +164,16 @@ export default {
         // console.log(cwidth);
         if(cwidth < 1200 && cwidth >= 992){
             this.vueCroppie.width = 320
-            this.vueCroppie.height = 124
+            this.vueCroppie.height = 200
         }else if( cwidth < 992 && cwidth >= 768) {
-            this.vueCroppie.width = 420
-            this.vueCroppie.height = 160
+            this.vueCroppie.width = 380
+            this.vueCroppie.height = 234
         } else if(cwidth < 768 && cwidth > 360) {
-            this.vueCroppie.width = 400
-            this.vueCroppie.height = 154
+            this.vueCroppie.width = 380
+            this.vueCroppie.height = 234
         }else if(cwidth <= 360){
             this.vueCroppie.width = 260
-            this.vueCroppie.height = 100
+            this.vueCroppie.height = 163
         }
         this.getCategories()
         this.getTags()
@@ -221,21 +221,31 @@ export default {
 
                 axios.post('/posts/create', formData,{headers: {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`}})
                 .then((response) => {
-                    console.log(response.data)
+                    // console.log(response.data)
+                    this.create = 'Post Created'
                     this.$bvToast.toast('Post Created', {
                         title: 'Post',
                         variant: 'success'
                     })
-                    // this.$router.push('/profile')
-                    // this.$bvModal.hide('modal-xl')
-                    // this.clear();
-                    // this.bind('none');
-                    // localStorage.removeItem('userDraft')
+                    this.title = 'Title here'
+                    this.defaultValue = `<p>body goes here...</p>`
+                    this.category = ''
+                    this.file = ''
+                    this.content = ``
+                    this.clear();
+                    this.bind('none');
+                    this.tags = []
+                    localStorage.removeItem('userDraft')
+                    this.$bvModal.hide('modal-xl')
+                    this.$router.push({name: 'profile', params: {username : '@'+this.currentUser.username}});
+                    // window.location.href = '/@'+currentUser.username
                     return;
                 })
                 .catch((error) => {
                     // console.log(error.response)
-                    this.allerrors = error.response.data.detail;
+                    if(error.response){
+                        this.allerrors = error.response.data.detail;
+                    }
                 });
             });
         },
@@ -293,13 +303,13 @@ export default {
         getCategories(){
             axios.get('/posts/categories')
             .then( response => {
-                this.categories = response.data
+                this.categories = response.data.results
             })
         },
         getTags(){
             axios.get('/posts/tags')
             .then(response => {
-                response.data.forEach(cat => {
+                response.data.results.forEach(cat => {
                     this.fetchedTags.push({text: cat.tag_name})
                 })
             })
@@ -347,6 +357,9 @@ export default {
                 return i.text.toLowerCase().indexOf(this.tag.toLowerCase()) !== -1;
             });
         },
+        currentUser(){
+            return this.$store.state.currentUser
+        }
     }
 }
 </script>

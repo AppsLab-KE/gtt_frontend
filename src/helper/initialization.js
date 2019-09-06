@@ -20,7 +20,7 @@ export function initialize(store, router) {
     axios.interceptors.response.use(null,(error) => {
         if (error.response.status == 401){
             store.dispatch('AUTH_LOGOUT');
-        //    router.push('/');
+           router.push({name: 'home'});
         }
         return Promise.reject(error);
     });

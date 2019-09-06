@@ -63,7 +63,7 @@ const store = new Vuex.Store({
         existing.count = payload.count
         state.allPosts = existing
         // console.log(existing)
-      }
+      },
   },
   actions: {
     AUTH_REQUEST: ({commit}, payload) => {

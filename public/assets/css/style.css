@@ -1225,6 +1225,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
   margin-top: .15em;
   margin-right: 0.15em;
   line-height: 1;
+  text-transform: capitalize;
 }
 
 .dropcap blockquote p:first-child:first-letter {

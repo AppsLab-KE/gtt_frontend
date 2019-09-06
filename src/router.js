@@ -37,9 +37,10 @@ const router =  new Router({
 },
   routes: [
     { path: '/', name: 'home', component: Home },
-    { path: '/single', name: 'single', component: () => import('./views/SingleBlog.vue') },
+    { path: '/post/:username(@\\w+)/:slug', name: 'single', component: () => import('./views/SingleBlog.vue') },
     { path: '/search', name: 'search', component: () => import('./views/Search.vue') },
-    { path: '/category', name: 'category', component: () => import('./views/Category.vue') },
+    { path: '/category/:category', name: 'category', component: () => import('./views/Category.vue') },
+    { path: '/tag/:tag', name: 'tag', component: () => import('./views/Tag.vue') },
     { path: '/about', name: 'about', component: () => import('./views/About.vue') },
     { path: '/contact', name: 'contact', component: () => import('./views/Contact.vue') },
     { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},

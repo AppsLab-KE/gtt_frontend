@@ -5,15 +5,17 @@
             <div class="row justify-content-between post-has-bg ml-0 mr-0">
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
-                        <div class="capsSubtle mb-2">{{latestPost.category_name}}</div>
-                        <h2 class="entry-title mb-3"><a href="single.html">{{latestPost.post_heading}}</a></h2>
-                        <div class="entry-excerpt">
-                            <p>
-                                {{latestPost.post_body_preview | trimPost}}
-                            </p>
-                        </div>
+                        <div class="capsSubtle mb-2"><router-link :to="{name: 'category',params: {category: latestPost.category.category_name}}">{{latestPost.category.category_name}}</router-link></div>
+                        <h2 class="entry-title mb-3"><router-link :to="{name: 'single', params: {slug : latestPost.slug, username:'@'+latestPost.post_author.username}}">{{latestPost.post_heading}}</router-link></h2>
+                        <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
+                            <div class="entry-excerpt">
+                                <p>
+                                    {{latestPost.post_body_preview | trimPost}}
+                                </p>
+                            </div>
+                        </router-link>
                         <div class="entry-meta align-items-center">
-                            <a href="author.html">{{latestPost.post_author.first_name}} {{latestPost.post_author.last_name}}</a> <br>                                    
+                            <router-link :to="{name: 'profile',params:{username:'@'+latestPost.post_author.username}}">{{latestPost.post_author.first_name}} {{latestPost.post_author.last_name}}</router-link> <br>                                    
                             <span>
                                 {{latestPost.date_published | dateshow}}
                          <vue-moments-ago prefix=":" suffix="ago" :date="latestPost.date_published"></vue-moments-ago>
@@ -23,7 +25,9 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0">
-                    <img style="height:250px;" :src="latestPost.post_heading_image" alt="">
+                    <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
+                        <img :src="latestPost.post_heading_image" alt="">
+                    </router-link>
                 </div>
             </div>
             <div class="divider"></div>
@@ -40,14 +44,19 @@
                         <span>Most Recent</span>
                     </h2>   
                     <!-- blog -->
-                    <article v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
+                    <article v-if="postsData != ''" v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
                         <blog :post="post"></blog>
                     </article>
-                    <ul class="page-numbers heading">
+                    <article v-else><nothing message="Loading Posts...Please Wait"></nothing></article>
+                    <ul v-if="postsData != ''" class="page-numbers heading">
                         <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
                             <!-- <div slot="spinner">Loading...</div> -->
-                            <div slot="no-more">No more posts today</div>
-                            <div slot="no-results">No Posts yet</div>
+                            <div slot="no-more">
+                                <nothing message="No more posts today"></nothing>
+                            </div>
+                            <div slot="no-results">
+                                <nothing v-if="postsData.results.length == 0 " message="No Posts yet"></nothing>
+                            </div>
                         </infinite-loading>
                     </ul>
                 </div> 
@@ -67,13 +76,14 @@
 import Featured from '@/components/pages/Featured.vue'
 import Blog from '@/components/pages/Blog.vue'
 import Porpular from '@/components/pages/Porpular'
+import Nothing from '@/components/more/Nothing'
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
 
 export default {
   name: 'home',
   components: {
-    Featured, Blog, Porpular,VueMomentsAgo
+    Featured, Blog, Porpular,VueMomentsAgo, Nothing
   },
   mounted(){
       if(this.$store.state.latestPost.length == 0){
@@ -84,7 +94,7 @@ export default {
       }
     },
     methods: {
-        getAllPosts(url = '/posts/?limit=4&offset=1'){
+        getAllPosts(url = '/posts/?limit='+process.env.VUE_APP_PAGINATION+'&offset=1'){
             axios.get(url)
             .then( response => {
                 this.$store.commit('ALL_POSTS',response.data)
@@ -98,14 +108,12 @@ export default {
         },
         infiniteHandler($state) {
             let posts = this.postsData;
-            // console.log(posts.next)
             if(posts.next == null){
                 $state.complete();
             }else{
                 axios.get(posts.next)
                 .then((response) => {
                     this.$store.commit('UPDATE_POSTS', response.data)
-                    // this,postData
                     if (response.data.next != null) {
                         $state.loaded();
                     } else {
