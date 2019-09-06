@@ -126,7 +126,7 @@ export default {
     filters:{
         trimPost(body){
             let noHtml = body.replace(/(&nbsp;|<([^>]+)>)/ig, "")
-            let noSpace = noHtml.replace(/ +(?= )/g,'');;
+            let noSpace = noHtml.replace(/ +(?= )/g,'');
             let final = noSpace.length > 300 ? noSpace.substring(0, 300) + '...' : noSpace 
             return final
         },

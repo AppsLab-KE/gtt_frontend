@@ -55,7 +55,8 @@ const router =  new Router({
           next('/')
         }
     },
-    { path: '*', component: NotFoundComponent }
+    { path: '/not-found', component: NotFoundComponent },
+    { path: '*', component: NotFoundComponent },
   ]
 })
 

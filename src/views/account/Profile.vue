@@ -32,7 +32,7 @@
                             <span>Latest Posts</span>
                         </h4>
 
-                        <blog></blog>            
+                        <!-- <blog></blog>             -->
 
                     </div> <!--col-md-8-->
                     <div class="col-md-4 pl-md-5 sticky-sidebar">                    
@@ -46,6 +46,7 @@
 <script>
 import Blog from '@/components/pages/Blog.vue'
 import Porpular from '@/components/pages/Porpular'
+import store from './../../store';
 export default {
     components: {
         Blog, Porpular
@@ -53,6 +54,17 @@ export default {
     computed: {
         currentUser(){
             return this.$store.state.currentUser
+        }
+    },
+    beforeRouteEnter (to, from, next) {
+       if(to.params.username.replace(/(@)/g,'') !== store.state.currentUser.username){
+           next('/not-found')
+       }
+       next()
+    },
+    methods: {
+        reduceUserName(username){
+            return username.replace(/(@)/g,'')
         }
     }
 }
