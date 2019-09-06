@@ -7,17 +7,17 @@
                         <div class="box box-author m_b_2rem">
                             <div class="post-author row-flex">
                                 <div class="author-img">
-                                    <img alt="author avatar" :src="currentUser.user_avatar" class="avatar">
+                                    <img alt="author avatar" :src="user.user_avatar" class="avatar">
                                 </div>
                                 <div class="author-content">
                                 <div class="top-author">
-                                    <h5 class="heading-font"><a href="#" :title="currentUser.first_name" rel="author">{{currentUser.first_name +" "+ currentUser.last_name}}</a>
-                                    <span class="top-menu">
+                                    <h5 class="heading-font"><a href="#" :title="user.first_name" rel="author">{{user.first_name +" "+ user.last_name}}</a>
+                                    <span v-if="isLoggedInUser" class="top-menu">
                                         <router-link :to="{name: 'profile-edit'}" class="btn">Edit Profile</router-link>
                                     </span>
                                     </h5>
-                                    <h6>@{{ currentUser.username }}</h6>
-                                    <p>{{currentUser.bio}}</p>
+                                    <h6>@{{ user.username }}</h6>
+                                    <p>{{user.bio}}</p>
                                     </div>
                                     <!-- <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p> -->
                                     <div class="content-social-author">
@@ -46,21 +46,25 @@
 <script>
 import Blog from '@/components/pages/Blog.vue'
 import Porpular from '@/components/pages/Porpular'
-import store from './../../store';
 export default {
     components: {
         Blog, Porpular
     },
-    computed: {
-        currentUser(){
-            return this.$store.state.currentUser
+    data(){
+        return {
+            user : [],
+            isLoggedInUser : false
         }
     },
-    beforeRouteEnter (to, from, next) {
-       if(to.params.username.replace(/(@)/g,'') !== store.state.currentUser.username){
-           next('/not-found')
-       }
-       next()
+    mounted(){
+        var username = this.$route.params.username
+        var user = this.$store.state.currentUser
+        if(this.reduceUserName(username) !== user.username ){
+            // TODO get username not logged in
+            this.$router.push('/not-found');
+        }
+        this.user = user;
+        this.isLoggedInUser = true;
     },
     methods: {
         reduceUserName(username){
