@@ -6,8 +6,8 @@
                 <li v-for="(category, $index) in categories" :key="$index"><router-link :to="{name: 'category', params: {category: category.slug}}">{{category.category_name}}</router-link></li>
             </ul>
         </li>
-        <li><router-link to="/search">Search</router-link></li>
-        <li><router-link to="/single">Single</router-link></li>
+        <!-- <li><router-link to="/search">Search</router-link></li> -->
+        <!-- <li><router-link to="/single">Single</router-link></li> -->
         <li><router-link to="/about">About</router-link></li>                                
         <li><router-link to="/contact">Contact</router-link></li>   
         <li v-if="savedDraft != ''  && currentUrl === '/publish'" class="float-right">
@@ -51,7 +51,7 @@ export default {
                 this.categories = response.data.results
             })
         },
-    }
+    }, 
 }
 </script>
 

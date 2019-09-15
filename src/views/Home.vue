@@ -135,7 +135,7 @@ export default {
         trimPost(body){
             let noHtml = body.replace(/(&nbsp;|<([^>]+)>)/ig, "")
             let noSpace = noHtml.replace(/ +(?= )/g,'');
-            let final = noSpace.length > 300 ? noSpace.substring(0, 300) + '...' : noSpace 
+            let final = noSpace.length > 350 ? noSpace.substring(0, 350) + '...' : noSpace 
             return final
         },
         dateshow(value){

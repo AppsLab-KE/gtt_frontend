@@ -19,12 +19,6 @@
                                     <h6>@{{ user.username }}</h6>
                                     <p>{{user.bio}}</p>
                                     </div>
-                                    <!-- <p class="d-none d-md-block">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse laoreet ut ligula et semper. Aenean consectetur, est id gravida venenatis.</p> -->
-                                    <!-- <div class="content-social-author">
-                                        <a target="_blank" class="author-social" href="#">Facebook </a>
-                                        <a target="_blank" class="author-social" href="#">Twitter </a>
-                                        <a target="_blank" class="author-social" href="#"> Google + </a>
-                                    </div> -->
                                 </div>
                             </div> 
                         </div> 
