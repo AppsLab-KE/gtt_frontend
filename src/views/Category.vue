@@ -69,15 +69,15 @@ export default {
         }
     },
     mounted(){
-        this.geCategoryPosts();
+        this.getCategoryPosts();
     },
     watch: {
         '$route'(to, from) {
-            this.geCategoryPosts()
+            this.getCategoryPosts()
         }
     },
     methods: {
-        geCategoryPosts(){
+        getCategoryPosts(){
             var category = this.$route.params.category
             this.slug = category
             axios.get('/posts/categories/'+category+'?limit='+process.env.VUE_APP_PAGINATION+'&offset=0')
@@ -115,7 +115,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .spanborder {
     span {
         text-transform: capitalize;

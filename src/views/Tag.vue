@@ -4,10 +4,10 @@
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="spanborder">
-                        <span>#Laravel</span>
+                       <span v-if="slug !== null">#{{slug | getTag}}</span>
                     </h4> 
 
-                    <article class="first mb-3">
+                    <!-- <article class="first mb-3">
                         <figure><a href="#"><img src="/assets/images/thumb/thumb-1400x992.jpg" alt="post-title"></a></figure>
                         <h1 class="entry-title mb-3"><a href="#">Home Internet Is Becoming a Luxury for the Wealthy</a></h1>
                         <div class="entry-excerpt">
@@ -27,10 +27,24 @@
                                 </svg>
                             </span>
                         </div>
-                    </article> 
-                    <div class="divider"></div>
+                    </article>  -->
+                    <!-- <div class="divider"></div> -->
 
-                    <blog></blog>
+                    <article v-if="postsData != ''" v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
+                        <blog :post="post"></blog>
+                    </article>
+                    <article v-else><nothing message="Loading Posts...Please Wait"></nothing></article>
+                    <ul v-if="postsData != ''" class="page-numbers heading">
+                        <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
+                            <!-- <div slot="spinner">Loading...</div> -->
+                            <div slot="no-more">
+                                <nothing message="No more posts today"></nothing>
+                            </div>
+                            <div slot="no-results">
+                                <nothing v-if="postsData.results.length == 0 " message="No Posts yet"></nothing>
+                            </div>
+                        </infinite-loading>
+                    </ul>
 
                 </div> <!--col-md-8-->
                 <div class="col-md-4 pl-md-5 sticky-sidebar">                    
@@ -43,9 +57,60 @@
 <script>
 import Porpular from '@/components/pages/Porpular'
 import Blog from '@/components/pages/Blog.vue'
+import Nothing from '@/components/more/Nothing'
 export default {
     components: {
-        Porpular, Blog
+        Porpular, Blog, Nothing
+    },
+    data(){
+        return {
+            postsData: [],
+            slug: null
+        }
+    },
+    mounted(){
+        this.getTagPosts();
+    },
+    watch: {
+        '$route'(to, from) {
+            this.getTagPosts()
+        }
+    },
+    methods: {
+        getTagPosts(){
+            var tag = this.$route.params.tag
+            this.slug = tag
+            axios.get('/posts/tags/'+tag+'?limit='+process.env.VUE_APP_PAGINATION+'&offset=0')
+            .then( response => {
+                this.postsData = response.data
+            });
+        },
+        infiniteHandler($state) {
+            let posts = this.postsData;
+            if(posts.next == null){
+                $state.complete();
+            }else{
+                axios.get(posts.next)
+                .then((response) => {
+                   var existing = this.postsData;
+                    response.data.results.forEach( data => existing.results.push(data))
+                    existing.next = response.data.next
+                    existing.previous = response.data.previous
+                    existing.count = response.data.count
+                    this.postsData = existing
+                    if (response.data.next != null) {
+                        $state.loaded();
+                    } else {
+                        $state.complete();
+                    }
+                });
+            }
+        },
+    },
+    filters: {
+        getTag(slug){
+            return slug.replace(/(-)/, ' ')
+        }
     }
 }
 </script>

@@ -22,12 +22,7 @@
                     </figure>  <!--figure-->
                     <article class="entry-wraper mb-5 col-md-8">
                         <div class="entry-left-col">
-                            <div class="social-sticky">
-                                <a href="#"><i class="icon-facebook"></i></a>
-                                <a href="#"><i class="icon-twitter"></i></a>
-                                <a href="#"><i class="fa fa-heart-o"></i></a>
-                                <a href="#"><i class="fa fa-bookmark-o"></i></a>
-                            </div>
+                            <fav-links></fav-links>
                         </div>
                        
                         <div v-if="defaultValue !== ``" class="entry-main-content dropcap">
@@ -83,11 +78,12 @@ import Comments from '@/components/pages/Comments'
 import RelatedPosts from '@/components/pages/RelatedPosts'
 import Subscribe from '@/components/pages/Subscribe'
 import VueTagsInput from '@johmun/vue-tags-input';
+import FavLinks from '../components/pages/single/FavLinks';
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
 export default {
     components: {
-        Comments, RelatedPosts, Subscribe, VueTagsInput,VueMomentsAgo
+        Comments, RelatedPosts, Subscribe, VueTagsInput,VueMomentsAgo, FavLinks
     },
     data(){
         return {
