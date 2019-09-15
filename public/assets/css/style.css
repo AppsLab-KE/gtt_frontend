@@ -351,7 +351,8 @@ body,
 /*BEGIN STYLE*/
 #content {
   max-width: 100%;
-  padding-top: 2rem;
+  padding-top: 10px;
+  /* padding-top: 2rem; */
 }
 
 /*Top Search*/
@@ -435,7 +436,7 @@ input.search_field {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 999;
 }
 
 .sticky-header {
@@ -1224,6 +1225,7 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
   margin-top: .15em;
   margin-right: 0.15em;
   line-height: 1;
+  text-transform: capitalize;
 }
 
 .dropcap blockquote p:first-child:first-letter {

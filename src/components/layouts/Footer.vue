@@ -10,7 +10,7 @@
                     <ul class="social-network inline text-md-right text-sm-center">
                         <li class="list-inline-item"><a href="#"><i class="icon-facebook"></i></a></li>
                         <li class="list-inline-item"><a href="#"><i class="icon-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="icon-behance"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fa fa-github"></i></a></li>
                     </ul>
                 </div>
             </div>    

@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-8">
                     <h4 class="spanborder">
-                        <span v-if="slug !== null">{{slug | getCategory}}</span>
+                       <span v-if="slug !== null">#{{slug | getTag}}</span>
                     </h4> 
 
                     <!-- <article class="first mb-3">
@@ -69,18 +69,18 @@ export default {
         }
     },
     mounted(){
-        this.getCategoryPosts();
+        this.getTagPosts();
     },
     watch: {
         '$route'(to, from) {
-            this.getCategoryPosts()
+            this.getTagPosts()
         }
     },
     methods: {
-        getCategoryPosts(){
-            var category = this.$route.params.category
-            this.slug = category
-            axios.get('/posts/categories/'+category+'?limit='+process.env.VUE_APP_PAGINATION+'&offset=0')
+        getTagPosts(){
+            var tag = this.$route.params.tag
+            this.slug = tag
+            axios.get('/posts/tags/'+tag+'?limit='+process.env.VUE_APP_PAGINATION+'&offset=0')
             .then( response => {
                 this.postsData = response.data
             });
@@ -108,18 +108,10 @@ export default {
         },
     },
     filters: {
-        getCategory(slug){
+        getTag(slug){
             return slug.replace(/(-)/, ' ')
         }
     }
 }
 </script>
-
-<style lang="scss">
-.spanborder {
-    span {
-        text-transform: capitalize;
-    }
-}
-</style>
 

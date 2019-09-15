@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 
 export function initialize(store, router) {
 
@@ -6,7 +8,7 @@ export function initialize(store, router) {
         if (store.getters.isAuthenticated) {
             config.headers['Authorization'] = `Bearer ${store.state.token}`
         }
-        console.log('Starting Request', config)
+        // console.log('Starting Request', config)
         return config
     })
 
@@ -17,8 +19,8 @@ export function initialize(store, router) {
 
     axios.interceptors.response.use(null,(error) => {
         if (error.response.status == 401){
-            store.commit('AUTH_LOGOUT');
-        //    router.push('/');
+            store.dispatch('AUTH_LOGOUT');
+           router.push({name: 'home'});
         }
         return Promise.reject(error);
     });

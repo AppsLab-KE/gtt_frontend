@@ -8,7 +8,6 @@
                     </router-link></h1>
                 <div class="header-right float-right w-50">                    
                     <div class="d-inline-flex float-right text-right align-items-center">
-                        
                        <nav-user-login></nav-user-login>
                        <login-modal></login-modal>
                     </div>
@@ -49,5 +48,7 @@ export default {
 </script>
 
 <style scoped>
-
+#main-menu{
+    height: 65px!important;
+}
 </style>

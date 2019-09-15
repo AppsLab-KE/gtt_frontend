@@ -32,7 +32,7 @@
                         <div class="edit-phto1 change-avatar" >
                             <label class="fileContainer1">
                                 Choose Image
-                                <input type="file" id="file"  ref="file" @change="onFileChange"/>
+                                <input type="file" id="file" required ref="file" @change="onFileChange"/>
                             </label>
                         </div>
                     </div>
@@ -68,6 +68,10 @@
         methods: {
             uploadFile () {
                 this.button.avatar = 'Updating avatar...'
+                if(this.file == ''){
+                    this.allerrors = {avatar: [{message: 'Image is required !'}]}
+                    return
+                }
                 this.allerrors = []
                 let options = {
                     type: 'blob',
@@ -98,8 +102,8 @@
                         return;
                     })
                     .catch((error) => {
-                        console.log(error.response)
-                        this.allerrors = error.response.data.details;
+                        // console.log(error.response)
+                        this.allerrors = error.response.data.detail;
                         this.button.avatar = 'Change Avatar'
                     });
                 });
@@ -163,7 +167,7 @@
 <style scoped>
 .change-avatar{
     color: #fff;
-    background-color: #0B8DCD;
+    background-color: #45A87C;
     border-radius: 0px;
 }
 .fileContainer1 [type=file] {
