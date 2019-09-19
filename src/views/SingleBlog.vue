@@ -1,76 +1,76 @@
 <template>
     <div class="container" v-if="defaultValue !== ``">
-                    <div class="entry-header">                        
-                        <div class="mb-5">
-                            <h1 class="entry-title m_b_2rem">
-                            {{post.post_heading}} 
-                            </h1>
-                            <div class="entry-meta align-items-center">
-                                <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" class="author-avatar" href="##"><img :src="post.post_author.user_avatar" alt=""></router-link>
-                                <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}">{{post.post_author.first_name}} {{post.post_author.last_name}}</router-link> in
-                                 <router-link :to="{name: 'category',params: {category: post.category.category_name}}">{{post.category.category_name}}</router-link><br>                                    
-                                <span>
-                                    {{post.date_published | dateshow}}
-                                    <vue-moments-ago prefix=">" suffix="ago" :date="post.date_published"></vue-moments-ago>
-                                </span>
-                                <span class="middotDivider"></span>
-                            </div>
+        <div class="entry-header">                        
+            <div class="mb-5">
+                <h1 class="entry-title m_b_2rem">
+                {{post.post_heading}} 
+                </h1>
+                <div class="entry-meta align-items-center">
+                    <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" class="author-avatar" href="##"><img :src="post.post_author.user_avatar" alt=""></router-link>
+                    <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}">{{post.post_author.first_name}} {{post.post_author.last_name}}</router-link> in
+                        <router-link :to="{name: 'category',params: {category: post.category.category_name}}">{{post.category.category_name}}</router-link><br>                                    
+                    <span>
+                        {{post.date_published | dateshow}}
+                        <vue-moments-ago prefix=">" suffix="ago" :date="post.date_published"></vue-moments-ago>
+                    </span>
+                    <span class="middotDivider"></span>
+                </div>
+            </div>
+        </div> <!--end single header-->
+        <figure class="image zoom mb-5 col-md-8 offset-2">
+            <img :src="post.post_heading_image" alt="post-title" />
+        </figure>  <!--figure-->
+        <article class="entry-wraper mb-5 col-md-8">
+            <div class="entry-left-col">
+                <fav-links></fav-links>
+            </div>
+            
+            <div v-if="defaultValue !== ``" class="entry-main-content dropcap">
+                <medium-editor
+                :readOnly="true"
+                :prefill="defaultValue"
+                />
+                    <!--Begin Subcrible-->
+                <subscribe></subscribe>
+                <!--End Subcrible-->
+            </div>
+            <div class="entry-bottom">
+                <div class="tags-wrap heading">
+                    <span class="tags">
+                        <router-link v-for="(tag, $index) in post.tags" :key="$index" :to="{name: 'tag',params:{tag: tag.slug}}" rel="tag">{{tag.tag_name}}</router-link>
+                    </span>
+                </div>
+            </div>
+                <div class="box box-author m_b_2rem">
+                <div class="post-author row-flex">
+                    <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" >
+                        <div class="author-img">
+                            <img alt="author avatar" :src="post.post_author.user_avatar" class="avatar">
                         </div>
-                    </div> <!--end single header-->
-                    <figure class="image zoom mb-5 col-md-8 offset-2">
-                        <img :src="post.post_heading_image" alt="post-title" />
-                    </figure>  <!--figure-->
-                    <article class="entry-wraper mb-5 col-md-8">
-                        <div class="entry-left-col">
-                            <fav-links></fav-links>
+                    </router-link>
+                    <div class="author-content">
+                    <div class="top-author">
+                        <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" >
+                            <h5 class="heading-font">{{post.post_author.first_name +" "+ post.post_author.last_name}}
+                            </h5>
+                        </router-link>
+                        <h6>@{{ post.post_author.username }}</h6>
+                        <p>{{post.post_author.bio}}</p>
                         </div>
-                       
-                        <div v-if="defaultValue !== ``" class="entry-main-content dropcap">
-                            <medium-editor
-                            :readOnly="true"
-                            :prefill="defaultValue"
-                            />
-                             <!--Begin Subcrible-->
-                            <subscribe></subscribe>
-                            <!--End Subcrible-->
-                        </div>
-                        <div class="entry-bottom">
-                            <div class="tags-wrap heading">
-                                <span class="tags">
-                                    <router-link v-for="(tag, $index) in post.tags" :key="$index" :to="{name: 'tag',params:{tag: tag.slug}}" rel="tag">{{tag.tag_name}}</router-link>
-                                </span>
-                            </div>
-                        </div>
-                         <div class="box box-author m_b_2rem">
-                            <div class="post-author row-flex">
-                                <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" >
-                                    <div class="author-img">
-                                        <img alt="author avatar" :src="post.post_author.user_avatar" class="avatar">
-                                    </div>
-                                </router-link>
-                                <div class="author-content">
-                                <div class="top-author">
-                                    <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}" >
-                                        <h5 class="heading-font">{{post.post_author.first_name +" "+ post.post_author.last_name}}
-                                        </h5>
-                                    </router-link>
-                                    <h6>@{{ post.post_author.username }}</h6>
-                                    <p>{{post.post_author.bio}}</p>
-                                    </div>
-                                </div>
-                            </div> 
-                        </div> 
-                    </article> <!--entry-content-->
+                    </div>
+                </div> 
+            </div> 
+        </article> <!--entry-content-->
 
-                    <!--Begin Comment-->
-                    <comments></comments>
-                    <!--End Comment-->
-                    
-                    <!--Begin post related-->
-                   <related-posts></related-posts>
-                    <!--End post related-->
+        <!--Begin Comment-->
+        <comments v-if="defaultValue !== ``" :post="post"></comments>
+        <!--End Comment-->
+        
+        <!--Begin post related-->
+        <related-posts></related-posts>
+        <!--End post related-->
 
-                </div> <!--container-->
+    </div> <!--container-->
 </template>
 
 <script>
