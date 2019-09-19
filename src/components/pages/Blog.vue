@@ -1,6 +1,7 @@
 <template>
-     <div class="row" >               
-        <div class="col-md-8">
+<!-- flex-column-reverse flex-md-row -->
+     <div class="row blog " >               
+        <div class="col-md-8 col-xs-8">
             <div class="align-self-center">
                 <div class="capsSubtle mb-2"><router-link :to="{name: 'category',params: {category: post.category.category_name}}">{{post.category.category_name}}</router-link></div>
                 <h3 class="entry-title mb-3"><router-link :to="{name: 'single', params: {slug : post.slug,username:'@'+post.post_author.username}}">{{post.post_heading}}</router-link></h3>
@@ -21,7 +22,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 bgcover">
+        <div class="col-md-4 col-xs-4 bgcover text-center">
             <router-link :to="{name: 'single', params: {slug : post.slug,username:'@'+post.post_author.username}}">
                 <img :src="post.post_heading_image" alt="">
             </router-link>
@@ -50,3 +51,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss" scoped>
+.blog {
+    padding: 0px 10px 10px;
+}
+</style>
+

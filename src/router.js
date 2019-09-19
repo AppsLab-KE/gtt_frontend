@@ -51,7 +51,7 @@ const router =  new Router({
     { path: '/publish', name: 'publish', beforeEnter: ifAuthenticated, component: () => import('./views/account/author/CreatePost.vue') },
     // ? last route
     {
-        path: 'index.html', // or '*' this is for PWA
+        path: '/index.html', // or '*' this is for PWA
         beforeEnter: (_to, _from, next) => {
           next('/')
         }

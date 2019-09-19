@@ -1219,6 +1219,25 @@ blockquote p:last-child, blockquote ul:last-child, blockquote ol:last-child {
   font-size: 13px;
 }
 
+.social-sticky1 {
+    position: -webkit-sticky;
+    /* position: sticky; */
+    top: 70px;
+  }
+  
+  .social-sticky1 a {
+    display: inline-table;
+    color: rgba(0,0,0,.54);
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,.34);
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    margin-left: 0.5rem;
+    font-size: 13px;
+  }
+
 .dropcap p:first-child:first-letter {
   font-size: 4em;
   float: left;

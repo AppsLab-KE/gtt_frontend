@@ -19,9 +19,43 @@
                     <a class="btn btn-success" href="#" v-b-modal.my-modal-login>Login to Comment</a>
                 </div>
                 <!-- #respond -->
-                <div class="col-md-12">
-                    <div class="row">
-                        <p>Coments here...</p>
+                <div class="">
+                    <div>
+                        <b-card class="comment-box text-center">
+                            <div v-if="postCount <= 0" class="bg-secondary text-light">
+                                <nothing message="No comments yet !"></nothing>
+                            </div>
+                            <div v-else class="">
+                                <span @click="getCommets" class="bg-secondary load-comments text-light" style="padding: 10px;" v-if="!showCommets">See comments ({{postCount}})</span>
+                                <div v-else>
+                                    <h4 class="text-left">Comments ({{postCount}})</h4><br>
+                                    <div v-for="(comment, $index) in comments.results" :key="$index" class="comment-card">
+                                        <div class="post-author row-flex" style="padding:5px!important;">
+                                            <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
+                                                <div class="author-img">
+                                                    <img alt="author avatar" :src="comment.user_that_commented.user_avatar" width="70" class="">
+                                                </div>
+                                            </router-link>
+                                            <div class="author-content">
+                                            <div class="top-author text-left">
+                                                <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
+                                                    <h5 class="heading-font">{{comment.user_that_commented.first_name +" "+ comment.user_that_commented.last_name}} 
+                                                        <small>@{{ comment.user_that_commented.username }} </small> 
+                                                        <span class="pull-right"> &nbsp;
+                                                             <!-- {{comment.date_commented | dateshow}} -->
+                                                            <vue-moments-ago prefix=" " suffix="ago" :date="comment.date_commented"></vue-moments-ago>
+                                                        </span>
+                                                    </h5>
+                                                </router-link>
+                                                <p>{{comment.comment}}</p>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                     <a href="#" v-if="comments.next != null" class="btn btn-succ" @click.prevent="paginateComments">More comments</a>
+                                </div>
+                            </div>
+                        </b-card>
                     </div>
                 </div>
             </div>
@@ -30,7 +64,14 @@
 </template>
 
 <script>
+import Nothing from '@/components/more/Nothing'
+import VueMomentsAgo from 'vue-moments-ago'
+import moment from 'moment';
 export default {
+    props: ['post'],
+    components: {
+        Nothing, VueMomentsAgo, 
+    },
     data(){
         return {
             form: {
@@ -38,6 +79,9 @@ export default {
             },
             button: 'Post Comment',
             allerrors: [],
+            showCommets: false, 
+            comments: [],
+            postCount: this.post.comments_count,
         }
     },
     computed: {
@@ -62,6 +106,9 @@ export default {
                 this.allerrors = [];
                 this.button = 'Post Comment'
                 this.form.comment = ''
+                this.postCount ++ ;
+                this.getCommets();
+                return;
             })
             .catch(error => {
                 if(error.response){
@@ -69,8 +116,57 @@ export default {
                     this.button = 'Post Comment'
                 }
             })
+        },
+        getCommets(){
+            axios.get('/posts/'+this.post.slug+'/comments?offset=0&limit='+process.env.VUE_APP_PAGINATION)
+            .then(response => {
+                this.comments = response.data
+                // console.log(this.comments)
+            });
+            this.showCommets = true;
+        },
+        paginateComments()
+        {
+            let comments = this.comments;
+            if(comments.next == null){
+                return ;
+            }else{
+                axios.get(comments.next)
+                .then((response) => {
+                   var existing = comments;
+                    response.data.results.forEach( data => existing.results.push(data))
+                    existing.next = response.data.next
+                    existing.previous = response.data.previous
+                    existing.count = response.data.count
+                    this.comments = existing
+                    this.showCommets = true;
+                    return;
+                });
+            }
+            return;
         }
+    },
+    filters: {
+         dateshow(value){
+            var date = moment(value).format("MMM Do YY"); 
+            return date;
+        },
     }
 }
 </script>
+
+<style lang="scss">
+.comment-card{
+    background-color: #FAFAFA;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.comment-box{
+    margin-bottom: 20px;
+}
+.load-comments:hover{
+    cursor: pointer;
+}
+</style>
+
 
