@@ -17,12 +17,14 @@
                 </div>
             </div>
         </div> <!--end single header-->
-        <figure class="image zoom mb-5 col-md-8 offset-2">
+        <figure class="image zoom mb-5 col-md-8 offset-md-2">
             <img :src="post.post_heading_image" alt="post-title" />
         </figure>  <!--figure-->
         <article class="entry-wraper mb-5 col-md-8">
             <div class="entry-left-col">
-                <fav-links></fav-links>
+                <div class="social-sticky d-none d-lg-block">
+                    <fav-links :post='post'></fav-links>
+                </div>
             </div>
             
             <div v-if="defaultValue !== ``" class="entry-main-content dropcap">
@@ -39,6 +41,9 @@
                     <span class="tags">
                         <router-link v-for="(tag, $index) in post.tags" :key="$index" :to="{name: 'tag',params:{tag: tag.slug}}" rel="tag">{{tag.tag_name}}</router-link>
                     </span>
+                </div>
+                <div class="social-sticky1 d-lg-none">
+                    <fav-links :post='post'></fav-links>
                 </div>
             </div>
                 <div class="box box-author m_b_2rem">

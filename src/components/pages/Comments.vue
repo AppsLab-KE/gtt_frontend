@@ -25,11 +25,11 @@
                             <div v-if="postCount <= 0" class="bg-secondary text-light">
                                 <nothing message="No comments yet !"></nothing>
                             </div>
-                            <div @click="getCommets" v-else class="">
-                                <span class="bg-secondary text-light" style="padding: 10px;" v-if="!showCommets">See comments ({{postCount}})</span>
+                            <div v-else class="">
+                                <span @click="getCommets" class="bg-secondary load-comments text-light" style="padding: 10px;" v-if="!showCommets">See comments ({{postCount}})</span>
                                 <div v-else>
                                     <h4 class="text-left">Comments ({{postCount}})</h4><br>
-                                    <div v-if="comments !== ''" v-for="(comment, $index) in comments.results" :key="$index" class="comment-card">
+                                    <div v-for="(comment, $index) in comments.results" :key="$index" class="comment-card">
                                         <div class="post-author row-flex" style="padding:5px!important;">
                                             <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
                                                 <div class="author-img">
@@ -52,7 +52,7 @@
                                             </div>
                                         </div>  
                                     </div>
-                                     <a  v-if="comments.next != null" class="btn btn-succ" @click="paginateComments">More comments</a>
+                                     <a href="#" v-if="comments.next != null" class="btn btn-succ" @click.prevent="paginateComments">More comments</a>
                                 </div>
                             </div>
                         </b-card>
@@ -139,9 +139,11 @@ export default {
                     existing.previous = response.data.previous
                     existing.count = response.data.count
                     this.comments = existing
+                    this.showCommets = true;
                     return;
                 });
             }
+            return;
         }
     },
     filters: {
@@ -161,6 +163,9 @@ export default {
 }
 .comment-box{
     margin-bottom: 20px;
+}
+.load-comments:hover{
+    cursor: pointer;
 }
 </style>
 
