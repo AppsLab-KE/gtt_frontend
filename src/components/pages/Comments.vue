@@ -17,6 +17,7 @@
                 </div>
                 <div v-else class="comment-respond">
                     <a class="btn btn-success" href="#" v-b-modal.my-modal-login>Login to Comment</a>
+                    <br>
                 </div>
                 <!-- #respond -->
                 <div class="">
@@ -122,8 +123,12 @@ export default {
             .then(response => {
                 this.comments = response.data
                 // console.log(this.comments)
+                this.showCommets = true;
+            })
+            .catch( error => {
+                this.showCommets = false;
             });
-            this.showCommets = true;
+            return;
         },
         paginateComments()
         {
@@ -141,6 +146,9 @@ export default {
                     this.comments = existing
                     this.showCommets = true;
                     return;
+                })
+                .catch(error => {
+                    this.showCommets = false;
                 });
             }
             return;
