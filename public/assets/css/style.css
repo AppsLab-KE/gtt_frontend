@@ -1493,7 +1493,7 @@ pre {
   max-width: 100%;
   overflow: auto;
   padding: 1.75em;
-  white-space: pre;
+  /* white-space: pre; */
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -1501,4 +1501,26 @@ pre {
 /*OTHER*/
 button.owl-prev:hover, button.owl-next:hover {
   background: none !important;
+}
+
+pre {
+    overflow-x:scroll!important;
+    height: auto; 
+    width: 100%; 
+    font-size: 15px; 
+    /* word-break: normal;
+    word-wrap: normal; */
+    /* display:inline;  */
+    /* overflow-wrap: normal!important; */
+}
+
+@media screen and (max-width: 360px){
+    pre {
+        overflow-x:scroll!important;
+        height: auto; 
+        width: 100%; 
+        font-size: 12px; 
+        overflow-wrap: normal!important;
+        white-space: pre;
+    }
 }

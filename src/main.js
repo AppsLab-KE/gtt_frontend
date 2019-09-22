@@ -59,6 +59,9 @@ Vue.component('ValidationProvider', ValidationProvider);
 import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading, { /* options */ });
 
+require('./../public/assets/css/prettify.css');
+// require('./../public/assets/js/prettify');
+
 Vue.config.productionTip = false
 
 

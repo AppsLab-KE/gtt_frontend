@@ -180,9 +180,12 @@ export default {
         }
         this.getCategories()
         this.getTags()
-        // load the code stylings
+    
+    },
+    updated(){
+        require('./../../../../public/assets/js/prettify.js');
         const els = document.getElementsByTagName("pre");
-        console.log(els)
+        // console.log(els)
         for (let i = 0; i < els.length; i++) {
             const element = els[i];
             element.classList.add('prettyprint');

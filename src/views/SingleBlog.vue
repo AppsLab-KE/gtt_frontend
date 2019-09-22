@@ -96,7 +96,7 @@ export default {
             defaultValue: ``,
         }
     },
-    mounted(){
+    created(){
         var username = this.$route.params.username
         var slug = this.$route.params.slug
         axios.get('/posts/'+username+'/'+slug)
@@ -107,6 +107,16 @@ export default {
         .catch(error => {
             this.$router.push('/not-found');
         })
+
+    },
+    updated(){
+        require('./../../public/assets/js/prettify.js');
+        const els = document.getElementsByTagName("pre");
+        // console.log(els)
+        for (let i = 0; i < els.length; i++) {
+            const element = els[i];
+            element.classList.add('prettyprint');
+        }
     },
     methods: {
 
@@ -131,6 +141,7 @@ export default {
        border: 1px #DDDDDD solid!important; 
     }
 }
+
 </style>
 
 
