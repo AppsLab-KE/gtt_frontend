@@ -25,6 +25,7 @@
     "vue-infinite-loading": "^2.4.4",
     "vue-moments-ago": "^0.2.0",
     "vue-router": "^3.0.3",
+    "vue-spinner": "^1.0.3",
     "vuejs-medium-editor": "^1.0.1",
     "vuex": "^3.0.1"
   },
