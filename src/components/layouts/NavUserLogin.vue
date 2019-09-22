@@ -14,7 +14,8 @@
             <b-dropdown-item :to="{name: 'profile', params: {username: '@'+ currentUser.username}}">Profile</b-dropdown-item>
             <b-dropdown-item :to="{name: 'profile-edit'}">Edit Profile</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
-             <b-dropdown-item :to="{name: 'publish'}">Create Post</b-dropdown-item>
+             <b-dropdown-item v-if="currentUser.is_writer" :to="{name: 'publish'}">Create Post</b-dropdown-item>
+             <b-dropdown-item v-else to="#">Request Writership</b-dropdown-item>
              <b-dropdown-item href="#">Bookmarks</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
