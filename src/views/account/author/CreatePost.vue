@@ -131,6 +131,9 @@ export default {
                 uploadUrlHeader: {'Authorization': 'Client-ID a048dd8bea98363'},
                 file_input_name: "image",
                 imgur: true,
+                toolbar: {
+                buttons: ["bold", "italic", "underline", "quote", "h1", "h2", "h3", 'pre',          'unorderedlist']
+                }
             },
             cropped: null,
             file: '',
@@ -177,6 +180,16 @@ export default {
         }
         this.getCategories()
         this.getTags()
+    
+    },
+    updated(){
+        require('./../../../../public/assets/js/prettify.js');
+        const els = document.getElementsByTagName("pre");
+        // console.log(els)
+        for (let i = 0; i < els.length; i++) {
+            const element = els[i];
+            element.classList.add('prettyprint');
+        }
     },
     methods: {
         onChange() {

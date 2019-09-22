@@ -3,8 +3,8 @@
         <a href="#"><i class="icon-facebook"></i></a>
         <a href="#"><i class="icon-twitter"></i></a>
         <span class="float-right likes d-none d-lg-block">{{post.ratings_count}}</span>
-        <a href="#"><i :class="['fa', hasLiked ? 'fa-heart': 'fa-heart-o']"></i></a> 
-        <a href="#"><i :class="['fa', hasBookmarked ? 'fa-bookmark' : 'fa-bookmark-o']"></i></a>
+        <a :class="[hasLiked ? 'bg-theme' : '']" href="#" @click.prevent="likePost(post.slug)"><i :class="['fa', hasLiked ? 'fa-heart': 'fa-heart-o']"></i></a> 
+        <a :class="[hasBookmarked ? 'bg-theme' : '']" href="#"><i :class="['fa', hasBookmarked ? 'fa-bookmark' : 'fa-bookmark-o']"></i></a>
         <span class="float-right likes d-lg-none">{{post.ratings_count}} likes</span>
     </div>     
 </template>
@@ -17,6 +17,46 @@ export default {
             hasLiked: this.post.has_rated,
             hasBookmarked: this.post.has_bookmarked,
         }
+    },
+    methods: {
+        likePost(slug){
+            let rating = 1;
+            if(this.hasLiked){
+                rating = 0;
+            }else{
+                rating = 1;
+            }
+            let formData = new FormData();
+            formData.append('rating', rating);
+            axios.post('/posts/'+slug+'/rate', formData)
+            .then(response =>{
+                if(this.hasLiked){
+                    this.hasLiked = false;
+                }else{
+                    this.hasLiked = true;
+                }
+            });
+            return;
+        },
+        bookmarkPost(slug){
+            let rating = 1;
+            if(this.hasLiked){
+                rating = 0;
+            }else{
+                rating = 1;
+            }
+            let formData = new FormData();
+            formData.append('rating', rating);
+            axios.post('/posts/'+slug+'/rate', formData)
+            .then(response =>{
+                if(this.hasLiked){
+                    this.hasLiked = false;
+                }else{
+                    this.hasLiked = true;
+                }
+            });
+            return;
+        }
     }
 }
 </script>
@@ -26,6 +66,9 @@ export default {
     margin-left: 30px;
     position: absolute;
     padding: 2px 10px;
+}
+.bg-theme {
+    background-color: #45A87C;
 }
 </style>
 
