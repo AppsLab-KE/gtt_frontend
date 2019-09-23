@@ -52,6 +52,7 @@ const router =  new Router({
     { path: '/profile/edit', name: 'profile-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/EditProfile.vue') },
     //author
     { path: '/publish', name: 'publish', beforeEnter: ifAuthenticated, component: () => import('./views/account/author/CreatePost.vue') },
+    { path: '/publish/:username(@\\w+)/:slug/edit', name: 'post-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/author/EditPost.vue') },
     // ? last route for pwa default
     {
         path: '/index.html', // or '*' this is for PWA
