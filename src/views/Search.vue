@@ -19,7 +19,7 @@
                                 <nothing message="No more search results"></nothing>
                             </div>
                             <div slot="no-results">
-                                <nothing v-if="postsData.results.length == 0 " message="No Posts yet"></nothing>
+                                <nothing v-if="postsData.results.length == 0 " message="No search results"></nothing>
                             </div>
                         </infinite-loading>
                     </ul>

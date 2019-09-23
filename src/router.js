@@ -1,9 +1,11 @@
 /* eslint-disable no-unused-vars */
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from './views/Home.vue'
-import NotFoundComponent from './views/errors/404'
-import store from './store'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from './views/Home.vue';
+import NotFoundComponent from './views/errors/404';
+import ServerError from './views/errors/500';
+import NoInternet from './views/errors/NetworkError';
+import store from './store';
 
 Vue.use(Router)
 
@@ -58,6 +60,8 @@ const router =  new Router({
         }
     },
     { path: '/not-found', component: NotFoundComponent },
+    { path: '/server-error', name: 'server-error', component: ServerError },
+    { path: '/no-internet', name: 'no-internet', component: NoInternet },
     { path: '*', component: NotFoundComponent },
   ]
 })

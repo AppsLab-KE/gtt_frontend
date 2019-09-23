@@ -31,14 +31,14 @@ export default {
                 // console.log(data)
                 vm.$store.dispatch('AUTH_REQUEST', data).then((resp) => {
                     vm.$bvModal.hide('my-modal-login')
-                    console.log('Logged In')
+                    // console.log('Logged In')
                 })
             }).catch(error => {
                 vm.$store.commit('AUTH_ERROR', error)
                 localStorage.removeItem('c9edd058') 
                 localStorage.removeItem('user') 
                 delete axios.defaults.headers.common['Authorization']
-                console.log(error)
+                // console.log(error)
                 if (error.response) {
                 /*
                 * The request was made and the server responded with a
