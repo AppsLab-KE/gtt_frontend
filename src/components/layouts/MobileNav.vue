@@ -18,8 +18,8 @@
                 <div class="mobi-menu__logo">
                     <!-- <h1 class="logo navbar-brand"><a href="#" class="logo">Merinda</a></h1> -->
                 </div>
-                <form action="#" method="get" class="menu-search-form d-lg-flex">
-                    <input type="text" class="search_field" placeholder="Search..." value="" name="s">                    
+                <form action="#" method="get" class="menu-search-form d-lg-flex" @submit.prevent="search">
+                    <input type="text" class="search_field" placeholder="Search..." value="" v-model="form.search" required>                    
                 </form>
                 <nav>
                     <nav-links></nav-links>
@@ -39,5 +39,21 @@ export default {
             return process.env.VUE_APP_NAME
         }
     },
+    data() {
+        return {
+            form : {
+                search: '',
+            },
+        }
+    },
+    methods: {
+        search(){
+            if(this.$data.form.search != ''){
+                return this.$router.push({name: 'search', query:{ s : this.$data.form.search}});
+            }else{ 
+                return;
+            }
+        }
+    }
 }
 </script>

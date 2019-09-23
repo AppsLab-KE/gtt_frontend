@@ -38,7 +38,7 @@
                         <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
                             <!-- <div slot="spinner">Loading...</div> -->
                             <div slot="no-more">
-                                <nothing message="No more posts today"></nothing>
+                                <nothing message="No more posts for this tag"></nothing>
                             </div>
                             <div slot="no-results">
                                 <nothing v-if="postsData.results.length == 0 " message="No Posts yet"></nothing>

@@ -11,11 +11,11 @@
                        <nav-user-login></nav-user-login>
                        <login-modal></login-modal>
                     </div>
-                    <form action="#" method="get" class="search-form d-lg-flex float-right">
+                    <form action="#" method="get" class="search-form d-lg-flex float-right" @submit.prevent="search">
                         <a href="javascript:void(0)" class="searh-toggle">
                             <i class="icon-search"></i>
                         </a>
-                        <input type="text" class="search_field" placeholder="Search..." value="" name="s">
+                        <input type="text" class="search_field" placeholder="Search..." value="" v-model="form.search">
                     </form>
                 </div>              
             </div>
@@ -44,6 +44,22 @@ export default {
             return process.env.VUE_APP_NAME
         }
     },
+    data() {
+        return {
+            form : {
+                search: '',
+            },
+        }
+    },
+    methods: {
+        search(){
+            if(this.$data.form.search != ''){
+                return this.$router.push({name: 'search', query:{ s : this.$data.form.search}});
+            }else{ 
+                return;
+            }
+        }
+    }
 }
 </script>
 
