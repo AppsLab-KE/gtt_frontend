@@ -4,7 +4,7 @@
         <a href="#"><i class="icon-twitter"></i></a>
         <span class="float-right likes d-none d-lg-block">{{post.ratings_count}}</span>
         <a :class="[hasLiked ? 'bg-theme' : '']" href="#" @click.prevent="likePost(post.slug)"><i :class="['fa', hasLiked ? 'fa-heart': 'fa-heart-o']"></i></a> 
-        <a :class="[hasBookmarked ? 'bg-theme' : '']" href="#"><i :class="['fa', hasBookmarked ? 'fa-bookmark' : 'fa-bookmark-o']"></i></a>
+        <a :class="[hasBookmarked ? 'bg-theme' : '']" href="#" @click.prevent="bookmarkPost(post.slug)"><i :class="['fa', hasBookmarked ? 'fa-bookmark' : 'fa-bookmark-o']"></i></a>
         <span class="float-right likes d-lg-none">{{post.ratings_count}} likes</span>
     </div>     
 </template>
@@ -39,22 +39,17 @@ export default {
             return;
         },
         bookmarkPost(slug){
-            let rating = 1;
-            if(this.hasLiked){
-                rating = 0;
+            if(this.hasBookmarked){
+                axios.post('/bookmarks/'+slug+'/delete', {})
+                .then(response =>{
+                    this.hasBookmarked = false;
+                });
             }else{
-                rating = 1;
+                axios.post('/posts/'+slug+'/bookmark/create', {})
+                .then(response =>{
+                    this.hasBookmarked = true;
+                });
             }
-            let formData = new FormData();
-            formData.append('rating', rating);
-            axios.post('/posts/'+slug+'/rate', formData)
-            .then(response =>{
-                if(this.hasLiked){
-                    this.hasLiked = false;
-                }else{
-                    this.hasLiked = true;
-                }
-            });
             return;
         }
     }
