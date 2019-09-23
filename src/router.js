@@ -46,10 +46,11 @@ const router =  new Router({
     { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
     // ? Accounts
     { path: '/:username(@\\w+)', name: 'profile', beforeEnter: ifAuthenticated, component: () => import('./views/account/Profile.vue') },
+    { path: '/bookmarks', name: 'bookmarks', beforeEnter: ifAuthenticated, component: () => import('./views/account/Bookmarks.vue') },
     { path: '/profile/edit', name: 'profile-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/EditProfile.vue') },
     //author
     { path: '/publish', name: 'publish', beforeEnter: ifAuthenticated, component: () => import('./views/account/author/CreatePost.vue') },
-    // ? last route
+    // ? last route for pwa default
     {
         path: '/index.html', // or '*' this is for PWA
         beforeEnter: (_to, _from, next) => {
