@@ -3,7 +3,7 @@
         <div class="content-widget">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-8 offset-2 row">                               
+                    <div class="col-md-8 offset-md-2 row">                               
                         <div class="box box-author m_b_2rem col-md-8">
                             <div class="post-author row-flex">
                                 
@@ -36,7 +36,7 @@
                                 </div>
                             </div> 
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 col-xs-8 offset-xs-2">
                             <div class="author-img">
                                 <img alt="author avatar" :src="currentUser.user_avatar" class="avatar">
                                 <edit-avatar></edit-avatar>
@@ -106,7 +106,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 
 </style>
 

@@ -5,59 +5,20 @@
         </h4>
         <div class="row justify-content-between">
                 <div class="divider-2"></div>                                    
-            <article class="col-md-4">
+            <article v-if="relateds != ''" v-for="(related, $index) in relateds" :key="$index" class="col-md-4">
                 <div class="mb-3 d-flex row">
-                    <figure class="col-md-5"><a href="#"><img src="/assets/images/thumb/thumb-512x512-2.jpg" alt="post-title"></a></figure>
+                    <figure class="col-md-5"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}"><img :src="related.post_heading_image" alt="post-title"></router-link></figure>
                     <div class="entry-content col-md-7 pl-md-0">                                    
-                        <h5 class="entry-title mb-3"><a href="#">Is ‘Interactive Storytelling’ the Future of Media?</a></h5>
+                        <h5 class="entry-title mb-3"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}">{{related.post_heading}}</router-link></h5>
                         <div class="entry-meta align-items-center">
-                            <a href="#">Furukawa</a> in <a href="#">Programing</a><br>                                    
-                            <span>March 14</span>
-                            <span class="middotDivider"></span>
-                            <span class="readingTime" title="3 min read">6 min read</span>
-                            <span class="svgIcon svgIcon--star">
-                                <svg class="svgIcon-use" width="15" height="15">
-                                    <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                </svg>
+                            <router-link :to="{name: 'profile',params:{username:'@'+related.post_author.username}}">{{related.post_author.first_name}} {{related.post_author.last_name}}</router-link> in 
+                            <router-link :to="{name: 'category',params: {category: related.category.category_name}}">{{related.category.category_name}}</router-link>
+                            <br>                                    
+                            <span>
+                                {{related.date_published | dateshow}}
+                         <vue-moments-ago prefix=":" suffix="ago" :date="related.date_published"></vue-moments-ago>
                             </span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article class="col-md-4">
-                <div class="mb-3 d-flex row">
-                    <figure class="col-md-5"><a href="#"><img src="/assets/images/thumb/thumb-512x512-3.jpg" alt="post-title"></a></figure>
-                    <div class="entry-content col-md-7 pl-md-0">                                    
-                        <h5 class="entry-title mb-3"><a href="#">How NOT to get a $30k bill from Firebase</a></h5>
-                        <div class="entry-meta align-items-center">
-                            <a href="#">Glorida</a> in <a href="#">Living</a><br>                                    
-                            <span>April 14</span>
                             <span class="middotDivider"></span>
-                            <span class="readingTime" title="3 min read">7 min read</span>
-                            <span class="svgIcon svgIcon--star">
-                                <svg class="svgIcon-use" width="15" height="15">
-                                    <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                </svg>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </article>
-            <article class="col-md-4">
-                <div class="mb-3 d-flex row">
-                    <figure class="col-md-5"><a href="#"><img src="/assets/images/thumb/thumb-512x512-4.jpg" alt="post-title"></a></figure>
-                    <div class="entry-content col-md-7 pl-md-0">                                    
-                        <h5 class="entry-title mb-3"><a href="#">Google Can’t Figure Out What YouTube Is</a></h5>
-                        <div class="entry-meta align-items-center">
-                            <a href="#">Rayan Mark</a> in <a href="#">GEN</a><br>                                    
-                            <span>Jun 14</span>
-                            <span class="middotDivider"></span>
-                            <span class="readingTime" title="3 min read">8 min read</span>
-                            <span class="svgIcon svgIcon--star">
-                                <svg class="svgIcon-use" width="15" height="15">
-                                    <path d="M7.438 2.324c.034-.099.09-.099.123 0l1.2 3.53a.29.29 0 0 0 .26.19h3.884c.11 0 .127.049.038.111L9.8 8.327a.271.271 0 0 0-.099.291l1.2 3.53c.034.1-.011.131-.098.069l-3.142-2.18a.303.303 0 0 0-.32 0l-3.145 2.182c-.087.06-.132.03-.099-.068l1.2-3.53a.271.271 0 0 0-.098-.292L2.056 6.146c-.087-.06-.071-.112.038-.112h3.884a.29.29 0 0 0 .26-.19l1.2-3.52z"></path>
-                                </svg>
-                            </span>
                         </div>
                     </div>
                 </div>
@@ -65,3 +26,43 @@
         </div>
     </div>
 </template>
+<script>
+import VueMomentsAgo from 'vue-moments-ago'
+import moment from 'moment';
+export default {
+    props: ['category'],
+    data(){
+        return {
+            relateds: [],
+        }
+    },
+    components: {
+        VueMomentsAgo,
+    },
+    mounted(){
+        this.getRelatedPosts()
+    },
+    methods: {
+        getRelatedPosts(){
+            axios.get('/posts/categories/'+this.category+'?limit=3&offset=0')
+            .then( response => {
+                // console.log(response.data)
+                this.relateds = response.data.results;
+            })
+        },
+    },
+    filters:{
+        trimPost(body){
+            let noHtml = body.replace(/(&nbsp;|<([^>]+)>)/ig, "")
+            let noSpace = noHtml.replace(/ +(?= )/g,'');
+            let final = noSpace.length > 350 ? noSpace.substring(0, 350) + '...' : noSpace 
+            return final
+        },
+        dateshow(value){
+            var date = moment(value).format("MMM Do YY"); 
+            return date;
+        },
+    }
+}
+</script>
+

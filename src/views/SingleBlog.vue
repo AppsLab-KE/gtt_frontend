@@ -72,7 +72,7 @@
         <!--End Comment-->
         
         <!--Begin post related-->
-        <related-posts></related-posts>
+        <related-posts :category="post.category.slug" v-if="defaultValue !== ``"></related-posts>
         <!--End post related-->
 
     </div> <!--container-->
@@ -107,7 +107,6 @@ export default {
         .catch(error => {
             this.$router.push('/not-found');
         })
-
     },
     updated(){
         require('./../../public/assets/js/prettify.js');
@@ -119,7 +118,7 @@ export default {
         }
     },
     methods: {
-
+        
     },
     filters:{
         trimPost(body){

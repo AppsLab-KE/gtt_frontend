@@ -4,7 +4,7 @@
             <div class="container">
                 <div class="row">
                     <div v-if="user.length !== ''" class="col-md-8">                               
-                        <div class="box box-author m_b_2rem">
+                        <div class="box box-author m_b_2rem col-xs-12">
                             <div class="post-author row-flex">
                                 <div class="author-img">
                                     <img alt="author avatar" :src="user.user_avatar" class="avatar">
@@ -146,3 +146,12 @@ export default {
     },
 }
 </script>
+
+<style lang="scss" scoped>
+.row-flex{ 
+    @media screen and (max-width: 360px){
+        padding: 10px;
+    }
+}
+</style>
+

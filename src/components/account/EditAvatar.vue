@@ -164,7 +164,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" >
 .change-avatar{
     color: #fff;
     background-color: #45A87C;
@@ -205,18 +205,24 @@
 .icon {
   color: #000f!important;
   font-size: 50px!important;
+  text-align: center!important;
   position: absolute!important;
   top: 70%!important;
   left: 50%!important;
   transform: translate(-50%, -50%)!important;
   -ms-transform: translate(-50%, -50%)!important;
   /* text-align: center!important; */
+  @media only screen and (max-width: 768px) {
+        position: absolute!important;
+  top: 70%!important;
+  left: 30%!important;
+  }
 }
 .fa-camera:hover {
   color: #000f00!important;
 }
 .avatar{
-    opacity: 0.3!important;
+    opacity: 0.7!important;
 }
 </style>
 
