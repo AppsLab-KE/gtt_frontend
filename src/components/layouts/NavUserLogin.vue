@@ -15,7 +15,7 @@
             <b-dropdown-item :to="{name: 'profile-edit'}">Edit Profile</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
              <b-dropdown-item v-if="currentUser.is_writer" :to="{name: 'publish'}">Create Post</b-dropdown-item>
-             <b-dropdown-item v-else to="#">Request Writership</b-dropdown-item>
+             <b-dropdown-item v-else @click.prevent="sendRequest" to="#">Request Writership</b-dropdown-item>
              <b-dropdown-item :to="{name: 'bookmarks'}">Bookmarks</b-dropdown-item>
              <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
@@ -33,6 +33,21 @@ export default {
             .then(() => {
                 console.log('Logged Out')
                 this.$router.push({name: 'home'})
+            })
+        }, 
+        sendRequest(){
+            axios.post('/users/request_writership')
+            .then( response => {
+                this.$bvToast.toast(response.data.detail, {
+                    title: 'Writership',
+                    variant: 'success'
+                });
+            })
+            .catch( error => {
+                this.$bvToast.toast('Error occured, try again', {
+                    title: 'Writership',
+                    variant: 'danger'
+                });
             })
         }
     },
