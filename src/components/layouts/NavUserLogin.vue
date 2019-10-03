@@ -1,8 +1,8 @@
 <template>
     <span class="top-menu heading d-lg-flex align-items-center">
-        <ul v-if="isLoggedIn"  class="social-network notif heading navbar-nav align-items-center d-none d-lg-block">                  
+        <!-- <ul v-if="isLoggedIn"  class="social-network notif heading navbar-nav align-items-center d-none d-lg-block">                  
             <li><a href="#"><i class="fa fa-bell"></i></a></li>
-        </ul>
+        </ul> -->
         <a v-if="!isLoggedIn" v-b-modal.my-modal-login class="btn">Login</a>
         <b-dropdown v-else variant="link" toggle-tag='link' toggle-class="text-decoration-none" class="drop-manu float-right" no-caret>
             <template slot="button-content">
@@ -20,9 +20,9 @@
              <b-dropdown-divider></b-dropdown-divider>
             <b-dropdown-item href="#" @click="logout()">Logout</b-dropdown-item>
         </b-dropdown>
-         <ul v-if="isLoggedIn"  class="social-network heading navbar-nav align-items-center d-lg-none">    
+         <!-- <ul v-if="isLoggedIn"  class="social-network heading navbar-nav align-items-center d-lg-none">    
             <li><a href="#"><i class="fa fa-bell"></i></a></li>
-        </ul>
+        </ul> -->
     </span>
 </template>
 <script>

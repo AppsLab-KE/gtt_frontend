@@ -31,7 +31,7 @@ a:focus {
   color: #535353;
 }
 
-/*MAIN COLOR #03a87c, #1a1a1a*/
+/*MAIN COLOR #299999, #1a1a1a*/
 
 /*Color*/
 a:hover,
@@ -47,8 +47,8 @@ button.owl-next:hover i,
 .copyright a,
 .entry-main-content a
  {
-  color: #03a87c !important;
-  fill: #03a87c !important;
+  color: #299999 !important;
+  fill: #299999 !important;
 }
 
 /*Background*/
@@ -62,7 +62,7 @@ input[type="button"]:hover,
 input[type="reset"]:hover,
 input[type="submit"],
 .blue {
-  background-color: #03a87c !important;
+  background-color: #299999 !important;
 }
 
 .popup-close:hover {
@@ -94,7 +94,7 @@ input[type="submit"],
 .form-control:focus,
 .btn-green
  {
-  border-color: #03a87c;
+  border-color: #299999;
 }
 
 /*footer*/

@@ -248,8 +248,8 @@ hr.section-divider::before {
 }
 .btn-success {
   color: #fff;
-  background-color: #03a87c;
-  border-color: #03a87c;
+  background-color: #299999;
+  border-color: #299999;
 }
 .small-text {
   font-size: 0.875em;
