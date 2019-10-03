@@ -2,7 +2,8 @@
     <div class="content-widget">
         <div class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0">
-                <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0" style="background-image:url(assets/images/bg1.png);"></div>
+                <div class="col-lg-6 col-md-4 bgcover  ml-0" style="background-image:url(assets/images/bg1.png);"></div>
+                <!-- d-none d-md-block -->
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
                         <div class="capsSubtle mb-2">About us</div>
