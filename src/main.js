@@ -24,7 +24,11 @@ Vue.use(VueAuthenticate, {
     bitbucket: {
         clientId: process.env.VUE_APP_BITBUCKET_CLIENT_ID,
         redirectUri: process.env.VUE_APP_APP_URL + '/oauth/complete/bitbuket/' // Your client app URL
-      }
+    },
+    google: {
+        clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
+        redirectUri: process.env.VUE_APP_APP_URL + '/oauth/complete/google/' // Your client app URL
+    }
   }
 })
 //Use the window object to make it available globally.

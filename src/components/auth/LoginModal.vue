@@ -12,7 +12,7 @@
             <span class="fa fa-github"></span> Github
         </a>
             or
-        <a class="btn btn-block btn-social btn-google text-center">
+        <a class="btn btn-block btn-social btn-google text-center" @click="authenticate('google')">
             <span class="fa fa-google"></span> Google
         </a>
     </div>
