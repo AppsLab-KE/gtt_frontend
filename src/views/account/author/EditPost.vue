@@ -6,10 +6,10 @@
                     <div class="col-md-12 creator">  
                         <div class="container phone-creater">
                             <div class="col-md-12 phone-creater">
-                                <div v-if="savedDraft != ''" class="publish float-right d-lg-none">
-                                    <span v-if="isTyping" class="draft">Draft saved</span>
+                                <div class="publish float-right">
+                                    <!-- <span v-if="isTyping" class="draft">Draft saved</span> -->
                                         <span class="top-menu ">
-                                        <a v-if="savedDraft.content !== '<p><br></p>' " href="#" v-b-modal.modal-xl class="btn">Publish?</a>
+                                        <a href="#" v-b-modal.modal-xl-1 class="btn">Republish?</a>
                                     </span>
                                 </div>
                                 <div class="title-input">
@@ -34,7 +34,7 @@
                 </div>
             </div> <!--content-widget-->
         </div>
-        <b-modal id="modal-xl" size="xl" centered hide-footer hide-header scrollable title="Extra Large Modal">
+        <b-modal id="modal-xl-1" size="xl" centered hide-footer hide-header scrollable title="Extra Large Modal">
             <div class="container">
                 <div class="col-md-12">
                     <div class="row">
@@ -159,10 +159,18 @@ export default {
             this.post = response.data
             this.defaultValue = response.data.post_body
             this.title = response.data.post_heading
+            response.data.tags.forEach(tag => {
+                this.tags.push({ "text": tag.tag_name, "tiClasses": [ "ti-valid" ] })
+            });
+            this.category = response.data.category.category_name;
         })
         .catch(error => {
             this.$router.push('/not-found');
-        })
+        });
+        this.$root.$on('bv::modal::shown', (bvEvent, modalId) => {
+            // console.log('Modal is about to be shown', bvEvent, modalId)
+            this.bind(this.post.post_heading_image);
+        });
         const cwidth = $(window).width();
         // console.log(cwidth);
         if(cwidth < 1200 && cwidth >= 992){
@@ -194,11 +202,11 @@ export default {
     methods: {
         onChange() {
             // console.log(this.title)
-            if(this.content != ``){
-                let payload = {content: this.content, title: this.title}
-                this.$store.commit('IS_TYPING')
-                this.$store.commit('SAVING_DRAFT', payload)
-            }
+            // if(this.content != ``){
+            //     let payload = {content: this.content, title: this.title}
+            //     this.$store.commit('IS_TYPING')
+            //     this.$store.commit('SAVING_DRAFT', payload)
+            // }
         },
         uploadCallback(url) {
             // console.log("uploaded url", url)
@@ -209,7 +217,7 @@ export default {
             }else{
                 this.allerrors = [];
             }
-            this.create = 'Creating Post ...'
+            this.create = 'Updating Post ...'
             let options = {
                 type: 'blob',
                 size: 'original',
@@ -222,7 +230,9 @@ export default {
                 this.cropped = output;
             }).then((data) => {
                 let formData = new FormData();
-                formData.append("post_heading_image", data, data.name+".png");
+                if(this.file !== ''){
+                    formData.append("post_heading_image", data, data.name+".png");
+                }
                 formData.append('post_heading', this.title)
                 formData.append('post_body', this.content)
                 formData.append('category', this.category)
@@ -231,12 +241,11 @@ export default {
                         formData.append("tag", this.allTags[i]);
                     }
                 }
-
-                axios.post('/posts/create', formData,{headers: {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`}})
+                axios.post(`/posts/${this.post.slug}/update`, formData,{headers: {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`}})
                 .then((response) => {
                     // console.log(response.data)
-                    this.create = 'Post Created'
-                    this.$bvToast.toast('Post Created', {
+                    this.create = 'Post Updated'
+                    this.$bvToast.toast('Post Updated', {
                         title: 'Post',
                         variant: 'success'
                     })
@@ -248,8 +257,8 @@ export default {
                     this.clear();
                     this.bind('none');
                     this.tags = []
-                    localStorage.removeItem('userDraft')
-                    this.$bvModal.hide('modal-xl')
+                    // localStorage.removeItem('userDraft')
+                    this.$bvModal.hide('modal-xl-1')
                     this.$router.push({name: 'profile', params: {username : '@'+this.currentUser.username}});
                     // window.location.href = '/@'+currentUser.username
                     return;
@@ -329,10 +338,10 @@ export default {
             // console.log(this.fetchedTags)
         },
         formValidations(){
-            if(this.file == '' || this.title == '' || this.content == `` || this.category == ''){
-                if(this.file === ''){
-                    this.allerrors = {image: [{message: 'Post Image is required !'}]}
-                }
+            if( this.title == '' || this.content == `` || this.category == ''){
+                // if(this.file === ''){
+                //     this.allerrors = {image: [{message: 'Post Image is required !'}]}
+                // }
                 if(this.title === ''){
                     this.allerrors = {title: [{message: 'Post Title is required !'}]}
                 }
@@ -352,12 +361,12 @@ export default {
         imgur(){
             return process.env('VUE_APP_IMGUR_CLIENT_ID')
         },
-         isTyping(){
-            return this.$store.state.isTyping;
-        },
-        savedDraft(){
-            return this.$store.state.savedDraft;
-        },
+        //  isTyping(){
+        //     return this.$store.state.isTyping;
+        // },
+        // savedDraft(){
+        //     return this.$store.state.savedDraft;
+        // },
         allTags() {
              var tagged = []
             this.tags.forEach(i => {
