@@ -148,8 +148,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.row-flex{ 
-    @media screen and (max-width: 360px){
+.post-author{ 
+    @media screen and (max-width: 390px){
         padding: 10px;
     }
 }
