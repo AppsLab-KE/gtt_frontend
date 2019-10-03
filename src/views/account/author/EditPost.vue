@@ -148,7 +148,8 @@ export default {
             fetchedTags: [],
             allerrors: [],
             category: '',
-            create: 'Edit Post'
+            create: 'Edit Post',
+            loadCropped: false,
         }
     },
     mounted(){
@@ -158,6 +159,7 @@ export default {
         .then( response => {
             this.post = response.data
             this.defaultValue = response.data.post_body
+            this.content = response.data.post_body
             this.title = response.data.post_heading
             response.data.tags.forEach(tag => {
                 this.tags.push({ "text": tag.tag_name, "tiClasses": [ "ti-valid" ] })
@@ -168,9 +170,18 @@ export default {
             this.$router.push('/not-found');
         });
         this.$root.$on('bv::modal::shown', (bvEvent, modalId) => {
-            // console.log('Modal is about to be shown', bvEvent, modalId)
-            this.bind(this.post.post_heading_image);
+            // console.log('Modal is being shown', bvEvent, modalId)
+            if(modalId === 'modal-xl-1' && this.loadCropped == false){
+                this.bind(this.post.post_heading_image);
+                this.loadCropped == true;
+            }
         });
+        // this.$root.$on('bv::modal::hidden', (bvEvent, modalId) => {
+        //     console.log('Modal is hidden now', bvEvent, modalId)
+        //     if(modalId === 'modal-xl-1'){
+        //         this.bind('none');
+        //     }
+        // });
         const cwidth = $(window).width();
         // console.log(cwidth);
         if(cwidth < 1200 && cwidth >= 992){
