@@ -17,7 +17,6 @@ const ifNotAuthenticated = (_to, _from, next) => {
         next('/')
 }
     
-
 const ifAuthenticated = (_to, _from, next) => {
     if (store.getters.isAuthenticated) {
         next()

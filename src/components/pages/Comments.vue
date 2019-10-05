@@ -34,7 +34,7 @@
                                         <div class="post-author row-flex" style="padding:5px!important;">
                                             <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
                                                 <div class="author-img">
-                                                    <img alt="author avatar" :src="comment.user_that_commented.user_avatar" width="70" class="">
+                                                    <img alt="author avatar" v-lazy="comment.user_that_commented.user_avatar" width="70" class="">
                                                 </div>
                                             </router-link>
                                             <div class="author-content">

@@ -3,7 +3,7 @@
             <div class="text-right">
                 <div class="container mobile-menu-fixed pr-5"> 
                     <h1 class="logo-small navbar-brand"><router-link to="/" class="logo">
-                        <img src="/assets/images/logo5.png" width="80" alt="">
+                        <img src="/assets/images/logo5.png" width="80" alt="logo">
                     </router-link></h1>
 
                     <nav-user-login></nav-user-login>

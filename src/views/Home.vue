@@ -2,7 +2,7 @@
   <div class="home">
     <div class="content-widget">
         <div v-if="latestPost != ''" class="container">
-            <div class="row justify-content-between post-has-bg ml-0 mr-0">
+            <div class="row justify-content-between post-has-bg ml-0 mr-0 flex-column-reverse flex-md-row">
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
                         <div class="capsSubtle mb-2"><router-link :to="{name: 'category',params: {category: latestPost.category.category_name}}">{{latestPost.category.category_name}}</router-link></div>
@@ -24,7 +24,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0">
+                <div class="col-lg-6 col-md-4 bgcove pl-md-0 ml-0">
+                     <!-- d-none d-md-block -->
                     <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
                         <img v-lazy="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
                     </router-link>
@@ -145,3 +146,8 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.bgcover {
+    height: 300px;
+}
+</style>
