@@ -24,6 +24,7 @@
     "vue-authenticate": "^1.4.1",
     "vue-croppie": "^2.0.1",
     "vue-infinite-loading": "^2.4.4",
+    "vue-lazyload": "^1.3.3",
     "vue-moments-ago": "^0.2.0",
     "vue-router": "^3.0.3",
     "vue-spinner": "^1.0.3",

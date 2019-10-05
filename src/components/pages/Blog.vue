@@ -29,7 +29,8 @@
         </div>
         <div class="col-md-4 col-xs-4 bgcover text-center">
             <router-link :to="{name: 'single', params: {slug : post.slug,username:'@'+post.post_author.username}}">
-                <img :src="post.post_heading_image" alt="">
+                <!-- <img :src="post.post_heading_image" :alt="post.post_heading"> -->
+                <img v-lazy="post.post_heading_image" :alt="post.post_heading">
             </router-link>
         </div>
     </div> <!--col-md-8-->

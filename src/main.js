@@ -70,6 +70,9 @@ import firebase from './services/Firebase';
 import {messaging} from './services/Messaging';
 messaging(firebase);
 
+import VueLazyload from 'vue-lazyload'
+Vue.use(VueLazyload)
+
 Vue.config.productionTip = false
 
 

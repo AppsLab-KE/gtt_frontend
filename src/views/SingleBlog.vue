@@ -18,7 +18,8 @@
             </div>
         </div> <!--end single header-->
         <figure class="image zoom mb-5 col-md-8 offset-md-2">
-            <img :src="post.post_heading_image" alt="post-title" />
+            <img v-lazy="post.post_heading_image" :alt="post.post_heading" />
+            <!-- <img :src="post.post_heading_image" alt="post-title" /> -->
         </figure>  <!--figure-->
         <article class="entry-wraper mb-5 col-md-8">
             <div class="entry-left-col">
