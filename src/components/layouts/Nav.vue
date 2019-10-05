@@ -4,7 +4,7 @@
             <div class="align-items-center w-100">
                 <h1 class="logo float-left navbar-brand"><router-link to="/" class="logo">
                     <!-- {{appName}} -->
-                    <img src="/assets/images/logo5.png" width="80" alt="">
+                    <img src="/assets/images/logo5.png" width="80" alt="logo">
                     </router-link></h1>
                 <div class="header-right float-right w-50">                    
                     <div class="d-inline-flex float-right text-right align-items-center">

@@ -23,7 +23,7 @@ messaging.setBackgroundMessageHandler(function(payload) {
     var notificationTitle = 'Background Message Title';
     var notificationOptions = {
       body: 'Background Message body.',
-      icon: '/img/icons/android-icon-192x192.png'
+      icon: 'https://geekstalkthursday.co.ke/assets/images/2logo.png'
     };
   
     return self.registration.showNotification(notificationTitle,
