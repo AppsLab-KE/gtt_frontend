@@ -68,7 +68,6 @@
         </div> <!--content-widget-->
     </div>
 
-   
   </div>
 </template>
 
