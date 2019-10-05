@@ -16,6 +16,7 @@
     "bootstrap-vue": "^2.0.0-rc.27",
     "core-js": "^2.6.5",
     "express": "^4.17.1",
+    "firebase": "^7.1.0",
     "moment": "^2.24.0",
     "register-service-worker": "^1.6.2",
     "vee-validate": "^3.0.3",

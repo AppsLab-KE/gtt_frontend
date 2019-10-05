@@ -66,6 +66,10 @@ Vue.use(InfiniteLoading, { /* options */ });
 require('./../public/assets/css/prettify.css');
 // require('./../public/assets/js/prettify');
 
+import firebase from './services/Firebase';
+import {messaging} from './services/Messaging';
+messaging(firebase);
+
 Vue.config.productionTip = false
 
 
