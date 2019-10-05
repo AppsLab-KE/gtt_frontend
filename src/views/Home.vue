@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-lg-6 col-md-4 bgcover d-none d-md-block pl-md-0 ml-0">
                     <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
-                        <img :src="latestPost.post_heading_image" alt="">
+                        <img v-lazy="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
                     </router-link>
                 </div>
             </div>

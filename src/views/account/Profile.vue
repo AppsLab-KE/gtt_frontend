@@ -7,7 +7,7 @@
                         <div class="box box-author m_b_2rem col-xs-12">
                             <div class="post-author row-flex">
                                 <div class="author-img">
-                                    <img alt="author avatar" :src="user.user_avatar" class="avatar">
+                                    <img alt="author avatar" v-lazy="user.user_avatar" class="avatar">
                                 </div>
                                 <div class="author-content">
                                 <div class="top-author">

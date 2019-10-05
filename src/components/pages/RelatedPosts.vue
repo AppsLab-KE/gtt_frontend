@@ -7,7 +7,7 @@
                 <div class="divider-2"></div>                                    
             <article v-if="relateds != ''" v-for="(related, $index) in relateds" :key="$index" class="col-md-4">
                 <div class="mb-3 d-flex row">
-                    <figure class="col-md-5"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}"><img :src="related.post_heading_image" alt="post-title"></router-link></figure>
+                    <figure class="col-md-5"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}"><img v-lazy="related.post_heading_image" alt="post-title"></router-link></figure>
                     <div class="entry-content col-md-7 pl-md-0">                                    
                         <h5 class="entry-title mb-3"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}">{{related.post_heading}}</router-link></h5>
                         <div class="entry-meta align-items-center">

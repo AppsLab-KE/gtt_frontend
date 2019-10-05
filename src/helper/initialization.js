@@ -37,11 +37,11 @@ export function initialize(store, router) {
             * of http.ClientRequest in Node.js
             */
             // console.log(error.request);
-            router.push({name: 'no-internet'});
+            // router.push({name: 'no-internet'});
         } else {
             // Something happened in setting up the request and triggered an Error
             // console.log('Error', error.message);
-            router.push({name: 'no-internet'});
+            // router.push({name: 'no-internet'});
         }
         // console.log(error);
         return Promise.reject(error);

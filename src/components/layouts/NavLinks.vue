@@ -8,8 +8,8 @@
         </li>
         <!-- <li><router-link to="/search">Search</router-link></li> -->
         <!-- <li><router-link to="/single">Single</router-link></li> -->
-        <li><router-link to="/about">About</router-link></li>                                
-        <li><router-link to="/contact">Contact</router-link></li>   
+        <li><router-link :class="currentUrl === '/about'?'current-menu-item':'' " to="/about">About</router-link></li>                                
+        <li><router-link :class="currentUrl === '/contact'?'current-menu-item':'' " to="/contact">Contact</router-link></li>   
         <li v-if="savedDraft != ''  && currentUrl === '/publish'" class="float-right">
             <span v-if="isTyping" class="draft">Draft saved</span>
                 <span class="top-menu ">

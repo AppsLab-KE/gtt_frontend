@@ -213,7 +213,7 @@ hr.section-divider::before {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  height: 300px;
+  /* height: 300px; */
 }
 .clearfix {
   clear: both;

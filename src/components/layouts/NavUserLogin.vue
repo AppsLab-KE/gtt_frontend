@@ -6,7 +6,7 @@
         <a v-if="!isLoggedIn" v-b-modal.my-modal-login class="btn">Login</a>
         <b-dropdown v-else variant="link" toggle-tag='link' toggle-class="text-decoration-none" class="drop-manu float-right" no-caret>
             <template slot="button-content">
-                <span class="author-avatar" to="#"><img :src='currentUser.user_avatar' alt=""></span>
+                <span class="author-avatar" to="#"><img v-lazy='currentUser.user_avatar' alt="user_avatar"></span>
             </template>
             <b-dropdown-header id="dropdown-header-label">
                 {{currentUser.first_name +" "+ currentUser.last_name}}

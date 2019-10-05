@@ -11,6 +11,7 @@
                         <div class="entry-excerpt">
                             <p>
                                 {{app_name}} is a Tech Community for developers to Learn, Engage, Share knowledge and lots of commits 
+                                <br>
                                 <span><code>#LetTheCommitsSpeak</code></span>
                             </p>
                             
@@ -31,3 +32,9 @@ export default {
     }
 }
 </script>
+<style lang="scss" scoped>
+.bgcover {
+    height: 300px;
+}
+</style>
+
