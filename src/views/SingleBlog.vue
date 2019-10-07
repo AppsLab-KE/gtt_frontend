@@ -106,7 +106,11 @@ export default {
             this.defaultValue = response.data.post_body
         })
         .catch(error => {
-            this.$router.push('/not-found');
+            if(error.response){
+                if(error.response.status == 404){
+                    this.$router.push('/not-found');
+                }
+            }
         })
     },
     updated(){

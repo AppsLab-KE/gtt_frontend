@@ -32,6 +32,13 @@ export default {
             this.$store.dispatch("AUTH_LOGOUT")
             .then(() => {
                 console.log('Logged Out')
+                if (caches) {
+                    caches.keys().then((arr) => {
+                        arr.forEach((key) => {
+                            caches.delete(key).then(() => console.log(`%c Cleared ${key}`, 'background: #333; color: #ff0000'))
+                        })
+                    })
+                }
                 this.$router.push({name: 'home'})
             })
         }, 
