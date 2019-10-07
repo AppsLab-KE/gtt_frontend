@@ -19,10 +19,14 @@
     </footer>
 </template>
 <script>
+import moment from 'moment';
 export default {
     computed: {
         appName(){
             return process.env.VUE_APP_NAME
+        },
+        year(){
+            moment().format('YYYY');
         }
     }
 }

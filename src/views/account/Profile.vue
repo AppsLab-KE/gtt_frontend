@@ -79,7 +79,11 @@ export default {
                 this.postsData = response.data
             })
             .catch(error => {
-                this.$router.push('/not-found');
+                if(error.response){
+                    if(error.response.status == 404){
+                        this.$router.push('/not-found');
+                    }
+                }
             })
         },
         getUserProfile(username){
@@ -88,7 +92,11 @@ export default {
                 return response.data
             })
             .catch(error => {
-                this.$router.push('/not-found');
+                if(error.response){
+                    if(error.response.status == 404){
+                        this.$router.push('/not-found');
+                    }
+                }
             })
         },
         infiniteHandler($state) {

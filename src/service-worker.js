@@ -7,7 +7,7 @@ workbox.core.setCacheNameDetails({
     runtime: 'runtime',
  });
 //Change this value every time before you build
-const LATEST_VERSION = 'v1.0.2'
+const LATEST_VERSION = 'v1.0.3'
 // eslint-disable-next-line no-unused-vars
 self.addEventListener('activate', (_event) => {
   console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff')
@@ -64,20 +64,49 @@ workbox.routing.registerRoute(
     })
 );
 // console.log(process.env.VUE_APP_API_BASE_URL)
-// 3. cache news articles result
+// 3. cache post articles result
 workbox.routing.registerRoute(
-    new RegExp('https://geekstalkthursday.co.ke/api/v1/'),
+    new RegExp('https://geekstalkthursday.co.ke/api/'),
     workbox.strategies.staleWhileRevalidate({
         cacheName: 'gtt-cache-posts-data',
         cacheExpiration: {
             maxAgeSeconds: 60 * 30 //cache the news content for 30mn
-        }
+        },
+        plugins: [
+            new workbox.cacheableResponse.Plugin({
+              statuses: [200, 201, 0],
+            })
+          ]
     })
 );
 
+workbox.routing.registerRoute(
+    new RegExp(' https://gist.github.com/'),
+    workbox.strategies.staleWhileRevalidate({
+        cacheName: 'gtt-cache-posts-data',
+        cacheExpiration: {
+            maxAgeSeconds: 60 * 30 //cache the news content for 30mn
+        },
+        plugins: [
+            new workbox.cacheableResponse.Plugin({
+              statuses: [200, 201, 0],
+            })
+          ]
+    })
+);
+
+// This "catch" handler is triggered when any of the other routes fail to
+// generate a response.
+// eslint-disable-next-line no-unused-vars
+workbox.routing.setCatchHandler(({event}) => {
+    console.log('not found here');  
+    return caches.match('/no-internet');
+    
+});
+
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+workbox.precaching.precacheAndRoute(self.__precacheManifest,'/no-internet', {});
 workbox.routing.registerNavigationRoute('/index.html')
 
 // install new service worker when ok, then reload page.

@@ -167,7 +167,11 @@ export default {
             this.category = response.data.category.category_name;
         })
         .catch(error => {
-            this.$router.push('/not-found');
+            if(error.response){
+                if(error.response.status == 404){
+                    this.$router.push('/not-found');
+                }
+            }
         });
         this.$root.$on('bv::modal::shown', (bvEvent, modalId) => {
             // console.log('Modal is being shown', bvEvent, modalId)
