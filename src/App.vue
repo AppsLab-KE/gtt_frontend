@@ -54,7 +54,7 @@ export default {
                     variant: 'success'
                 });
         })
-    }
+    },
 }
 </script>
 

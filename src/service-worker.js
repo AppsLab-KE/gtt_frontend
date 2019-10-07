@@ -83,7 +83,7 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
     new RegExp(' https://gist.github.com/'),
     workbox.strategies.staleWhileRevalidate({
-        cacheName: 'gtt-cache-posts-data',
+        cacheName: 'gtt-cache-posts-data-gists',
         cacheExpiration: {
             maxAgeSeconds: 60 * 30 //cache the news content for 30mn
         },
