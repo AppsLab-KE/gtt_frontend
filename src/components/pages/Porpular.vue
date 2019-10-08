@@ -74,7 +74,7 @@
             </li>
         </ol>
         <div class=" ads">
-                        <a href="#"><img src="/assets/images/ads/ads-1.png" alt="ads"></a>
-                    </div>
+            <a href="#"><img src="/assets/images/ads/ads-1.png" alt="ads"></a>
+        </div>
     </div>
 </template>
