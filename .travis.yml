@@ -1,8 +1,12 @@
+if: branch = master
 language: node_js
 node_js:
  - "node"
 
-cache: npm
+cache: 
+  npm: true
+  directories:
+    - ./node_modules
 
 before_install:
 - openssl aes-256-cbc -K $encrypted_f80a6d9940c8_key -iv $encrypted_f80a6d9940c8_iv
