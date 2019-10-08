@@ -44,4 +44,4 @@ deploy:
   skip_cleanup: true
   script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
   on:
-    branch: master
+    branch: deployment
