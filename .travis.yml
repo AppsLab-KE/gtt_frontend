@@ -39,6 +39,6 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454' manuel@51.15.229.227:/var/www/projects/geekstalkthursday/dist
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454' $DEPLOY_HOST:/var/www/projects/geekstalkthursday/dist
   on:
     branch: master
