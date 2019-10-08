@@ -8,9 +8,11 @@ cache:
   directories:
     - ./node_modules
 
+addons:
+  ssh_known_hosts: 51.15.229.227:5454
+
 before_install:
 - ssh-keyscan -t $TRAVIS_SSH_KEY_TYPES -H $KNOWN_HOST 2>&1 | tee -a $HOME/.ssh/known_hosts
-
 - openssl aes-256-cbc -K $encrypted_f80a6d9940c8_key -iv $encrypted_f80a6d9940c8_iv
   -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 
