@@ -137,9 +137,9 @@ export default {
                 this.user = user;
                 this.isLoggedInUser = true;
                 this.getAllUserPosts(this.user.username);
-                this.getUserProfile(username)
+                this.getUserProfile('@'+user.username)
                 .then(user => {
-                    this.$store.commit('UPDATE_USER', user);
+                    this.$store.commit('UPDATE_USER', user.user)
                 });
             }
         }
