@@ -27,6 +27,10 @@ const store = new Vuex.Store({
         state.token = token
         state.currentUser = JSON.parse(localStorage.getItem('user'))
       },
+      UPDATE_USER: (state, user) => {
+        localStorage.setItem('user', JSON.stringify(user));
+        state.currentUser = JSON.parse(localStorage.getItem('user'))
+      },
       AUTH_LOGOUT: (state) => {
         state.status = ''
         state.token = ''
