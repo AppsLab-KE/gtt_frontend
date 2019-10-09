@@ -50,7 +50,7 @@
                                                         <vue-moments-ago prefix=" " suffix="ago" :date="comment.date_commented"></vue-moments-ago>
                                                     </span>
                                                     <span class="col-2"></span>
-                                                    <span v-if="isLoggedIn && comment.replies_count >= 20">
+                                                    <span v-if="isLoggedIn && comment.replies_count <= 20">
                                                         <i class="fa fa-reply reply text-primary" title="reply to comment" @click="openReplyBox(comment.resource_key)"></i>
                                                     </span>
                                                         <span class="col-2"></span>
