@@ -50,7 +50,7 @@
                                                         <vue-moments-ago prefix=" " suffix="ago" :date="comment.date_commented"></vue-moments-ago>
                                                     </span>
                                                     <span class="col-2"></span>
-                                                    <span v-if="isLoggedIn">
+                                                    <span v-if="isLoggedIn && comment.replies_count >= 20">
                                                         <i class="fa fa-reply reply text-primary" title="reply to comment" @click="openReplyBox(comment.resource_key)"></i>
                                                     </span>
                                                         <span class="col-2"></span>
@@ -59,18 +59,8 @@
                                                     </span>
                                                 </h5>
                                                 <p>{{comment.comment}}</p>
-                <div v-if="isLoggedIn && showReply === comment.resource_key" id="respond" class="comment-respond" @submit.prevent="replyComment(comment.resource_key)">
-                    <form method="post" id="commentform" class="comment-form" novalidate="">
-                    <p class="comment-form-comment">
-                        <!-- <label for="comment">Comment:</label>  -->
-                        <textarea id="comment" v-model="form.reply" cols="45" rows="2" maxlength="65525"></textarea>
-                        <small v-if="allerrors.reply" :class="[' text-danger']">{{ allerrors.reply[0].message }}</small>
-                    </p>
-                    <p class="form-submit">
-                        <input name="submit" type="submit" id="submit" class="submit btn btn-success btn-bloc btn-xs" :value="replyButton">
-                    </p>
-                    </form>
-                </div>
+                                                    <reply-comment v-if="isLoggedIn && showReply === comment.resource_key" :resourcekey="comment.resource_key" :slug="post.slug"></reply-comment>
+                                                    <comment-replies :replies.sync="comment.replies"></comment-replies>
                                                 </div>
                                             </div>
                                         </div>  
@@ -90,25 +80,32 @@
 import Nothing from '@/components/more/Nothing'
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
+import CommentReplies from '@/components/comments/CommentReplies';
+import ReplyComment from '@/components/comments/ReplyComment';
 export default {
     props: ['post'],
     components: {
-        Nothing, VueMomentsAgo, 
+        Nothing, VueMomentsAgo, CommentReplies, ReplyComment, 
     },
     data(){
         return {
             form: {
                 comment: '',
-                reply: '',
             },
             button: 'Post Comment',
-            replyButton: 'Reply',
             allerrors: [],
             showCommets: false, 
             comments: [],
             postCount: this.post.comments_count,
             showReply: 'hide',
         }
+    },
+    created(){
+        let vm = this;
+        this.$root.$on('comments',function() {
+            vm.getCommets();
+            vm.showReply = 'hide';
+        });
     },
     computed: {
         currentUser(){
@@ -125,6 +122,7 @@ export default {
             var slug = this.$route.params.slug
             axios.post('/posts/'+slug+'/comments/create', this.$data.form)
             .then( response => {
+                console.log(response)
                 this.$bvToast.toast('Comment Created', {
                     title: 'Comment',
                     variant: 'success'
@@ -137,11 +135,12 @@ export default {
                 return;
             })
             .catch(error => {
+                console.log('here')
                 if(error.response){
                     this.allerrors = error.response.data.detail;
                     this.button = 'Post Comment'
                 }
-            })
+            });
         },
         getCommets(){
             axios.get('/posts/'+this.post.slug+'/comments?offset=0&limit='+process.env.VUE_APP_PAGINATION)
@@ -230,7 +229,7 @@ export default {
             .catch(err => {
                 // ! An error occurred
             });
-        }
+        },
     },
     filters: {
          dateshow(value){

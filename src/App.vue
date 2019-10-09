@@ -62,6 +62,7 @@ export default {
                     vm.$bvModal.show('my-modal-login');
                 }
             }
+            return Promise.reject(err);
         });
     },
 }

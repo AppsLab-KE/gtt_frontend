@@ -33,15 +33,11 @@ export default {
             axios.post('/posts/'+slug+'/rate', formData)
             .then(response =>{
                 if(this.hasLiked){
-                    if(response){
-                        this.hasLiked = false;
-                        this.likes -= 1;
-                    }
+                    this.hasLiked = false;
+                    this.likes -= 1;
                 }else{
-                    if(response){
-                        this.hasLiked = true;
-                        this.likes += 1;
-                    }
+                    this.hasLiked = true;
+                    this.likes += 1;
                 }
             });
             return;
@@ -50,14 +46,12 @@ export default {
             if(this.hasBookmarked){
                 axios.post('/bookmarks/'+slug+'/delete', {})
                 .then(response =>{
-                    if(response)
-                        this.hasBookmarked = false;
+                    this.hasBookmarked = false;
                 });
             }else{
                 axios.post('/posts/'+slug+'/bookmark/create', {})
                 .then(response =>{
-                    if(response)
-                        this.hasBookmarked = true;
+                    this.hasBookmarked = true;
                 });
             }
             return;

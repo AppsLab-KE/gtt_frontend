@@ -30,13 +30,13 @@ Vue.use(VueAuthenticate, {
         redirectUri: process.env.VUE_APP_APP_URL + '/oauth/complete/google/' // Your client app URL
     }
   }
-});
-
-Vue.use(BootstrapVue)
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+})
 //Use the window object to make it available globally.
 window.axios = axios;
 initialize(store, router)
+
+Vue.use(BootstrapVue)
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import VueCroppie from 'vue-croppie';
 import 'croppie/croppie.css'
