@@ -95,7 +95,7 @@
                         this.$bvToast.toast('Avatar update success', {
                             title: 'Avatar Update',
                             variant: 'success'
-                        })
+                        });
                         this.$bvModal.hide('bv-modal-avatar')
                         this.clear();
                         this.bind('none');

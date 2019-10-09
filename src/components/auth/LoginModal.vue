@@ -24,19 +24,19 @@
 export default {
     methods: {
         authenticate: function (provider) {
-            var vm = this
+            var vm = this;
             this.$auth.authenticate(provider)
             .then(function (response) {
-                var data = response.data
+                var data = response.data;
                 // console.log(data)
                 vm.$store.dispatch('AUTH_REQUEST', data).then((resp) => {
-                    vm.$bvModal.hide('my-modal-login')
+                    vm.$bvModal.hide('my-modal-login');
                     // console.log('Logged In')
                 })
             }).catch(error => {
                 vm.$store.commit('AUTH_ERROR', error)
-                localStorage.removeItem('c9edd058') 
-                localStorage.removeItem('user') 
+                localStorage.removeItem('c9edd058');
+                localStorage.removeItem('user');
                 delete axios.defaults.headers.common['Authorization']
                 // console.log(error)
                 if (error.response) {
