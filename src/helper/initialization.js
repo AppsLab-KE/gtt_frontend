@@ -23,10 +23,11 @@ export function initialize(store, router) {
         * The request was made and the server responded with a
         * status code that falls out of the range of 2xx
         */
-            if (error.response.status == 401){
-                store.dispatch('AUTH_LOGOUT');
-                router.push({name: 'home'});
-            }
+            // ? commented here because i need to open login modal, so i do this i n App.vue but incase you need a normal redirect, just do it here;
+            // if (error.response.status == 401){
+            //     store.dispatch('AUTH_LOGOUT');
+            //     router.push({name: 'home'});
+            // }
             if (error.response.status == 500 || error.response.status == 502){
                 router.push({name: 'server-error'});
             }

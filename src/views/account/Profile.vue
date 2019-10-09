@@ -107,11 +107,11 @@ export default {
                 axios.get(posts.next)
                 .then((response) => {
                    var existing = this.postsData;
-                    response.data.results.forEach( data => existing.results.push(data))
-                    existing.next = response.data.next
-                    existing.previous = response.data.previous
-                    existing.count = response.data.count
-                    this.postsData = existing
+                    response.data.results.forEach( data => existing.results.push(data));
+                    existing.next = response.data.next;
+                    existing.previous = response.data.previous;
+                    existing.count = response.data.count;
+                    this.postsData = existing;
                     if (response.data.next != null) {
                         $state.loaded();
                     } else {
@@ -128,15 +128,19 @@ export default {
                 // * gets username not logged in
                 this.getUserProfile(username)
                 .then( user =>{
-                    this.user = user.user 
+                    this.user = user.user ;
                     // console.log(user.user)
                     this.getAllUserPosts(user.user.username);
-                })
+                });
                 this.isLoggedInUser = false;
             }else{
                 this.user = user;
                 this.isLoggedInUser = true;
                 this.getAllUserPosts(this.user.username);
+                this.getUserProfile('@'+user.username)
+                .then(user => {
+                    this.$store.commit('UPDATE_USER', user.user)
+                });
             }
         }
     },

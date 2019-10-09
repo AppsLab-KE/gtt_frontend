@@ -28,6 +28,7 @@ export default {
         MobileNav, NavBar, AdvertFooter, FooterPart
     },
     created(){
+        let vm = this;
         const messaging = firebase.messaging();
         messaging.onMessage((payload) => {
         
@@ -47,13 +48,22 @@ export default {
                     title: 'Offline',
                     variant: 'danger'
                 });
-        })
+        });
         window.addEventListener('online', () => {
             this.$bvToast.toast('You\'re back online', {
                     title: 'Online',
                     variant: 'success'
                 });
-        })
+        });
+        axios.interceptors.response.use(null, function (err) {
+            if(err.response){
+                if (err.response.status == 401){
+                    vm.$store.dispatch('AUTH_LOGOUT');
+                    vm.$bvModal.show('my-modal-login');
+                }
+            }
+            return Promise.reject(err);
+        });
     },
 }
 </script>
