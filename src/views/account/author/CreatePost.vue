@@ -123,10 +123,13 @@ export default {
     },
     data() {
         return {
-            defaultValue: `<p>body goes here...</p>`,
-            title: 'Title here',
+            defaultValue: ``,
+            title: '',
             content: ``,
             options: {
+                placeholder: {
+                        text: "Start typing here... #LetTheCommitsSpeak"
+                    },
                 uploadUrl: "https://api.imgur.com/3/image",
                 uploadUrlHeader: {'Authorization': 'Client-ID a048dd8bea98363'},
                 file_input_name: "image",
@@ -240,8 +243,8 @@ export default {
                         title: 'Post',
                         variant: 'success'
                     })
-                    this.title = 'Title here'
-                    this.defaultValue = `<p>body goes here...</p>`
+                    this.title = ''
+                    this.defaultValue = `<p>start here...</p>`
                     this.category = ''
                     this.file = ''
                     this.content = ``
