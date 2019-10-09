@@ -31,6 +31,7 @@
                                 <div v-else>
                                     <h4 class="text-left">Comments ({{postCount}})</h4><br>
                                     <div v-for="(comment, $index) in comments.results" :key="$index" class="comment-card">
+                                        <!-- {{comment}} -->
                                         <div class="post-author row-flex" style="padding:5px!important;">
                                             <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
                                                 <div class="author-img">
@@ -39,16 +40,37 @@
                                             </router-link>
                                             <div class="author-content">
                                             <div class="top-author text-left">
-                                                <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
-                                                    <h5 class="heading-font">{{comment.user_that_commented.first_name +" "+ comment.user_that_commented.last_name}} 
-                                                        <small>@{{ comment.user_that_commented.username }} </small> 
-                                                        <span class="pull-right"> &nbsp;
-                                                             <!-- {{comment.date_commented | dateshow}} -->
-                                                            <vue-moments-ago prefix=" " suffix="ago" :date="comment.date_commented"></vue-moments-ago>
-                                                        </span>
-                                                    </h5>
-                                                </router-link>
+                                                <h5 class="heading-font">
+                                                    <router-link :to="{name: 'profile',params:{username:'@'+comment.user_that_commented.username}}" >
+                                                    {{comment.user_that_commented.first_name +" "+ comment.user_that_commented.last_name}} 
+                                                    <small>@{{ comment.user_that_commented.username }} </small> 
+                                                    </router-link>
+                                                    <span class="pull-righ"> &nbsp;
+                                                            <!-- {{comment.date_commented | dateshow}} -->
+                                                        <vue-moments-ago prefix=" " suffix="ago" :date="comment.date_commented"></vue-moments-ago>
+                                                    </span>
+                                                    <span class="col-2"></span>
+                                                    <span v-if="isLoggedIn">
+                                                        <i class="fa fa-reply reply text-primary" title="reply to comment" @click="openReplyBox(comment.resource_key)"></i>
+                                                    </span>
+                                                        <span class="col-2"></span>
+                                                    <span v-if="isLoggedIn && currentUser.username === comment.user_that_commented.username">
+                                                        <i class="fa delete fa-trash-o text-danger" title="delete comment" @click="deleteComment(comment.resource_key)"></i>
+                                                    </span>
+                                                </h5>
                                                 <p>{{comment.comment}}</p>
+                <div v-if="isLoggedIn && showReply === comment.resource_key" id="respond" class="comment-respond" @submit.prevent="replyComment(comment.resource_key)">
+                    <form method="post" id="commentform" class="comment-form" novalidate="">
+                    <p class="comment-form-comment">
+                        <!-- <label for="comment">Comment:</label>  -->
+                        <textarea id="comment" v-model="form.reply" cols="45" rows="2" maxlength="65525"></textarea>
+                        <small v-if="allerrors.reply" :class="[' text-danger']">{{ allerrors.reply[0].message }}</small>
+                    </p>
+                    <p class="form-submit">
+                        <input name="submit" type="submit" id="submit" class="submit btn btn-success btn-bloc btn-xs" :value="replyButton">
+                    </p>
+                    </form>
+                </div>
                                                 </div>
                                             </div>
                                         </div>  
@@ -76,13 +98,16 @@ export default {
     data(){
         return {
             form: {
-                comment: ''
+                comment: '',
+                reply: '',
             },
             button: 'Post Comment',
+            replyButton: 'Reply',
             allerrors: [],
             showCommets: false, 
             comments: [],
             postCount: this.post.comments_count,
+            showReply: 'hide',
         }
     },
     computed: {
@@ -152,6 +177,59 @@ export default {
                 });
             }
             return;
+        },
+        replyComment(resourceKey){
+
+        },
+        openReplyBox(resourseKey){
+            if(this.showReply === 'hide'){
+                this.showReply = resourseKey;
+            }else{
+                if(resourseKey === this.showReply){
+                    this.showReply = 'hide';
+                }else{
+                    this.showReply = resourseKey;
+                }
+            }
+            this.form.reply = '';
+            return;
+        },
+        deleteComment(resourceKey){
+            var vm  = this;
+            this.$bvModal.msgBoxConfirm('Confirm that you want to delete this comment !', {
+                title: 'Please Confirm',
+                size: 'sm',
+                buttonSize: 'sm',
+                okVariant: 'danger',
+                okTitle: 'YES',
+                cancelTitle: 'NO',
+                footerClass: 'p-2',
+                hideHeaderClose: false,
+                centered: true
+            })
+            .then(value => {
+                if(value == true){
+                    axios.post(`/comments/${resourceKey}/delete`, {})
+                        .then((response) => {
+                            vm.$bvToast.toast('Comment Deleted', {
+                                title: 'Delete',
+                                variant: 'success'
+                            });
+                            var existing = vm.comments.results;
+                            var index = existing.findIndex(comment => comment.resource_key === resourceKey);
+                            existing.splice(index, 1);
+                            vm.postCount -= 1;
+                            return
+                        }).catch((error) => {
+                            // ! error ocuured
+                        });
+                }else{
+                    // ! this.$toast.error('Error')
+                }
+            })
+            .catch(err => {
+                // ! An error occurred
+            });
         }
     },
     filters: {
@@ -173,6 +251,9 @@ export default {
     margin-bottom: 20px;
 }
 .load-comments:hover{
+    cursor: pointer;
+}
+.delete, .reply {
     cursor: pointer;
 }
 </style>

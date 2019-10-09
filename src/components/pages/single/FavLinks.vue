@@ -34,10 +34,10 @@ export default {
             .then(response =>{
                 if(this.hasLiked){
                     this.hasLiked = false;
-                    this.likes += 1;
+                    this.likes -= 1;
                 }else{
                     this.hasLiked = true;
-                    this.likes -= 1;
+                    this.likes += 1;
                 }
             });
             return;
