@@ -24,3 +24,4 @@ yarn-error.log*
 *.sln
 *.sw?
 src/views/account/author/Body.html
+FirebaseNotification.json
