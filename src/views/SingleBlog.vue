@@ -97,21 +97,8 @@ export default {
             defaultValue: ``,
         }
     },
-    created(){
-        var username = this.$route.params.username
-        var slug = this.$route.params.slug
-        axios.get('/posts/'+username+'/'+slug)
-        .then( response => {
-            this.post = response.data
-            this.defaultValue = response.data.post_body
-        })
-        .catch(error => {
-            if(error.response){
-                if(error.response.status == 404){
-                    this.$router.push('/not-found');
-                }
-            }
-        })
+    mounted(){
+        this.getSinglePost();
     },
     updated(){
         require('./../../public/assets/js/prettify.js');
@@ -123,7 +110,22 @@ export default {
         }
     },
     methods: {
-        
+        getSinglePost(){
+            var username = this.$route.params.username
+            var slug = this.$route.params.slug
+            axios.get('/posts/'+username+'/'+slug)
+            .then( response => {
+                this.post = response.data
+               return this.defaultValue = response.data.post_body
+            })
+            .catch(error => {
+                if(error.response){
+                    if(error.response.status == 404){
+                        this.$router.push('/not-found');
+                    }
+                }
+            })
+        }
     },
     filters:{
         trimPost(body){

@@ -15,8 +15,8 @@
                             <router-link :to="{name: 'category',params: {category: related.category.category_name}}">{{related.category.category_name}}</router-link>
                             <br>                                    
                             <span>
-                                {{related.date_published | dateshow}}
-                         <vue-moments-ago prefix=":" suffix="ago" :date="related.date_published"></vue-moments-ago>
+                                {{related.date_published | dateshow}} &nbsp;
+                         <vue-moments-ago prefix="" suffix="ago" :date="related.date_published"></vue-moments-ago>
                             </span>
                             <span class="middotDivider"></span>
                         </div>
