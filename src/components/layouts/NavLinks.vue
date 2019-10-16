@@ -24,7 +24,7 @@ export default {
     data(){
         return {
             currentUrl: '',
-            categories: []
+            // categories: []
         }
     },
     computed: {
@@ -33,6 +33,9 @@ export default {
         },
         savedDraft(){
             return this.$store.state.savedDraft;
+        },
+        categories(){
+            return this.$store.state.allCategories;
         }
     },
     watch: {
@@ -42,13 +45,15 @@ export default {
     },
     created(){
         this.currentUrl = window.location.pathname
-        this.getCategories()
+        if(this.$store.state.allCategories.length == 0)
+            this.getCategories()
     },
     methods: {
         getCategories() {
             axios.get('/posts/categories')
             .then( response => {
-                this.categories = response.data.results
+                this.$store.commit('ALL_CATEGORIES',response.data.results);
+                // this.categories = response.data.results
             })
         },
     }, 

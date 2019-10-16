@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+      <install-prompt></install-prompt>
     <!--Mobile navigation-->
         <mobile-nav></mobile-nav>
         <!--Mobile navigation-->
@@ -7,14 +8,14 @@
             <nav-bar></nav-bar>
             <main id="content">
                 
-                <div v-if="isLoading" class="col-12 text-center">
+                <!-- <div v-if="isLoading" class="col-12 text-center">
                     <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
                     <p>Loading Data ... 
-                        <!-- ({{refCount}})  -->
+                        ({{refCount}}) 
                         </p>
-                </div>
+                </div> -->
 
-                <router-view v-else></router-view>
+                <router-view></router-view>
 
                 <advert-footer></advert-footer>
                 
@@ -29,10 +30,11 @@ import MobileNav from '@/components/layouts/MobileNav.vue'
 import NavBar from '@/components/layouts/Nav.vue'
 import AdvertFooter from '@/components/more/AdvertFooter.vue'
 import FooterPart from '@/components/layouts/Footer.vue'
+import InstallPrompt from '@/components/more/BeforeInstallPrompt.vue';
 import firebase from './services/Firebase';
 export default {
     components: {
-        MobileNav, NavBar, AdvertFooter, FooterPart
+        MobileNav, NavBar, AdvertFooter, FooterPart, InstallPrompt,
     },   
     data() {
         return {
@@ -42,30 +44,30 @@ export default {
     },
     methods: {
         setLoading(isLoading) {
-        if (isLoading) {
-            this.refCount++;
-            this.isLoading = true;
-        } else if (this.refCount > 0) {
-            this.refCount--;
-            this.isLoading = (this.refCount > 0);
-        }
+            if (isLoading) {
+                this.refCount++;
+                this.isLoading = true;
+            } else if (this.refCount > 0) {
+                this.refCount--;
+                this.isLoading = (this.refCount > 0);
+            }
         }
     },
     created(){
         let vm = this;
         const messaging = firebase.messaging();
         messaging.onMessage((payload) => {
-        
-            Notification.requestPermission( permission => {
-                let notification = new Notification(payload.notification.title, {
-                    body: payload.notification.body, // content for the alert
-                    icon: payload.notification.icon // optional image url
-                });
-                // link to page on clicking the notification
-                notification.onclick = () => {
-                    window.open(payload.notification.click_action);
-                };
-            });
+        console.log('Message received. ', payload);
+            // Notification.requestPermission( permission => {
+            //     let notification = new Notification(payload.notification.title, {
+            //         body: payload.notification.body, // content for the alert
+            //         icon: payload.notification.icon // optional image url
+            //     });
+            //     // link to page on clicking the notification
+            //     notification.onclick = () => {
+            //         window.open(payload.notification.click_action);
+            //     };
+            // });
         });
         window.addEventListener('offline', () => {
             this.$bvToast.toast('Seems you\'re offline!', {
@@ -89,18 +91,18 @@ export default {
             return Promise.reject(err);
         });
         axios.interceptors.request.use((config) => {
-            this.setLoading(true);
+            // this.setLoading(true);
             return config;
         }, (error) => {
-            this.setLoading(false);
+            // this.setLoading(false);
             return Promise.reject(error);
         });
 
         axios.interceptors.response.use((response) => {
-            this.setLoading(false);
+            // this.setLoading(false);
             return response;
         }, (error) => {
-            this.setLoading(false);
+            // this.setLoading(false);
             return Promise.reject(error);
         });
     },

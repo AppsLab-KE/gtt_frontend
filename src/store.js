@@ -12,7 +12,9 @@ const store = new Vuex.Store({
     isTyping: false,
     savedDraft: JSON.parse(localStorage.getItem('userDraft')) || '',
     allPosts: [],
+    allCategories: [],
     latestPost: [],
+    allPorpular: [],
   },
   getters: {
     isAuthenticated: state => !!state.token,
@@ -55,6 +57,12 @@ const store = new Vuex.Store({
       },
       ALL_POSTS: (state, payload) => {
           state.allPosts = payload
+      },
+      ALL_CATEGORIES: (state, payload) => {
+        state.allCategories = payload
+      },
+      ALL_PORPULAR: (state, payload) => {
+        state.allPorpular = payload
       },
       LATEST_POST: (state, payload) => {
           state.latestPost = payload

@@ -17,8 +17,8 @@
                     <router-link :to="{name: 'profile',params:{username:'@'+post.post_author.username}}">{{post.post_author.first_name}} {{post.post_author.last_name}}</router-link>
                     <br>    
 
-                    <span>{{post.date_published | dateshow}}
-                         <vue-moments-ago prefix=":" suffix="ago" :date="post.date_published"></vue-moments-ago>
+                    <span>{{post.date_published | dateshow}} &nbsp;
+                         <vue-moments-ago prefix="" suffix="ago" :date="post.date_published"></vue-moments-ago>
                     </span>
                     <span v-if="isLoggedIn && url === '/@'+post.post_author.username" class="top-menu">
                         <router-link v-if="currentUser.username === post.post_author.username" :to="{name: 'post-edit', params: {slug: post.slug,username:'@'+post.post_author.username}}" class="text-primary">
