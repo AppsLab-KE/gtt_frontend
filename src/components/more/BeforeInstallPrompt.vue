@@ -1,5 +1,5 @@
 <template>
-  <div class="alert alert-dismissible alert-info popup" v-if="showInstallBanner">
+  <div class="alert alert-dismissible alert-info popup col-md-3 col-sm-12 col-xs-12" v-if="showInstallBanner">
     <button type="button" class="close" data-dismiss="alert">&times;</button>
     <p>
         Add {{appName}} to your home screen?
@@ -47,12 +47,15 @@ export default {
 
 <style lang="scss">
 .popup {
-    padding: 25px 10px 10px 10px;
+    padding: 20px 10px 10px 10px;
     bottom: 0px;
     position: fixed;
     // left: 3%;
+    // right: 0px;
+    // left: 0px;
     z-index: 999999;
     margin: 5px;
+    // margin-right: 10px;
     border-radius: 0px;
     background-color: #299999;
     color: #fff;
@@ -70,6 +73,7 @@ export default {
     }
     .close {
         color: #fff;
+        padding: 5px;
     }
     animation: 2s slide-up;
     @keyframes slide-up {
