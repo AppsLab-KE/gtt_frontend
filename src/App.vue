@@ -38,8 +38,9 @@ export default {
     },   
     data() {
         return {
-        refCount: 0,
-        isLoading: false
+            refCount: 0,
+            isLoading: false,
+            currentUrl: '',
         }
     },
     methods: {
@@ -54,20 +55,11 @@ export default {
         }
     },
     created(){
+        this.currentUrl = window.location.pathname
         let vm = this;
         const messaging = firebase.messaging();
         messaging.onMessage((payload) => {
-        console.log('Message received. ', payload);
-            // Notification.requestPermission( permission => {
-            //     let notification = new Notification(payload.notification.title, {
-            //         body: payload.notification.body, // content for the alert
-            //         icon: payload.notification.icon // optional image url
-            //     });
-            //     // link to page on clicking the notification
-            //     notification.onclick = () => {
-            //         window.open(payload.notification.click_action);
-            //     };
-            // });
+            // console.log('Message received. ', payload);
         });
         window.addEventListener('offline', () => {
             this.$bvToast.toast('Seems you\'re offline!', {
@@ -80,6 +72,9 @@ export default {
                     title: 'Online',
                     variant: 'success'
                 });
+                if(this.currentUrl === '/no-internet'){
+                    this.$router.go(-1);
+                }
         });
         axios.interceptors.response.use(null, function (err) {
             if(err.response){
@@ -105,6 +100,11 @@ export default {
             // this.setLoading(false);
             return Promise.reject(error);
         });
+    },
+    watch: {
+        '$route'(to, from) {
+            this.currentUrl = to.path
+        }
     },
 }
 </script>

@@ -7,7 +7,7 @@ workbox.core.setCacheNameDetails({
     runtime: 'runtime',
  });
 //Change this value every time before you build
-const LATEST_VERSION = 'v1.0.4'
+const LATEST_VERSION = 'v1.0.5'
 // eslint-disable-next-line no-unused-vars
 self.addEventListener('activate', (_event) => {
   console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff')
@@ -66,8 +66,9 @@ workbox.routing.registerRoute(
 // console.log(process.env.VUE_APP_API_BASE_URL)
 // 3. cache post articles result
 workbox.routing.registerRoute(
-    new RegExp('https://geekstalkthursday.co.ke/api/'),
-    workbox.strategies.staleWhileRevalidate({
+    new RegExp('https://app.geekstalkthursday.co.ke/api/'),
+    // workbox.strategies.staleWhileRevalidate({
+    new workbox.strategies.NetworkFirst({
         cacheName: 'gtt-cache-posts-data',
         cacheExpiration: {
             maxAgeSeconds: 60 * 30 //cache the news content for 30mn
@@ -75,7 +76,7 @@ workbox.routing.registerRoute(
         plugins: [
             new workbox.cacheableResponse.Plugin({
               statuses: [200, 201, 0],
-            })
+            }),
           ]
     })
 );
