@@ -1010,7 +1010,7 @@ header {
 }
 
 .mobi-menu__logo img {
-  display:
+  display: block;
 }
 
 .mobi-menu .mobi-menu__socials {
@@ -1524,4 +1524,31 @@ pre {
         overflow-wrap: normal!important;
         white-space: pre;
     }
+}
+
+.sidenav-overlay{
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  opacity:0;
+  /*height:120vh;*/
+  background-color:rgba(0,0,0,0.9);
+  z-index:99788888;
+  display:none;
+  width: 100%;
+  height: 100%;
+}
+.vertical-center {
+  /*margin: 60!important;*/
+  position: fixed;
+  top: 40%!important;
+  left: 30%;
+  color: #fff;
+  width: 100%;
+}
+.fa-long-arrow-left {
+  font-size: 70px!important;
+  transform: rotate(50deg);
+  margin-top: -40px;
 }

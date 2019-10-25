@@ -3,7 +3,7 @@
         <div class="content-widget">
             <div class="container">
                 <div class="sidebar-widget ads">
-                    <a href="#"><img src="/assets/images/ads/ads-2.png" alt="ads"></a>
+                    <a target="_blank" href="https://appslab.co.ke"><img width="300" src="https://appslab.co.ke/assets/img/logo.png" alt="ads"></a>
                 </div>
                 <div class="hr"></div>
             </div>

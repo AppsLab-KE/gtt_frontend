@@ -27,9 +27,39 @@
                 </div>
             </li>
         </ol>
-        <div class=" ads">
-            <a href="#"><img src="/assets/images/ads/ads-1.png" alt="ads"></a>
-        </div>
+        <br>
+       <div class="sidebar-widget text-center">
+           <h4 class="spanborder text-left">
+               <span>Partners</span>
+           </h4>
+           <div class="ads">
+               <a href="https://droidcon.co.ke/"><img src="https://droidcon.co.ke/assets/img/web-01.png" alt="ads"></a>
+           </div>
+           <br>
+           <div class="ads">
+               <br>
+               <a target="_blank" href="https://academy.appslab.tech"><img width="300" src="https://academy.appslab.tech/assets/img/logo/academy.png" alt="ads"></a>
+           </div>
+           <br>
+           <div class="row">
+               <div class="col-6">
+                   <div class="ads">
+                       <br>
+                       <a target="_blank" href="https://aug.atlassian.com/nairobi"><img width="100" src="https://appslab.co.ke/assets/img/community/acnairobi.jpeg" alt="ads"></a>
+                   </div>
+               </div>
+               <div class="col-6">
+                   <div class="ads">
+                       <br>
+                       <a target="_blank" href="https://www.meetup.com/Android254/"><img width="75" src="https://appslab.co.ke/assets/img/community/android-254.svg" alt="ads"></a>
+                   </div>
+               </div>
+           </div>
+           <br>
+           <div class="ads">
+               <a target="_blank" href="https://appslab.co.ke"><img width="400" src="https://appslab.co.ke/assets/img/logo.png" alt="ads"></a>
+           </div>
+       </div>
     </div>
 </template>
 

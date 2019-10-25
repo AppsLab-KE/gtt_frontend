@@ -71,7 +71,9 @@ import {messaging} from './services/Messaging';
 messaging(firebase);
 
 import VueLazyload from 'vue-lazyload'
-Vue.use(VueLazyload)
+Vue.use(VueLazyload, {
+  lazyComponent: true
+});
 
 Vue.config.productionTip = false
 

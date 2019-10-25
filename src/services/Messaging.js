@@ -6,20 +6,50 @@ export function messaging (firebase){
         const messaging = firebase.messaging();
   
         messaging.usePublicVapidKey(process.env.VUE_APP_FIREBASE_PUBLIC_KEY); // 1. Generate a new key pair
-        
-        // Request Permission of Notifications
-        messaging.requestPermission().then(() => {
-            console.log('Notification permission granted.');
-            // console.log(process.env.VUE_APP_MESSAGING_TOPIC)
-        
-            // Get Token
+
+        if (Notification.permission === "granted") {
+            /* do our magic */
+            console.log('allowed')
             messaging.getToken().then((token) => {
-            //   console.log(token)
-            sendTokenToServer(token);
+                //   console.log(token)
+                sendTokenToServer(token);
             })
-        }).catch((err) => {
-            console.log('Unable to get permission to notify.', err);
-        });
+        } else if (Notification.permission === "blocked" || Notification.permission === "denied") {
+            /* the user has previously denied push. Can't reprompt. */
+            console.log('denied')
+        }else if(Notification.permission === 'default') {
+            console.log('default')
+            // Request Permission of Notifications
+            //? add window overay
+            const el = document.getElementsByClassName('sidenav-overlay')[0];
+            // console.log(el)
+            const body = document.body;
+            if (el){
+                el.setAttribute("style", "display: block; opacity: 9; ");
+                body.setAttribute("style", "overflow: hidden; ")
+            }
+            messaging.requestPermission().then(() => {
+                console.log('Notification permission granted.');
+                // console.log(process.env.VUE_APP_MESSAGING_TOPIC)
+                // ? remove the window overlay
+                if (el){
+                    el.setAttribute("style", "display: none; opacity: 0; ");
+                    body.style.removeProperty("overflow");
+                }
+                // Get Token
+                messaging.getToken().then((token) => {
+                    //   console.log(token)
+                    sendTokenToServer(token);
+                })
+            }).catch((err) => {
+                // ? remove window overlay
+                if (el){
+                    el.setAttribute("style", "display: none; opacity: 0; ");
+                    body.style.removeProperty("overflow");
+                }
+                console.log('Unable to get permission to notify.', err);
+            });
+        }
 
         // Callback fired if Instance ID token is updated.
         messaging.onTokenRefresh(function() {
