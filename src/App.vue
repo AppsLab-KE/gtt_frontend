@@ -18,7 +18,7 @@
 
                 <router-view></router-view>
 
-                <advert-footer></advert-footer>
+<!--                <advert-footer></advert-footer>-->
 
             </main>
             <footer-part></footer-part>
