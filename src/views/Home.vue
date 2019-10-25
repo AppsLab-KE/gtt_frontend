@@ -1,7 +1,8 @@
 <template>
   <div class="home">
     <div class="content-widget">
-        <div v-if="latestPost != ''" class="container">
+        <lazy-component>
+        <div v-if="latestPost.length > 0" class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0 flex-column-reverse flex-md-row">
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
@@ -27,12 +28,13 @@
                 <div class="col-lg-6 col-md-4 bgcove pl-md-0 ml-0">
                      <!-- d-none d-md-block -->
                     <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
-                        <img v-lazy="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
+                        <img :src="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
                     </router-link>
                 </div>
             </div>
             <div class="divider"></div>
         </div>
+        </lazy-component>
     </div> <!--content-widget-->
 
     <!-- <featured></featured> -->
@@ -48,7 +50,9 @@
                     <article v-if="postsData != ''" v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
                         <blog :post="post"></blog>
                     </article>
-                    <article v-else><nothing message="Loading Posts...Please Wait"></nothing></article>
+                    <article v-else>
+                        <skeleton-box></skeleton-box>
+                    </article>
                     <ul v-if="postsData != ''" class="page-numbers heading">
                         <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
                             <!-- <div slot="spinner">Loading...</div> -->
@@ -79,11 +83,12 @@ import Porpular from '@/components/pages/Porpular'
 import Nothing from '@/components/more/Nothing'
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
+import SkeletonBox from "@/components/more/SkeletonBox";
 
 export default {
   name: 'home',
   components: {
-    Featured, Blog, Porpular,VueMomentsAgo, Nothing
+    Featured, Blog, Porpular,VueMomentsAgo, Nothing, SkeletonBox,
   },
   mounted(){
       if(this.$store.state.latestPost.length == 0){
@@ -121,6 +126,9 @@ export default {
                     }
                 });
             }
+        },
+        handler (component) {
+            console.log('this component is showing')
         },
     },
     computed: {

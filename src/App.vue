@@ -1,3 +1,4 @@
+<!--suppress ALL -->
 <template>
   <div id="app">
       <install-prompt></install-prompt>
@@ -18,7 +19,7 @@
                 <router-view></router-view>
 
                 <advert-footer></advert-footer>
-                
+
             </main>
             <footer-part></footer-part>
         </div> <!--#wrapper-->
@@ -26,12 +27,14 @@
 </template>
 
 <script>
+    /* eslint-disable no-undef */
+
 import MobileNav from '@/components/layouts/MobileNav.vue'
 import NavBar from '@/components/layouts/Nav.vue'
 import AdvertFooter from '@/components/more/AdvertFooter.vue'
 import FooterPart from '@/components/layouts/Footer.vue'
 import InstallPrompt from '@/components/more/BeforeInstallPrompt.vue';
-import firebase from './services/Firebase';
+// import firebase from './services/Firebase';
 export default {
     components: {
         MobileNav, NavBar, AdvertFooter, FooterPart, InstallPrompt,
@@ -57,10 +60,10 @@ export default {
     created(){
         this.currentUrl = window.location.pathname
         let vm = this;
-        const messaging = firebase.messaging();
-        messaging.onMessage((payload) => {
-            // console.log('Message received. ', payload);
-        });
+        // const messaging = firebase.messaging();
+        // messaging.onMessage((payload) => {
+        //     // console.log('Message received. ', payload);
+        // });
         window.addEventListener('offline', () => {
             this.$bvToast.toast('Seems you\'re offline!', {
                     title: 'Offline',
@@ -102,8 +105,14 @@ export default {
         });
     },
     watch: {
-        '$route'(to, from) {
+        // eslint-disable-next-line no-unused-vars
+        '$route'(to, _from) {
             this.currentUrl = to.path
+        }
+    },
+    computed: {
+        appName(){
+            return process.env.VUE_APP_NAME
         }
     },
 }
@@ -166,4 +175,5 @@ export default {
     transform: translate(24px, 0);
   }
 }
+
 </style>
