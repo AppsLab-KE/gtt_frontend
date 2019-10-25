@@ -2,7 +2,7 @@
   <div class="home">
     <div class="content-widget">
         <lazy-component>
-        <div v-if="latestPost.length > 0" class="container">
+        <div v-if="latestPost != ''" class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0 flex-column-reverse flex-md-row">
                 <div class="col-lg-6 col-md-8">
                     <div class="pt-5 pb-5 pl-md-5 pr-5 align-self-center">
