@@ -8,13 +8,7 @@
         <div id="wrapper">
             <nav-bar></nav-bar>
             <main id="content">
-                
-                <!-- <div v-if="isLoading" class="col-12 text-center">
-                    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-                    <p>Loading Data ... 
-                        ({{refCount}}) 
-                        </p>
-                </div> -->
+                <loading-screen :is-loading="isLoading"></loading-screen>
 
                 <router-view></router-view>
 
@@ -35,27 +29,25 @@ import AdvertFooter from '@/components/more/AdvertFooter.vue'
 import FooterPart from '@/components/layouts/Footer.vue'
 import InstallPrompt from '@/components/more/BeforeInstallPrompt.vue';
 // import firebase from './services/Firebase';
+    import Loader from "@/components/more/Loader";
 export default {
     components: {
-        MobileNav, NavBar, AdvertFooter, FooterPart, InstallPrompt,
+        MobileNav, NavBar, AdvertFooter, FooterPart, InstallPrompt, 'loading-screen': Loader,
     },   
     data() {
         return {
             refCount: 0,
-            isLoading: false,
+            isLoading: true,
             currentUrl: '',
         }
     },
     methods: {
-        setLoading(isLoading) {
-            if (isLoading) {
-                this.refCount++;
-                this.isLoading = true;
-            } else if (this.refCount > 0) {
-                this.refCount--;
-                this.isLoading = (this.refCount > 0);
-            }
-        }
+
+    },
+    mounted () {
+        setTimeout(() => {
+            this.isLoading = false
+        }, 2000)
     },
     created(){
         this.currentUrl = window.location.pathname
