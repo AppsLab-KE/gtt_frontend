@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div class="content-widget">
-        <lazy-component>
+<!--        <lazy-component>-->
         <div v-if="latestPost != ''" class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0 flex-column-reverse flex-md-row">
                 <div class="col-lg-6 col-md-8">
@@ -20,6 +20,7 @@
                             <span>
                                 {{latestPost.date_published | dateshow}} &nbsp;
                          <vue-moments-ago prefix="" suffix="ago" :date="latestPost.date_published"></vue-moments-ago>
+<!--                                {{latestPost.date_published}}-->
                             </span>
                             <span class="middotDivider"></span>
                         </div>
@@ -28,13 +29,13 @@
                 <div class="col-lg-6 col-md-4 bgcove pl-md-0 ml-0">
                      <!-- d-none d-md-block -->
                     <router-link :to="{name: 'single', params: {slug : latestPost.slug,username:'@'+latestPost.post_author.username}}">
-                        <img :src="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
+                        <img v-lazy="latestPost.post_heading_image" :alt="latestPost.post_heading_image">
                     </router-link>
                 </div>
             </div>
             <div class="divider"></div>
         </div>
-        </lazy-component>
+<!--        </lazy-component>-->
     </div> <!--content-widget-->
 
     <!-- <featured></featured> -->

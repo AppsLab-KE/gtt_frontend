@@ -18,6 +18,7 @@
                     <br>    
 
                     <span>{{post.date_published | dateshow}} &nbsp;
+<!--                        {{post.date_published}}-->
                          <vue-moments-ago prefix="" suffix="ago" :date="post.date_published"></vue-moments-ago>
                     </span>
                     <span v-if="isLoggedIn && url === '/@'+post.post_author.username" class="top-menu">
@@ -130,7 +131,7 @@ export default {
     img {
         border: 1px solid #299999;
     }
-    background-color: #FAFAFA;
+    /*background-color: #FAFAFA;*/
 }
 </style>
 
