@@ -49,6 +49,6 @@ deploy:
   skip_cleanup: true
   script:
     sshpass -V ;
-    sshpass -p $USER_PASS rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454 ssh -o StrictHostKeyChecking=no' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
+    sshpass -p $USER_PASS rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -o StrictHostKeyChecking=no -p 5454' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
   on:
     branch: deployment
