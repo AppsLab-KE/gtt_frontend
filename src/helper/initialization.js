@@ -28,8 +28,13 @@ export function initialize(store, router) {
             //     store.dispatch('AUTH_LOGOUT');
             //     router.push({name: 'home'});
             // }
+            // console.log(error.response)
             if (error.response.status == 500 || error.response.status == 502){
-                router.push({name: 'server-error'});
+                if(error.response.config.url.includes("mailchimp")){
+                    return
+                }else{
+                    router.push({name: 'server-error'});
+                }
             }
         } else if (error.request) {
             /*
@@ -38,10 +43,10 @@ export function initialize(store, router) {
             * of http.ClientRequest in Node.js
             */
             // console.log(error.request);
-            router.push({name: 'no-internet'});
+            // router.push({name: 'no-internet'});
         } else {
             // Something happened in setting up the request and triggered an Error
-            console.log('Error', error.message);
+            // console.log('Error', error.message);
             // router.push({name: 'no-internet'});
         }
         // console.log(error);
