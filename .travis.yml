@@ -9,15 +9,20 @@ cache:
     - ./node_modules
 
 addons:
-  ssh_known_hosts: 51.15.229.227:5454
+  apt:
+    packages:
+      - sshpass
 
-before_install:
-- openssl aes-256-cbc -K $encrypted_f80a6d9940c8_key -iv $encrypted_f80a6d9940c8_iv
-  -in deploy_rsa.enc -out /tmp/deploy_rsa -d
-
-- eval "$(ssh-agent -s)"
-- chmod 600 /tmp/deploy_rsa
-- ssh-add /tmp/deploy_rsa
+#addons:
+#  ssh_known_hosts: 51.15.229.227:5454
+#
+#before_install:
+#- openssl aes-256-cbc -K $encrypted_f80a6d9940c8_key -iv $encrypted_f80a6d9940c8_iv
+#  -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+#
+#- eval "$(ssh-agent -s)"
+#- chmod 600 /tmp/deploy_rsa
+#- ssh-add /tmp/deploy_rsa
 
 before_script:
 - npm install
@@ -42,6 +47,8 @@ script:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
+  script:
+    - sshpass -V
+    - sshpass -p $USER_PASS rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -p 5454 ssh -o StrictHostKeyChecking=no' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
   on:
     branch: deployment
