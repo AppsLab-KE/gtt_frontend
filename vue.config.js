@@ -15,8 +15,5 @@ module.exports = {
                 /manifest\.json$/ 
             ],
         },
-    },
-    // devServer: {
-    //     proxy: process.env.VUE_APP_API_DORMAIN_URL,
-    // }
+    }
 }

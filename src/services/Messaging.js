@@ -94,20 +94,6 @@ export function messaging (firebase){
             window.localStorage.setItem('sentToServer_GTT', sent ? '1' : '0');
         }
 
-            
-            // Callback fired if Instance ID token is updated.
-        messaging.onTokenRefresh(function() {
-            messaging.getToken()
-            // eslint-disable-next-line no-unused-vars
-            .then(function(_refreshedToken) {
-            console.log('Token refreshed.');
-            // Indicate that the new Instance ID token has not yet been sent 
-            })
-            .catch(function(err) {
-            console.log('Unable to retrieve refreshed token ', err);
-            });
-        });
-
 
         // eslint-disable-next-line no-inner-declarations
         function setTokenToTopic(token)
