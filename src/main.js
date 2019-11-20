@@ -35,6 +35,26 @@ Vue.use(VueAuthenticate, {
 window.axios = axios;
 initialize(store, router)
 
+import VueAnalytics from 'vue-analytics'
+
+const isProd = process.env.NODE_ENV === 'production'
+
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
+  disableScriptLoader: true,
+  router,
+  autoTracking: {
+    screenview: true,
+    exception: true,
+    exceptionLogs: false
+  },
+  debug: {
+    enabled: !isProd, // default value
+    trace: isProd, // default value
+    sendHitTask: isProd // default value
+  }
+});
+
 Vue.use(BootstrapVue)
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
