@@ -41,13 +41,13 @@ const isProd = process.env.NODE_ENV === 'production'
 
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
-  checkDuplicatedScript: true,
+  // checkDuplicatedScript: true,
   router,
   autoTracking: {
     screenview: true,
-    exception: true,
-    exceptionLogs: false,
-    pageviewOnLoad: false
+    // exception: true,
+    // exceptionLogs: false,
+    // pageviewOnLoad: false
   },
   debug: {
     enabled: !isProd,
