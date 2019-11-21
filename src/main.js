@@ -46,7 +46,8 @@ Vue.use(VueAnalytics, {
   autoTracking: {
     screenview: true,
     exception: true,
-    exceptionLogs: false
+    exceptionLogs: false,
+    pageviewOnLoad: false
   },
   debug: {
     enabled: !isProd,
