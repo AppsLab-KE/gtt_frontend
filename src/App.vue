@@ -1,6 +1,12 @@
 <!--suppress ALL -->
 <template>
   <div id="app">
+      <vue-headful
+          title="GeeksTalkThursday"
+          description="GeeksTalkThursday is a Tech Community for developers to Learn, Engage, Share knowledge and a lots of commits #LetTheCommitsSpeak"
+          image="https://geekstalkthursday.co.ke/assets/images/bg1.png"
+          ogLocale="en_US"
+          url="https://geekstalkthursday.co.ke"/>
       <install-prompt></install-prompt>
     <!--Mobile navigation-->
         <mobile-nav></mobile-nav>

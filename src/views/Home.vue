@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+      <vue-headful title="GeeksTalkThursday - Home"/>
     <div class="content-widget">
 <!--        <lazy-component>-->
         <div v-if="latestPost != ''" class="container">

@@ -1,9 +1,14 @@
 <template>
     <div>
         <div class="content-widget">
-            <div class="container">
+            <div v-if="loaded" class="container">
                 <div class="row">
-                    <div v-if="user.length !== ''" class="col-md-8">                               
+                    <div v-if="user.length !== ''" class="col-md-8">
+                        <vue-headful
+                            :title="'GeeksTalkThursday - '+ user.first_name + ' ' + user.last_name"
+                            :description="user.bio"
+                            :image="user.user_avatar"
+                            :url="'https://geekstalkthursday.co.ke/@'+user.username"/>
                         <div class="box box-author m_b_2rem col-xs-12">
                             <div class="post-author row-flex">
                                 <div class="author-img">
@@ -29,7 +34,8 @@
                         <article v-if="postsData != ''" v-for="(post, $index) in postsData.results" :key="$index" class="row justify-content-between mb-5 mr-0">
                             <blog :post="post"></blog>
                         </article>
-                        <article v-else><nothing message="Loading Posts...Please Wait"></nothing></article>
+                        <article v-else><nothing message="Loading Posts...Please Wait"></nothing>
+                        </article>
                         <ul v-if="postsData != ''" class="page-numbers heading">
                             <infinite-loading spinner="waveDots" @infinite="infiniteHandler">
                                 <!-- <div slot="spinner">Loading...</div> -->
@@ -48,6 +54,9 @@
                     </div> <!--col-md-4-->
                 </div>
             </div> <!--content-widget-->
+            <div v-else class="container text-center">
+                <h4>Loading Profile ...</h4>
+            </div>
         </div>
     </div>
 </template>
@@ -64,9 +73,11 @@ export default {
             user : [],
             isLoggedInUser : false,
             postsData: [],
+            loaded: false
         }
     },
     mounted(){
+        this.loaded = false
         this.loadProfile()
     },
     methods: {
@@ -77,6 +88,7 @@ export default {
             return axios.get('/posts/@'+username+'?limit='+process.env.VUE_APP_PAGINATION)
             .then( response => {
                 this.postsData = response.data
+                this.loaded = true
             })
             .catch(error => {
                 if(error.response){

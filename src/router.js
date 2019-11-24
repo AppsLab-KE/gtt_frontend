@@ -17,7 +17,7 @@ const ifNotAuthenticated = (_to, _from, next) => {
         next('/')
 }
     
-const ifAuthenticated = (_to, _from, next) => {
+const ifAuthenticated = (to, _from, next) => {
     if (store.getters.isAuthenticated) {
         next()
         return
@@ -46,7 +46,7 @@ const router =  new Router({
     { path: '/contact', name: 'contact', component: () => import('./views/Contact.vue') },
     { path: '/oauth/complete/:provider', component: { template: '<div class="auth-component"></div>'}},
     // ? Accounts
-    { path: '/:username(@\\w+)', name: 'profile', beforeEnter: ifAuthenticated, component: () => import('./views/account/Profile.vue') },
+    { path: '/:username(@\\w+)', name: 'profile', component: () => import('./views/account/Profile.vue') },
     { path: '/bookmarks', name: 'bookmarks', beforeEnter: ifAuthenticated, component: () => import('./views/account/Bookmarks.vue') },
     { path: '/profile/edit', name: 'profile-edit', beforeEnter: ifAuthenticated, component: () => import('./views/account/EditProfile.vue') },
     //author

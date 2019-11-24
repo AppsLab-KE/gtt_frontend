@@ -1,5 +1,6 @@
 <template>
     <div>
+        <vue-headful title="GeeksTalkThursday - Edit Post"/>
         <div class="content-widget">
             <div class="container">
                 <div class="row">

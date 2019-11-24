@@ -1,5 +1,6 @@
 <template>
     <div class="content-widget">
+        <vue-headful title="GeeksTalkThursday - Bookmarks"/>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
