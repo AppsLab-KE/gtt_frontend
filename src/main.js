@@ -5,6 +5,25 @@ import store from './store'
 import './registerServiceWorker'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios';
+import VueAnalytics from 'vue-analytics'
+const isProd = process.env.NODE_ENV === 'production'
+
+Vue.use(VueAnalytics, {
+  id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
+  // checkDuplicatedScript: true,
+  router,
+  autoTracking: {
+    screenview: true,
+    exception: true,
+    exceptionLogs: false,
+    pageviewOnLoad: false
+  },
+  debug: {
+    enabled: !isProd,
+    trace: isProd,
+    sendHitTask: isProd
+  }
+});
 
 import {initialize} from './helper/initialization'
 
@@ -34,27 +53,6 @@ Vue.use(VueAuthenticate, {
 //Use the window object to make it available globally.
 window.axios = axios;
 initialize(store, router)
-
-import VueAnalytics from 'vue-analytics'
-
-const isProd = process.env.NODE_ENV === 'production'
-
-Vue.use(VueAnalytics, {
-  id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
-  // checkDuplicatedScript: true,
-  router,
-  autoTracking: {
-    screenview: true,
-    // exception: true,
-    // exceptionLogs: false,
-    // pageviewOnLoad: false
-  },
-  debug: {
-    enabled: !isProd,
-    trace: isProd,
-    sendHitTask: isProd
-  }
-});
 
 Vue.use(BootstrapVue)
 import 'bootstrap-vue/dist/bootstrap-vue.css'
