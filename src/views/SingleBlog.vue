@@ -83,7 +83,7 @@
             <!--End post related-->
 
         </div> <!--container-->
-        <div class="container text-center">
+        <div v-else class="container text-center">
             <h4>Loading content ...</h4>
         </div>
     </div>
@@ -145,7 +145,7 @@ export default {
             return final
         },
         dateshow(value){
-            var date = moment(value).format("MMM Do YY"); 
+            var date = moment(value).format("MMM Do YYYY");
             return date;
         },
     }
