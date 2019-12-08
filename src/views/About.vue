@@ -1,5 +1,6 @@
 <template>
     <div class="content-widget">
+        <vue-headful title="GeeksTalkThursday - About"/>
         <div class="container">
             <div class="row justify-content-between post-has-bg ml-0 mr-0">
                 <div class="col-lg-6 col-md-4 bgcover  ml-0" style="background-image:url(assets/images/bg1.png);"></div>

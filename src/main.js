@@ -36,9 +36,7 @@ window.axios = axios;
 initialize(store, router)
 
 import VueAnalytics from 'vue-analytics'
-
 const isProd = process.env.NODE_ENV === 'production'
-
 Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
   // checkDuplicatedScript: true,
@@ -95,6 +93,9 @@ import VueLazyload from 'vue-lazyload'
 Vue.use(VueLazyload, {
   lazyComponent: true
 });
+
+import vueHeadful from 'vue-headful';
+Vue.component('vue-headful', vueHeadful);
 
 Vue.config.productionTip = false
 

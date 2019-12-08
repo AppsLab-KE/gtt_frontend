@@ -1,5 +1,6 @@
 <template>
     <div class="content-widget">
+        <vue-headful v-if="slug !== null" :title="'GeeksTalkThursday - '+ slug.replace(/(-)/, ' ').toUpperCase()"/>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
