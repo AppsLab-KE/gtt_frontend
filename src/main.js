@@ -97,6 +97,9 @@ Vue.use(VueLazyload, {
 import vueHeadful from 'vue-headful';
 Vue.component('vue-headful', vueHeadful);
 
+import VueConfetti from 'vue-confetti';
+Vue.use(VueConfetti);
+
 Vue.config.productionTip = false
 
 
