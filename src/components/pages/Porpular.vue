@@ -36,10 +36,10 @@
                <a href="https://droidcon.co.ke/"><img src="https://droidcon.co.ke/assets/img/web-01.png" alt="ads"></a>
            </div>
            <br>
-           <div class="ads">
-               <br>
-               <a target="_blank" href="https://academy.appslab.tech"><img width="300" src="https://academy.appslab.tech/assets/img/logo/academy.png" alt="ads"></a>
-           </div>
+<!--           <div class="ads">-->
+<!--               <br>-->
+<!--               <a target="_blank" href="https://academy.appslab.tech"><img width="300" src="https://academy.appslab.tech/assets/img/logo/academy.png" alt="ads"></a>-->
+<!--           </div>-->
            <br>
            <div class="row">
                <div class="col-6">

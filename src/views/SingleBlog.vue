@@ -112,10 +112,12 @@ export default {
     },
     updated(){
         require('./../../public/assets/js/prettify.js');
+        require('./../../public/assets/css/prettify.css');
         const els = document.getElementsByTagName("pre");
         // console.log(els)
         for (let i = 0; i < els.length; i++) {
             const element = els[i];
+            // element.setAttribute('v-highlight','')
             element.classList.add('prettyprint');
         }
     },

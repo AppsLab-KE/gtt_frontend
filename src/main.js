@@ -100,7 +100,7 @@ Vue.component('vue-headful', vueHeadful);
 import VueConfetti from 'vue-confetti';
 Vue.use(VueConfetti);
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
 
 new Vue({
