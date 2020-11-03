@@ -7,7 +7,7 @@ workbox.core.setCacheNameDetails({
     runtime: 'runtime',
  });
 //Change this value every time before you build
-const LATEST_VERSION = 'v1.0.5'
+const LATEST_VERSION = 'v1.0.6'
 // eslint-disable-next-line no-unused-vars
 self.addEventListener('activate', (_event) => {
   console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff')
