@@ -1,0 +1,45 @@
+if: branch = deployment
+language: node_js
+node_js:
+ - 12
+
+cache: 
+  npm: true
+  directories:
+    - ./node_modules
+
+addons:
+  apt:
+    packages:
+      - sshpass
+
+
+before_script:
+- npm install
+script:
+- cp .env.example .env
+  # pass environment variables in travis to the app
+- sed -ri 's/^VUE_APP_API_BASE_URL=/VUE_APP_API_BASE_URL=\$VUE_APP_API_BASE_URL/' .env
+- sed -ri 's/^VUE_APP_GITHUB_CLIENT_ID=/VUE_APP_GITHUB_CLIENT_ID=\$VUE_APP_GITHUB_CLIENT_ID/' .env
+- sed -ri 's/^VUE_APP_BITBUCKET_CLIENT_ID=/VUE_APP_BITBUCKET_CLIENT_ID=\$VUE_APP_BITBUCKET_CLIENT_ID/' .env
+- sed -ri 's/^VUE_APP_GOOGLE_CLIENT_ID=/VUE_APP_GOOGLE_CLIENT_ID=\$VUE_APP_GOOGLE_CLIENT_ID/' .env
+- sed -ri 's/^VUE_APP_IMGUR_CLIENT_ID=/VUE_APP_IMGUR_CLIENT_ID=\$VUE_APP_IMGUR_CLIENT_ID/' .env
+- sed -ri 's/^VUE_APP_MAILCHIMP_API_KEY=/VUE_APP_MAILCHIMP_API_KEY=\$VUE_APP_MAILCHIMP_API_KEY/' .env
+- sed -ri 's/^VUE_APP_MAILCHIMP_LIST_ID=/VUE_APP_MAILCHIMP_LIST_ID=\$VUE_APP_MAILCHIMP_LIST_ID/' .env
+- sed -ri 's/^VUE_APP_FIREBASE_API_KEY=/VUE_APP_FIREBASE_API_KEY=\$VUE_APP_FIREBASE_API_KEY/' .env
+- sed -ri 's/^VUE_APP_FIREBASE_APP_ID=/VUE_APP_FIREBASE_APP_ID=\$VUE_APP_FIREBASE_APP_ID/' .env
+- sed -ri 's/^VUE_APP_FIREBASE_MESSAGE_ID=/VUE_APP_FIREBASE_MESSAGE_ID=\$VUE_APP_FIREBASE_MESSAGE_ID/' .env
+- sed -ri 's/^VUE_APP_FIREBASE_PUBLIC_KEY=/VUE_APP_FIREBASE_PUBLIC_KEY=\$VUE_APP_FIREBASE_PUBLIC_KEY/' .env
+- sed -ri 's/^VUE_APP_SERVER_KEY=/VUE_APP_SERVER_KEY=\$VUE_APP_SERVER_KEY/' .env
+- sed -ri 's/^VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID=/VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID=\VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID/' .env
+
+- npm run build
+
+deploy:
+  provider: script
+  skip_cleanup: true
+  script:
+    sshpass -V ;
+    sshpass -p $USER_PASS rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/dist -e 'ssh -o StrictHostKeyChecking=no -p 5454' $DEPLOY_HOST:/var/www/projects/geekstalkthursday
+  on:
+    branch: deployment
