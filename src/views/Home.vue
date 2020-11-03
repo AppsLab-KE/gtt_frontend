@@ -17,7 +17,7 @@
                             </div>
                         </router-link>
                         <div class="entry-meta align-items-center">
-                            <router-link :to="{name: 'profile',params:{username:'@'+latestPost.post_author.username}}">{{latestPost.post_author.first_name}} {{latestPost.post_author.last_name}}</router-link> <br>                                    
+                            <router-link :to="{name: 'profile',params:{username:'@'+latestPost.post_author.username}}">{{latestPost.post_author.first_name}} {{latestPost.post_author.last_name}}</router-link> <br>
                             <span>
                                 {{latestPost.date_published | dateshow}} &nbsp;
                          <vue-moments-ago prefix="" suffix="ago" :date="latestPost.date_published"></vue-moments-ago>
@@ -105,6 +105,7 @@ export default {
             axios.get(url)
             .then( response => {
                 this.$store.commit('ALL_POSTS',response.data)
+                // console.log(response.data)
             })
         },
         getLatestPost(){

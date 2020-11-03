@@ -1486,45 +1486,45 @@ table td, .table th {
   border-color: rgba(0, 0, 0, 0.06);
 }
 
-pre {
-  border: 1px solid #d1d1d1;
-  font-size: 1em;
-  line-height: 1.8;
-  margin: 0 0 1.75em;
-  max-width: 100%;
-  overflow: auto;
-  padding: 1.75em;
-  /* white-space: pre; */
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
+/*pre {*/
+/*  border: 1px solid #d1d1d1;*/
+/*  font-size: 1em;*/
+/*  line-height: 1.8;*/
+/*  margin: 0 0 1.75em;*/
+/*  max-width: 100%;*/
+/*  overflow: auto;*/
+/*  padding: 1.75em;*/
+/*  !* white-space: pre; *!*/
+/*  !*white-space: pre-wrap;*!*/
+/*  !*word-wrap: break-word;*!*/
+/*}*/
 
 /*OTHER*/
 button.owl-prev:hover, button.owl-next:hover {
   background: none !important;
 }
 
-pre {
-    overflow-x:scroll!important;
-    height: auto; 
-    width: 100%; 
-    font-size: 15px; 
-    /* word-break: normal;
-    word-wrap: normal; */
-    /* display:inline;  */
-    /* overflow-wrap: normal!important; */
-}
+/*pre {*/
+/*    overflow-x:scroll!important;*/
+/*    height: auto; */
+/*    width: 100%; */
+/*    font-size: 15px; */
+/*    !* word-break: normal;*/
+/*    word-wrap: normal; *!*/
+/*    !* display:inline;  *!*/
+/*    !* overflow-wrap: normal!important; *!*/
+/*}*/
 
-@media screen and (max-width: 360px){
-    pre {
-        overflow-x:scroll!important;
-        height: auto; 
-        width: 100%; 
-        font-size: 12px; 
-        overflow-wrap: normal!important;
-        white-space: pre;
-    }
-}
+/*@media screen and (max-width: 360px){*/
+/*    pre {*/
+/*        overflow-x:scroll!important;*/
+/*        height: auto; */
+/*        width: 100%; */
+/*        font-size: 12px; */
+/*        overflow-wrap: normal!important;*/
+/*        white-space: pre;*/
+/*    }*/
+/*}*/
 
 .sidenav-overlay{
   position:absolute;
