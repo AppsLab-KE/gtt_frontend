@@ -71,6 +71,7 @@ import 'highlight.js/styles/ocean.css';
 import { ValidationProvider, extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import en from 'vee-validate/dist/locale/en';
+
 // loop over all rules
 for (let rule in rules) {
   extend(rule, {
