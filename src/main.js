@@ -66,7 +66,7 @@ Vue.component('medium-editor', MediumEditor)
 import 'medium-editor/dist/css/medium-editor.css'
 import 'vuejs-medium-editor/src/themes/default.css'
 // for the code highlighting
-import 'highlight.js/styles/ocean.css';
+import 'highlight.js/styles/androidstudio.css';
 
 import { ValidationProvider, extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';

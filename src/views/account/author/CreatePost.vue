@@ -136,14 +136,22 @@ export default {
                 file_input_name: "image",
                 imgur: true,
                 toolbar: {
-                buttons: ["bold", "italic", "underline", "quote", "h1", "h2", "h3", 'unorderedlist', {
+                buttons: ["bold", "italic", "underline", "quote", "h1", "h2", "h3", "anchor", 'unorderedlist', {
                   name: 'pre',
                   action: 'append-pre',
                   aria: 'code highlight',
                   tagNames: ['pre'],
                   contentDefault: '<b><\\></b>',
                   contentFA: '<i class="fa fa-code fa-lg"></i>'
-                }]
+                },
+                  {
+                    name: 'image',
+                    action: 'image',
+                    aria: 'insert image from url',
+                    tagNames: ['img'],
+                    contentDefault: '<b>image</b>',
+                    contentFA: '<i class="fa fa-picture-o"></i>'
+                  }]
                 }
             },
             cropped: null,
