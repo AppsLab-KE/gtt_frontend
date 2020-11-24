@@ -4,7 +4,7 @@
         <div class="content-widget">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-12 creator">  
+                    <div class="col-md-12 creator">
                         <div class="container phone-creater">
                             <div class="col-md-12 phone-creater">
                                 <div class="publish float-right">
@@ -22,8 +22,8 @@
                                     </ValidationProvider>
                                 </div>
                             </div>
-                        </div>                                       
-                        
+                        </div>
+
                         <medium-editor v-model="content"
                         :readOnly="false"
                         :prefill="defaultValue"
@@ -46,7 +46,7 @@
                         <div class="col-lg-6">
                             <div class="row1">
                                 <div class="col-xs-12" >
-                                    <label>Image Preview for your Post &nbsp;&nbsp;</label> 
+                                    <label>Image Preview for your Post &nbsp;&nbsp;</label>
                                     <span class="edit-phto1 change-avatar">
                                         <label class="fileContainer1">
                                             <i class="fa fa-camera"></i>
@@ -68,7 +68,7 @@
                                         @update="update">
                                     </vue-croppie>
                                 </div>
-                                <span><small>The maximum file size allowed is 300KB</small></span> 
+                                <span><small>The maximum file size allowed is 300KB</small></span>
                             </div>
                             <div class="form-group">
                                 <label for="title">Post Title</label>
@@ -133,7 +133,14 @@ export default {
                 file_input_name: "image",
                 imgur: true,
                 toolbar: {
-                buttons: ["bold", "italic", "underline", "quote", "h1", "h2", "h3", 'pre',          'unorderedlist']
+                buttons: ["bold", "italic", "underline", "quote", "h1", "h2", "h3", 'unorderedlist', {
+                  name: 'pre',
+                  action: 'append-pre',
+                  aria: 'code highlight',
+                  tagNames: ['pre'],
+                  contentDefault: '<b><\\></b>',
+                  contentFA: '<i class="fa fa-code fa-lg"></i>'
+                }]
                 }
             },
             cropped: null,
@@ -204,16 +211,7 @@ export default {
         }
         this.getCategories()
         this.getTags()
-    
-    },
-    updated(){
-        require('./../../../../public/assets/js/prettify.js');
-        const els = document.getElementsByTagName("pre");
-        // console.log(els)
-        for (let i = 0; i < els.length; i++) {
-            const element = els[i];
-            element.classList.add('prettyprint');
-        }
+
     },
     methods: {
         onChange() {
@@ -417,7 +415,7 @@ export default {
         overflow:auto;
         resize:none;
         padding-top: 0px;
-        line-height: 1; 
+        line-height: 1;
         @media only  screen and (max-width: 967px){
             font-size: 25px;
             height: 80px;

@@ -9,9 +9,9 @@
                 <div class="post-content">
                      <h5 class="entry-title mb-3"><router-link :to="{name: 'single', params: {slug : related.slug,username:'@'+related.post_author.username}}">{{related.post_heading}}</router-link></h5>
                     <div class="entry-meta align-items-center">
-                        <router-link :to="{name: 'profile',params:{username:'@'+related.post_author.username}}">{{related.post_author.first_name}} {{related.post_author.last_name}}</router-link> in 
+                        <router-link :to="{name: 'profile',params:{username:'@'+related.post_author.username}}">{{related.post_author.first_name}} {{related.post_author.last_name}}</router-link> in
                             <router-link :to="{name: 'category',params: {category: related.category.category_name}}">{{related.category.category_name}}</router-link>
-                            <br>                                    
+                            <br>
                         <span>
                             {{related.date_published | dateshow}} &nbsp;
                             <vue-moments-ago prefix="" suffix="ago" :date="related.date_published"></vue-moments-ago>
@@ -32,32 +32,34 @@
            <h4 class="spanborder text-left">
                <span>Partners</span>
            </h4>
-           <div class="ads">
-               <a href="https://droidcon.co.ke/"><img src="https://droidcon.co.ke/assets/img/web-01.png" alt="ads"></a>
-           </div>
-           <br>
-<!--           <div class="ads">-->
-<!--               <br>-->
-<!--               <a target="_blank" href="https://academy.appslab.tech"><img width="300" src="https://academy.appslab.tech/assets/img/logo/academy.png" alt="ads"></a>-->
-<!--           </div>-->
-           <br>
            <div class="row">
+             <div class="col-6">
+               <div class="ads">
+                 <a href="https://droidcon.co.ke/"><img src="/img/app.png" alt="ads" width="100"></a>
+               </div>
+             </div>
+             <div class="col-6">
+               <div class="ads" style="margin-top:  -20px;">
+                 <br>
+                 <a target="_blank" href="https://21cskills.africa/"><img width="100" src="/img/21c.jpg" alt="ads"></a>
+               </div>
+             </div>
                <div class="col-6">
                    <div class="ads">
                        <br>
-                       <a target="_blank" href="https://aug.atlassian.com/nairobi"><img width="100" src="https://appslab.co.ke/assets/img/community/acnairobi.jpeg" alt="ads"></a>
+                       <a target="_blank" href="https://aug.atlassian.com/nairobi"><img width="100" src="/img/acnairobi.jpeg" alt="ads"></a>
                    </div>
                </div>
                <div class="col-6">
                    <div class="ads">
                        <br>
-                       <a target="_blank" href="https://www.meetup.com/Android254/"><img width="75" src="https://appslab.co.ke/assets/img/community/android-254.svg" alt="ads"></a>
+                       <a target="_blank" href="https://www.meetup.com/Android254/"><img width="75" src="/img/android-254.svg" alt="ads"></a>
                    </div>
                </div>
            </div>
            <br>
            <div class="ads">
-               <a target="_blank" href="https://appslab.co.ke"><img width="400" src="https://appslab.co.ke/assets/img/logo.png" alt="ads"></a>
+               <a target="_blank" href="https://appslab.co.ke"><img width="150" src="/img/appslab.png" alt="ads"></a>
            </div>
        </div>
     </div>
@@ -89,7 +91,7 @@ export default {
     },
     filters: {
         dateshow(value){
-            var date = moment(value).format("MMM Do YY"); 
+            var date = moment(value).format("MMM Do YY");
             return date;
         },
     }
