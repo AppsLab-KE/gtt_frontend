@@ -118,6 +118,8 @@
 
 <script>
 import VueTagsInput from '@johmun/vue-tags-input';
+import hljs from 'highlight.js';
+
 export default {
     components: {
         VueTagsInput
@@ -203,6 +205,7 @@ export default {
     },
     methods: {
         onChange() {
+          this.addClassToPre();
             // console.log(this.title)
             if(this.content != ``){
                 let payload = {content: this.content, title: this.title}
@@ -356,7 +359,14 @@ export default {
             }
             else
                 return false;
-        }
+        },
+      addClassToPre() {
+        hljs.configure({useBR: true});
+        document.querySelectorAll('pre').forEach((block) => {
+          hljs.highlightBlock(block);
+          block.setAttribute("spellcheck", "false");
+        });
+      }
     },
     computed: {
         imgur(){
