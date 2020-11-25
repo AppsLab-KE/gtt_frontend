@@ -111,7 +111,10 @@ export default {
     mounted(){
         this.getSinglePost();
     },
-    methods: {
+  updated() {
+      this.addClassToPre();
+  },
+  methods: {
         getSinglePost(){
             var username = this.$route.params.username
             var slug = this.$route.params.slug
@@ -128,6 +131,13 @@ export default {
                 }
             })
         },
+      addClassToPre() {
+        hljs.configure({useBR: true});
+        document.querySelectorAll('pre').forEach((block) => {
+          hljs.highlightBlock(block);
+          block.setAttribute("spellcheck", "false");
+        });
+      }
     },
     filters:{
         trimPost(body){
