@@ -51,9 +51,43 @@ export default {
 
     },
     mounted () {
+        // this.$confetti.start({
+        //     particles: [
+        //         {
+        //             type: 'rect',
+        //             colors: [
+        //                 '#2DC8D7',
+        //                 // '#fff',
+        //                 '#72A29B',
+        //                 // '#DCBA42',
+        //                 '#EE4028',
+        //             ],
+        //         },
+        //         {
+        //             type: 'rect',
+        //             colors: [
+        //                 '#2DC8D7',
+        //                 // '#fff',
+        //                 '#72A29B',
+        //                 // '#DCBA42',
+        //                 '#EE4028',
+        //             ],
+        //         },
+        //         {
+        //             type: 'image',
+        //             url: 'https://geekstalkthursday.co.ke/assets/images/1logo.png',
+        //             size: 12,
+        //         },
+        //     ],
+        //     defaultDropRate: 5,
+        //     defaultSize: 10,
+        // });
         setTimeout(() => {
             this.isLoading = false
         }, 2000)
+        // setTimeout(() => {
+        //     this.$confetti.stop();
+        // }, 7000);
     },
     created(){
         this.currentUrl = window.location.pathname

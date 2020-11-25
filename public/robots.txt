@@ -1,2 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /no-internet/
+Disallow: /not-found/
+Disallow: /server-error/

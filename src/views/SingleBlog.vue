@@ -97,6 +97,8 @@ import VueTagsInput from '@johmun/vue-tags-input';
 import FavLinks from '../components/pages/single/FavLinks';
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
+import hljs from 'highlight.js';
+
 export default {
     components: {
         Comments, RelatedPosts, Subscribe, VueTagsInput,VueMomentsAgo, FavLinks
@@ -110,16 +112,10 @@ export default {
     mounted(){
         this.getSinglePost();
     },
-    updated(){
-        require('./../../public/assets/js/prettify.js');
-        const els = document.getElementsByTagName("pre");
-        // console.log(els)
-        for (let i = 0; i < els.length; i++) {
-            const element = els[i];
-            element.classList.add('prettyprint');
-        }
-    },
-    methods: {
+  updated() {
+      this.addClassToPre();
+  },
+  methods: {
         getSinglePost(){
             var username = this.$route.params.username
             var slug = this.$route.params.slug
@@ -135,13 +131,20 @@ export default {
                     }
                 }
             })
-        }
+        },
+      addClassToPre() {
+        hljs.configure({useBR: true});
+        document.querySelectorAll('pre').forEach((block) => {
+          hljs.highlightBlock(block);
+          block.setAttribute("spellcheck", "false");
+        });
+      }
     },
     filters:{
         trimPost(body){
             let noHtml = body.replace(/(&nbsp;|<([^>]+)>)/ig, "")
             let noSpace = noHtml.replace(/ +(?= )/g,'');;
-            let final = noSpace.length > 120 ? noSpace.substring(0, 120) + '...' : noSpace 
+            let final = noSpace.length > 120 ? noSpace.substring(0, 120) + '...' : noSpace
             return final
         },
         dateshow(value){
@@ -154,7 +157,7 @@ export default {
 <style lang="scss" scoped>
 .entry-main-content{
     img {
-       border: 1px #DDDDDD solid!important; 
+       border: 1px #DDDDDD solid!important;
     }
 }
 

@@ -65,10 +65,13 @@ import MediumEditor from 'vuejs-medium-editor'
 Vue.component('medium-editor', MediumEditor)
 import 'medium-editor/dist/css/medium-editor.css'
 import 'vuejs-medium-editor/src/themes/default.css'
+// for the code highlighting
+import 'highlight.js/styles/androidstudio.css';
 
 import { ValidationProvider, extend } from 'vee-validate';
 import * as rules from 'vee-validate/dist/rules';
 import en from 'vee-validate/dist/locale/en';
+
 // loop over all rules
 for (let rule in rules) {
   extend(rule, {
@@ -82,9 +85,6 @@ Vue.component('ValidationProvider', ValidationProvider);
 import InfiniteLoading from 'vue-infinite-loading';
 Vue.use(InfiniteLoading, { /* options */ });
 
-require('./../public/assets/css/prettify.css');
-// require('./../public/assets/js/prettify');
-
 import firebase from './services/Firebase';
 import {messaging} from './services/Messaging';
 messaging(firebase);
@@ -97,7 +97,10 @@ Vue.use(VueLazyload, {
 import vueHeadful from 'vue-headful';
 Vue.component('vue-headful', vueHeadful);
 
-Vue.config.productionTip = false
+import VueConfetti from 'vue-confetti';
+Vue.use(VueConfetti);
+
+Vue.config.productionTip = false;
 
 
 new Vue({

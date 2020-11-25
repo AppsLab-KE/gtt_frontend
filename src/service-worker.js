@@ -1,13 +1,13 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable no-undef */
 
-workbox.core.setCacheNameDetails({ 
+workbox.core.setCacheNameDetails({
     prefix: 'gtt',
     precache: 'precache',
     runtime: 'runtime',
  });
 //Change this value every time before you build
-const LATEST_VERSION = 'v1.0.5'
+const LATEST_VERSION = 'v1.0.7'
 // eslint-disable-next-line no-unused-vars
 self.addEventListener('activate', (_event) => {
   console.log(`%c ${LATEST_VERSION} `, 'background: #ddd; color: #0000ff')
@@ -100,9 +100,9 @@ workbox.routing.registerRoute(
 // generate a response.
 // eslint-disable-next-line no-unused-vars
 workbox.routing.setCatchHandler(({event}) => {
-    console.log('not found here');  
+    console.log('not found here');
     return caches.match('/no-internet');
-    
+
 });
 
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
