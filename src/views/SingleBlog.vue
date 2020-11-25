@@ -97,6 +97,7 @@ import VueTagsInput from '@johmun/vue-tags-input';
 import FavLinks from '../components/pages/single/FavLinks';
 import VueMomentsAgo from 'vue-moments-ago'
 import moment from 'moment';
+import hljs from 'highlight.js';
 
 export default {
     components: {
